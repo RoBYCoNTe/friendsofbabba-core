@@ -8,7 +8,9 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
+use Cake\Utility\Text;
 use FriendsOfBabba\Core\Command\User\AddCommand as AddUserCommand;
+use FriendsOfBabba\Core\Model\Entity\Role;
 
 /**
  * Install command.
@@ -38,9 +40,38 @@ class InstallCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
+        $io->info(" FriendsOf");
+        $io->info(" ____        _     _");
+        $io->info("|  _ \      | |   | |");
+        $io->info("| |_) | __ _| |__ | |__   __ _ ");
+        $io->info("|  _ < / _` | '_ \| '_ \ / _` |");
+        $io->info("| |_) | (_| | |_) | |_) | (_| |");
+        $io->info("|____/ \__,_|_.__/|_.__/ \__,_| // Core");
+        $io->info(" ");
+        $io->info(" An easy to use RESTFul Service implementation");
+        $io->info(" for your SPA applications using CakePHP 4.x Framework.");
+        $io->info(" ");
         $this->executeCommand(InstallDbCommand::class);
         $this->executeCommand(PermissionCommand::class);
         $this->executeCommand(LanguageCommand::class, ['import']);
-        $this->executeCommand(AddUserCommand::class, ['admin', 'admin', 'admin@loca.it', 'admin']);
+        $io->hr();
+
+        $io->info("Configure Administrator account, fill required informations.");
+
+        $username = 'Administrator';
+        $password = substr(Text::uuid(), 0, 6);
+        $email = $io->ask('Insert valid email address:');
+        $this->executeCommand(AddUserCommand::class, [
+            $username,
+            $password,
+            $email,
+            Role::ADMIN
+        ]);
+
+        $io->hr();
+        $io->success('Installation completed, please use this data to execute login:');
+        $io->info(sprintf("Username: %s", $username));
+        $io->info(sprintf("Password: %s", $password));
+        $io->hr();
     }
 }

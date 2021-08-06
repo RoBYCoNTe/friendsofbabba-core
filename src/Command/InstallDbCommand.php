@@ -41,6 +41,8 @@ class InstallDbCommand extends Command
 	 */
 	public function execute(Arguments $args, ConsoleIo $io)
 	{
+		$io->info('Installing basic tables...', 0);
+
 		$this->_dropSchema("versions");
 
 		$this->_dropSchema("command_log_rows");
@@ -72,7 +74,7 @@ class InstallDbCommand extends Command
 
 		$this->_insertCommonData();
 
-		$io->success('Installation completed with success!');
+		$io->overwrite('<success>Database installation completed!</success>', 1);
 	}
 
 	private function _installCommandSchema(ConsoleIo $io)
@@ -363,7 +365,7 @@ class InstallDbCommand extends Command
 
 	private function _installSchema(ConsoleIo $io, TableSchema $tableSchema)
 	{
-		$io->info(sprintf('Installing %s table...', $tableSchema->name()));
+		$io->verbose(sprintf('Installing %s table...', $tableSchema->name()));
 		$db = ConnectionManager::get('default');
 
 		$queries = $tableSchema->createSql($db);

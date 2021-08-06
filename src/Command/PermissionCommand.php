@@ -51,7 +51,7 @@ class PermissionCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
-        $io->info("Scanning for permissions, please wait...");
+        $io->info("Scanning for permissions, please wait...", 0);
 
         $commonPermissionList = $this->getCommonPermissionList();
         $fullPermissionList = Role::scan();
@@ -92,8 +92,7 @@ class PermissionCommand extends Command
             $adminRole,
             $userRole
         );
-
-        $io->success("Permissions scan completed.");
+        $io->overwrite("<success>Permissions scan completed!</success>");
     }
 
     /**

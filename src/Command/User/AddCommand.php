@@ -68,7 +68,7 @@ class AddCommand extends Command
             'associated' => ['Roles']
         ]);
         if ($this->Users->save($user, ['associated' => ['Roles']])) {
-            $io->success(sprintf(
+            $io->verbose(sprintf(
                 'User created: %s',
                 $user->id
             ));

@@ -71,9 +71,11 @@ class LanguageCommand extends Command
     {
         $command = $args->getArgument('command');
         if (method_exists($this, $command)) {
+            $io->info(sprintf("Executing language command %s...", $command), 0);
             $this->{$command}($args, $io);
+            $io->overwrite(sprintf("<success>Command %s executed with success!</success>", $command));
         } else {
-            $io->error('Invalid command specified.');
+            $io->overwrite(sprintf('<error>Invalid command %s specified!</error>', $command));
         }
     }
 
@@ -91,7 +93,7 @@ class LanguageCommand extends Command
             $paths[] = ROOT . DS . "plugins" . DS . "FriendsOfBabba" . DS . "Core" . DS . "languages.csv";
         }
         foreach ($paths as $path) {
-            $io->info(sprintf("Exporting languages in to file %s...", $path));
+            $io->verbose(sprintf("Exporting languages in to file %s...", $path));
             $this->_export($path, $languages);
         }
     }
@@ -125,9 +127,9 @@ class LanguageCommand extends Command
             ROOT . DS . "vendor" . DS . "FriendsOfBabba" . DS . "Core" . DS . "languages.csv"
         ];
         foreach ($paths as $path) {
-            $io->info(sprintf("Importing file %s...", $path));
+            $io->verbose(sprintf("Importing file %s...", $path));
             extract($this->_importFile($path));
-            $io->info(sprintf("Created=%s, Updated=%s", $created, $updated));
+            $io->verbose(sprintf("Created=%s, Updated=%s", $created, $updated));
         }
     }
 
