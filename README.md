@@ -1,7 +1,7 @@
-# FriendsOfBabba/Core plugin for CakePHP
+# FriendsOfBabba/Core plugin for CakePHP 🥧
 
 FriendsOfBabba/Core it's a nice name choosen for this library because thanks to
-[https://github.com/FriendsOfCake]FriendsOfCake we are able to built and release
+[FriendsOfCake](https://github.com/FriendsOfCake) we are able to built and release
 awesome applications. After years of developing we decide to publish our package.
 
 ## Installation
