@@ -1,0 +1,303 @@
+it	app.date_format.long	DD/MM/YYYY HH:mm:ss
+it	app.date_format.short	DD/MM/YYYY
+it	app.help-block.hide	Non mostrare più
+it	app.help-block.message.login.for_all	app.help-block.message.login.for_all
+it	app.help-block.message.notifications.admin	app.help-block.message.notifications.admin
+it	app.help-block.message.notifications.developer	app.help-block.message.notifications.developer
+it	app.help-block.message.notifications.for_all	Di seguito sono presenti tutte le notifiche che hai ricevuto all'interno dell'applicazione.
+it	app.help-block.message.notifications.user	app.help-block.message.notifications.user
+it	app.help-block.message.tickets.admin	app.help-block.message.tickets.admin
+it	app.help-block.message.tickets.for_all	app.help-block.message.tickets.for_all
+it	app.help-block.message.tickets.user	app.help-block.message.tickets.user
+it	app.help-block.message.tickets/create.admin	app.help-block.message.tickets/create.admin
+it	app.help-block.message.tickets/create.for_all	app.help-block.message.tickets/create.for_all
+it	app.help-block.message.user-profile-approvals.admin	app.help-block.message.user-profile-approvals.admin
+it	app.help-block.message.user-profile-approvals.for_all	app.help-block.message.user-profile-approvals.for_all
+it	app.help-block.message.user-profile.admin	app.help-block.message.user-profile.admin
+it	app.help-block.message.user-profile.developer	app.help-block.message.user-profile.developer
+it	app.help-block.message.user-profile.for_all	app.help-block.message.user-profile.for_all
+it	app.help-block.show	Hai bisongo di aiuto?
+it	app.help-block.tip	Hey, è disponibile una breve guida per questa sezione!
+it	app.help-block.title.login.for_all	app.help-block.title.login.for_all
+it	app.help-block.title.notifications.admin	app.help-block.title.notifications.admin
+it	app.help-block.title.notifications.developer	app.help-block.title.notifications.developer
+it	app.help-block.title.notifications.for_all	Notifiche
+it	app.help-block.title.notifications.user	app.help-block.title.notifications.user
+it	app.help-block.title.tickets.admin	app.help-block.title.tickets.admin
+it	app.help-block.title.tickets.for_all	app.help-block.title.tickets.for_all
+it	app.help-block.title.tickets.user	app.help-block.title.tickets.user
+it	app.help-block.title.tickets/create.admin	app.help-block.title.tickets/create.admin
+it	app.help-block.title.tickets/create.for_all	app.help-block.title.tickets/create.for_all
+it	app.help-block.title.user-profile-approvals.admin	app.help-block.title.user-profile-approvals.admin
+it	app.help-block.title.user-profile-approvals.for_all	app.help-block.title.user-profile-approvals.for_all
+it	app.help-block.title.user-profile.admin	app.help-block.title.user-profile.admin
+it	app.help-block.title.user-profile.developer	app.help-block.title.user-profile.developer
+it	app.help-block.title.user-profile.for_all	app.help-block.title.user-profile.for_all
+it	app.input.max_length_info	Usati %{count} su %{max} caratteri disponibili
+it	app.label.workflow.state	Stato
+it	app.view_all	Mostra tutto
+it	app.view_less	Mostra meno
+it	company	company
+it	dashboard.open_tickets	Tickets Aperti
+it	dashboard.pages.columns.id	ID
+it	dashboard.pages.columns.modified	Ultima Modifica
+it	dashboard.pages.columns.name	Nome
+it	dashboard.pages.title	Pagine Configurate
+it	dashboard.users_count	Utenti Registrati
+it	menu.groups.admin	Amministrazione
+it	menu.groups.dashboard	Dashboard
+it	menu.groups.pages	Pagine
+it	menu.groups.useful_links	Link utili
+it	menu.items.dashboard	Statistiche
+it	menu.items.FAQ	menu.items.FAQ
+it	menu.items.language-messages	Traduzioni
+it	menu.items.notifications	Notifiche
+it	menu.items.pages	Pagine CMS
+it	menu.items.redirects	Reindirizzamenti
+it	menu.items.tickets	Assistenza
+it	menu.items.user-profile-approvals	Approvazione profili
+it	menu.items.user-referrals	Referrals
+it	menu.items.users	Utenti
+it	Notifiche	Notifiche
+it	null	null
+it	pages.dashboard.roles.title	Ruoli Configurati
+it	person	person
+it	ra.action.all	Tutti
+it	ra.action.click_to_copy	Clicca sul contenuto per copiarlo
+it	ra.action.click_to_copy_link	Clicca per copiare il link
+it	ra.action.close_menu	Chiudi menu
+it	ra.action.content_copied	Contenuto copiato!
+it	ra.action.help_needed	Hai bisogno di ulteriore supporto?
+it	ra.action.no	No
+it	ra.action.open_menu	Apri menu
+it	ra.action.unselect	Deseleziona
+it	ra.action.view	Visualizza
+it	ra.action.yes	Si
+it	ra.auth.auth_check_error	Errore di autenticazione!
+it	ra.auth.back_to_login	Torna al login
+it	ra.auth.change_password	Cambio Password
+it	ra.auth.forgot_password	Password dimenticata?
+it	ra.auth.impersonate_logout	Smetti di impersonare
+it	ra.auth.password_reset.account	Username o email
+it	ra.auth.password_reset.button	Resetta
+it	ra.auth.password_reset.success	Password resettata, controlla la tua email!
+it	ra.auth.password_reset.title	Resetta la tua password
+it	ra.auth.profile	Profilo
+it	ra.auth.profile.title	Profilo Utente
+it	ra.auth.profile.update_success	Profilo aggiornato
+it	ra.auth.signup	Registrati
+it	ra.auth.signup.button	Registrati
+it	ra.auth.signup.fields.accepted_disclaimer	Dichiaro di aver preso visione della
+it	ra.auth.signup.fields.accepted_disclaimer.privacy_policy	Privacy Policy
+it	ra.auth.signup.fields.accepted_regulation	Dichiaro di aver letto e di accettare il
+it	ra.auth.signup.fields.accepted_regulation.rule	regolamento
+it	ra.auth.signup.fields.accept_disclaimer	Dichiaro di aver preso visione della Privacy Policy
+it	ra.auth.signup.fields.accept_regulation	Dichiaro di aver letto e di accettare il regolamento
+it	ra.auth.signup.fields.confirm_password	Conferma Password
+it	ra.auth.signup.fields.email	Indirizzo email
+it	ra.auth.signup.fields.password	Password
+it	ra.auth.signup.fields.profile.name	Nome
+it	ra.auth.signup.fields.profile.site_link	Link sito o pagina
+it	ra.auth.signup.fields.profile.surname	Cognome
+it	ra.auth.signup.fields.profile.tax_type	Soggetto giuridico
+it	ra.auth.signup.fields.profile.vat_code	P.IVA/Codice Fiscale
+it	ra.auth.signup.fields.profile.vat_code.	ra.auth.signup.fields.profile.vat_code.
+it	ra.auth.signup.fields.profile.vat_code.company	Partita IVA
+it	ra.auth.signup.fields.profile.vat_code.person	Codice Fiscale
+it	ra.auth.signup.fields.profile.vat_codecompany	ra.auth.signup.fields.profile.vat_codecompany
+it	ra.auth.signup.fields.profile.vat_codeperson	ra.auth.signup.fields.profile.vat_codeperson
+it	ra.auth.signup.fields.site_link	Link sito o pagina
+it	ra.auth.signup.success	Registrazione effettuata con successo, sarai ricontattato molto presto!
+it	ra.auth.signup.title	Registrati
+it	ra.auth.sign_in_success	Impersonificazione riuscita, da ora sei un altro utente!
+it	ra.auth.success	Login effettuato correttamente
+it	ra.auth.user_menu	Profilo utente
+it	ra.auth.wrong_credentials	Username o password errati, si prega di riprovare.
+it	ra.contact	ra.contact
+it	ra.contacts	Contatti
+it	ra.message.user_profile_updated	Profilo aggiornato
+it	ra.navigation.skip_nav	ra.navigation.skip_nav
+it	ra.notifications	Notifiche
+it	ra.page.empty	Nessun dato presente!
+it	ra.page.invite	Crea un nuovo record
+it	ra.password_change.button	Modifica
+it	ra.password_change.fields.new_password	Nuova Password
+it	ra.password_change.fields.new_password_confirm	Conferma Nuova Password
+it	ra.password_change.fields.old_password	Password precedente
+it	ra.password_change.title	Cambio Password
+it	ra.password_change.update_success	Password aggiornata correttamente
+it	ra.payment_method.bank_transfer	Bonifico
+it	ra.payment_method.none	Nessuno
+it	ra.payment_method.skrill	Skrill
+it	ra.profile.fields.bank_name	Nome Banca
+it	ra.profile.fields.email	Email
+it	ra.profile.fields.iban	IBAN
+it	ra.profile.fields.owner	Intestatario Conto
+it	ra.profile.fields.profile.name	Nome
+it	ra.profile.fields.profile.payment_method_id	Metodo di Pagamento
+it	ra.profile.fields.profile.site_link	Link sito o pagina
+it	ra.profile.fields.profile.surname	Cognome
+it	ra.profile.fields.profile.vat_code	P.IVA o Codice Fiscale
+it	ra.profile.fields.skrill_email	Email
+it	ra.profile.fields.swift	SWIFT
+it	ra.profile.update.button	Aggiorna
+it	ra.users.all_users	Tutti gli utenti
+it	ra.validation.json	JSON non valido.
+it	ra.validation.password_not_matching	Le password non corrispondono
+it	ra.validation.url	Devi inserire un URL valido
+it	resources.channels.fields.landing	Landing
+it	resources.commands.name	resources.commands.name
+it	resources.language-messages.fields.code	Codice
+it	resources.language-messages.fields.id	Id
+it	resources.language-messages.fields.language_id	Lingua
+it	resources.language-messages.fields.resource	Risorsa
+it	resources.language-messages.fields.text	Messaggio
+it	resources.language-messages.helpers.resource	Se selezioni una risorsa, verranno create automaticamente tutte le traduzioni relative ai campi presenti nel database della risorsa selezionata
+it	resources.language-messages.name	Traduzione |||| Traduzioni
+it	resources.languages.actions.confirm_content	resources.languages.actions.confirm_content
+it	resources.languages.actions.confirm_title	resources.languages.actions.confirm_title
+it	resources.languages.actions.content	resources.languages.actions.content
+it	resources.languages.actions.notify_success	resources.languages.actions.notify_success
+it	resources.languages.actions.search	resources.languages.actions.search
+it	resources.languages.actions.title	resources.languages.actions.title
+it	resources.notifications.actions.readed.done	Notifiche lette correttamente!
+it	resources.notifications.actions.readed.error	Impossibile leggere le notifiche selezionate
+it	resources.notifications.actions.sign_as_readed	Segna come letto
+it	resources.notifications.actions.sign_as_unreaded	Segna come non letto
+it	resources.notifications.actions.unreaded.done	Notifiche resettate correttamente
+it	resources.notifications.actions.unreaded.error	Impossibile resettare le notifiche selezionate
+it	resources.notifications.actions.view	Visualizza
+it	resources.notifications.empty	Nessuna nuova notifica!
+it	resources.notifications.fields.content	Contenuto
+it	resources.notifications.fields.created	Ricevuta il
+it	resources.notifications.fields.q	Chiave di ricerca
+it	resources.notifications.fields.readed	Letto / Non letto
+it	resources.notifications.fields.readed.empty	Non letto
+it	resources.notifications.fields.title	Titolo
+it	resources.notifications.help-block.text	Di seguito è mostrato l'elenco completo delle notifiche che hai ricevuto all'interno della piattaforma
+it	resources.notifications.help-block.title	Notifiche
+it	resources.notifications.name	Notifica |||| Notifiche
+it	resources.notifications.view_all	Visualizza tutte le notifiche
+it	resources.pages.errors.code_unique	Questa pagina esiste già
+it	resources.pages.fields.code	Slug
+it	resources.pages.fields.content	Contenuto
+it	resources.pages.fields.created	Data di creazione
+it	resources.pages.fields.image	Immagine di anteprima
+it	resources.pages.fields.is_menu	Mostra nel menù
+it	resources.pages.fields.language.name	Lingua
+it	resources.pages.fields.language_id	Lingua
+it	resources.pages.fields.modified	Data ultima modifica
+it	resources.pages.fields.name	Nome
+it	resources.pages.fields.og_description	Descrizione
+it	resources.pages.fields.og_image	Immagine
+it	resources.pages.fields.og_title	Titolo
+it	resources.pages.fields.order	Ordinamento
+it	resources.pages.fields.q	Chiave di ricerca
+it	resources.pages.fields.roles	resources.pages.fields.roles
+it	resources.pages.name	Pagina |||| Pagine
+it	resources.pages.og	Open Graph
+it	resources.pages.settings	Impostazioni
+it	resources.payment-methods.name	Metodo di Pagamento
+it	resources.profiles.fields.payment_method_id	Metodo di pagamento
+it	resources.profiles.tax_type.company	Azienda
+it	resources.profiles.tax_type.company.person	resources.profiles.tax_type.company.person
+it	resources.profiles.tax_type.person	Persona fisica
+it	resources.redirects.fields.created	Creato il
+it	resources.redirects.fields.from	Da
+it	resources.redirects.fields.fullname	Redirect
+it	resources.redirects.fields.language_id	Lingua
+it	resources.redirects.fields.modified	Ultima modifica
+it	resources.redirects.fields.to	A
+it	resources.redirects.fields.type	Tipologia
+it	resources.redirects.name	Reindirizzamento |||| Reindirizzamenti
+it	resources.referral-user.page.empty	Non è stato trovato nessun utente iscritto con il tuo codice referral, per iniziare a guadagnare royalty dagli affiliati che si iscrivono a tuo nome, imposta un codice referral nel tuo profilo personale e copia il link sottostante per iniziare a creare la tua rete di sottoaffiliati.
+it	resources.referral-users.fields.created	Data iscrizione
+it	resources.referral-users.fields.q	Chiave di ricerca
+it	resources.referral-users.name	Utente referral |||| Utenti referral
+it	resources.tickets.fields.created	Created
+it	resources.tickets.fields.deleted	Deleted
+it	resources.tickets.fields.description	Descrizione
+it	resources.tickets.fields.id	ID
+it	resources.tickets.fields.modified	Ultima Modifica
+it	resources.tickets.fields.ticket_type_id	Tipologia
+it	resources.tickets.fields.title	Titolo
+it	resources.tickets.fields.user_id	Utente
+it	resources.tickets.name	Ticket |||| Tickets
+it	resources.user-payments.fields.withholding_tax_return	Dichiarazione sostituto d'imposta
+it	resources.user-profile-approvals.fields.created	Richiesto il
+it	resources.user-profile-approvals.fields.user.name	Nome
+it	resources.user-profile-approvals.fields.user_id	Utente
+it	resources.user-profile-approvals.messages.approved	La richiesta di modifica del profilo è stata approvata correttamente
+it	resources.user-profile-approvals.messages.rejected	La richiesta di modifica del profilo è stata rifiutata correttamente
+it	resources.user-profile-approvals.name	Approvazioni modifiche profilo
+it	resources.user-profile-approvals.status	Status
+it	resources.user-profile-approvals.status.approved	Approvato
+it	resources.user-profile-approvals.status.pending	In attesa
+it	resources.user-profile-approvals.status.rejected	Rifiutato
+it	resources.user-profile-approvals.status.undefined	Non definito
+it	resources.user-profile-approvals.titles.view	Campi da modificare
+it	resources.user-profiles.fields.created	resources.user-profiles.fields.created
+it	resources.user-profiles.fields.modified	resources.user-profiles.fields.modified
+it	resources.user-profiles.fields.name	Nome
+it	resources.user-profiles.fields.status	resources.user-profiles.fields.status
+it	resources.user-profiles.fields.surname	Cognome
+it	resources.user-profiles.fields.tax_type	Soggetto giuridico
+it	resources.user-profiles.fields.user	resources.user-profiles.fields.user
+it	resources.user-profiles.fields.user_id	resources.user-profiles.fields.user_id
+it	resources.user-profiles.user_on_success	La tua modifica del profilo è avvenuta correttamente, tuttavia alcuni campi necessitano della moderazione da parte degli amministratori.
+it	resources.users.errors.email_unique	Questo indirizzo email è già stato utilizzato
+it	resources.users.errors.new_password_does_not_match	La password non coincide
+it	resources.users.errors.old_password_wrong	La tua password attuale è errata
+it	resources.users.errors.referral_code_unique	Questo codice referral è già stato utilizzato
+it	resources.users.fields.all	Tutti gli utenti
+it	resources.users.fields.change_password	Modifica password
+it	resources.users.fields.code	Codice Referal personale
+it	resources.users.fields.count_children	Utenti figli
+it	resources.users.fields.created	Data Iscrizione
+it	resources.users.fields.groups	Gruppi
+it	resources.users.fields.has_children	Utenti master
+it	resources.users.fields.last_login	Ultimo accesso
+it	resources.users.fields.new_password	Nuova password
+it	resources.users.fields.new_password_confirm	Conferma nuova password
+it	resources.users.fields.old_password	Vecchia password
+it	resources.users.fields.profile.name	Nome
+it	resources.users.fields.profile.referral_code	Codice referral
+it	resources.users.fields.profile.referral_code.help	Questo è il codice che dovrai dare agli utenti che si iscriveranno a tuo nome
+it	resources.users.fields.profile.site_link	Link sito o pagina
+it	resources.users.fields.profile.surname	Cognome
+it	resources.users.fields.profile.tax_type	Soggetto giuridico
+it	resources.users.fields.profile.tax_type.person	resources.users.fields.profile.tax_type.person
+it	resources.users.fields.profile.vat_code	Codice Fiscale o Partita IVA
+it	resources.users.fields.profile.vat_code_company	Partita IVA
+it	resources.users.fields.profile.vat_code_person	Codice Fiscale
+it	resources.users.fields.q	Chiave di ricerca
+it	resources.users.fields.referal_code	Codice Referal usato nella registrazione
+it	resources.users.fields.referral_code	Codice referral
+it	resources.users.fields.referral_code.help	Questo è il link che dovrai dare agli utenti che vorrai far iscrivere a tuo nome
+it	resources.users.fields.referral_id	Referral (Utente)
+it	resources.users.fields.roles	Ruoli
+it	resources.users.fields.role_id	Ruolo
+it	resources.users.fields.status	Stato
+it	resources.users.messages.status_changed	Stato aggiornato correttamente!
+it	resources.users.name	Utente |||| Utenti
+it	resources.users.status.active	Attivo
+it	resources.users.status.banned	Bannato
+it	resources.users.status.pending	In Attesa
+it	resources.users.status.suspended	Sospeso
+it	resources.users.status.undefined	resources.users.status.undefined
+it	resources.workflow.fields.created	Data di Creazione
+it	resources.workflow.fields.id	ID
+it	resources.workflow.fields.is_private	Note Private
+it	resources.workflow.fields.is_private.help	Indica se la nota è ad uso interno e non deve essere visibile all'utente. Se la nota è pubblica l'utente riceverà automaticamente una notifica con il contenuto inserito.
+it	resources.workflow.fields.is_private.no	Pubblica
+it	resources.workflow.fields.is_private.yes	Privata
+it	resources.workflow.fields.logs	Logs
+it	resources.workflow.fields.notes	Note
+it	resources.workflow.fields.notes.empty	Nessuna
+it	resources.workflow.fields.state	Stato
+it	resources.workflow.fields.user	Utente
+it	resources.workflow.move.error	Impossibile completare il cambio stato!
+it	resources.workflow.move.message	Messaggio
+it	resources.workflow.move.message.required	Devi obbligatoriamente specificare una causale (messaggio) per poter modificare lo stato.
+it	resources.workflow.move.success	Cambio stato eseguito con successo!
+it	resources.workflow.move.title	Cambio Stato
