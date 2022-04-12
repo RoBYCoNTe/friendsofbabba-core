@@ -2,7 +2,7 @@
     "name": "friendsofbabba/core",
     "description": "FriendsOfBabba/Core plugin for CakePHP",
     "type": "cakephp-plugin",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "license": "MIT",
     "require": {
         "php": ">=7.2",
@@ -25,6 +25,11 @@
         "psr-4": {
             "FriendsOfBabba\\Core\\Test\\": "tests/",
             "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "cakephp/plugin-installer": true
         }
     }
 }
