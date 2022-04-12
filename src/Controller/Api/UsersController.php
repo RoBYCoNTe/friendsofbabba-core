@@ -46,7 +46,9 @@ class UsersController extends AppController
 			$privateKey = file_get_contents(CONFIG . 'jwt.key');
 			/** @var User */
 			$user = $result->getData();
-			$profile = $this->UserProfiles->find()->where(['user_id' => $user->id])->first();
+			$user = $this->Users->get($user->id, [
+				'contain' => ['UserProfiles', 'Roles'],
+			]);
 			$payload = [
 				'iss' => Configure::read('App.name', 'App'),
 				'sub' => $user->id,
@@ -56,8 +58,9 @@ class UsersController extends AppController
 				'success' => true,
 				'data' => [
 					'token' => JWT::encode($payload, $privateKey, 'RS256'),
-					'profile' => $profile,
-					'full_name' => $profile->full_name
+					'roles' => $user->roles,
+					'profile' => $user->profile,
+					'full_name' => $user->profile->full_name
 				]
 			];
 

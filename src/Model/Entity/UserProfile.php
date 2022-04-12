@@ -13,6 +13,7 @@ use Cake\ORM\Entity;
  * @property int $user_id
  * @property string $name
  * @property string $surname
+ * @property string $full_name
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  * @property \Cake\I18n\FrozenTime|null $deleted
