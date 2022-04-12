@@ -16,21 +16,6 @@ composer require friendsofbabba/core
 bin/cake plugin load FriendsOfBabba/Core
 ```
 
-Add it to your `src/Application.php` file:
-
-```php
-public function boostrap() : void
-{
-    // Stuff
-    // Load more plugin here
-    $this->addPlugin("FriendsOfBabba/Core", ['routes' => true]);
-}
-```
-
-FriendsOfBabba/Core uses RESTFul API to provide access to the whole set of functionalities
-exposed in to the library. We can disable `CsrfTokenProtectionMiddleware`
-in `src/Application.php` because not necessary:
-
 ```php
         // ->add(new CsrfProtectionMiddleware([
         //     'httponly' => true,
@@ -43,15 +28,16 @@ Generate your private and public key necessary to work with JWT authentication:
 
 openssl genrsa -out config/jwt.key 1024
 openssl rsa -in config/jwt.key -outform PEM -pubout -out config/jwt.pem
+chown -R www-data:www-data config/
 
 ```
 
 Add `FriendsOfBabba/Core/Error/AppExceptionRenderer.php` to `config/app.php`:
 
 ```php
-'Error' => [
-    'exceptionRenderer' => 'FriendsOfBabba/Core/Error/AppExceptionRenderer',
-],
+  'Error' => [
+      'exceptionRenderer' => \FriendsOfBabba\Core\Error\AppExceptionRenderer::class,
+  ],
 ```
 
 To complete installation you have to execute this command:
