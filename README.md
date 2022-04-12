@@ -57,6 +57,10 @@ To complete installation you have to execute this command:
 bin/cake install
 ```
 
+**Remember**: after first installation is always suggested to create a first migration
+that will contains every table and columns that you will need. Nexts updateds
+will be more easy to manage.
+
 ## API
 
 ### Hooks
@@ -65,12 +69,28 @@ You can customize specific application behaviors using `hooks`.
 
 ### Language
 
-TODO: Explain how language service work.
+The plugin provides a set of language files useful to work with react-admin.
+The base language file is installed when `bin/cake install` command is executed.
+
+You can do many things with cli:
+
+- `bin/cake langauge export`: generate a new language file based on data
+  saved in to the database.
+- `bin/cake language import`: import data from existing file (placed in
+  root folder of the app).
+- `bin/cake language clear_cache`: clear cached language files to recreate it, this
+  command is useful when you change localized messages inside the database.
 
 ### Permission
 
-TODO: Explain how permission work.
+The permission modules allow you to define list of permissions necessary to work
+inside the application. Permissions are controller's action dependent and are always
+generated scanning the controllers.
 
-### Data Migration
+To refresh permissions:
 
-TODO: Explain how data migration work.
+```sh
+bin/cake permission scan
+```
+
+Regenerate new list of permissions.
