@@ -9,6 +9,7 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use FriendsOfBabba\Core\Model\Table\RolesTable;
+use FriendsOfBabba\Core\Model\Table\UserProfilesTable;
 use FriendsOfBabba\Core\Model\Table\UsersTable;
 use FriendsOfBabba\Core\PluginManager;
 
@@ -17,6 +18,7 @@ use FriendsOfBabba\Core\PluginManager;
  *
  * @property UsersTable $Users
  * @property RolesTable $Roles
+ * @property UserProfilesTable $UserProfiles
  */
 class AddCommand extends Command
 {
@@ -25,6 +27,7 @@ class AddCommand extends Command
         parent::initialize();
         $this->loadModel(PluginManager::instance()->getModelFQN('Users'));
         $this->loadModel(PluginManager::instance()->getModelFQN('Roles'));
+        $this->loadModel(PluginManager::instance()->getModelFQN('UserProfiles'));
     }
     /**
      * Hook method for defining this command's option parser.
@@ -39,6 +42,8 @@ class AddCommand extends Command
         $parser->addArgument('username', ['required' => true]);
         $parser->addArgument('password', ['required' => true]);
         $parser->addArgument('email', ['required' => true]);
+        $parser->addArgument('name', ['required' => true]);
+        $parser->addArgument('surname', ['required' => true]);
         $parser->addArgument('role', ['required' => true, 'choices' => ['admin', 'user']]);
 
         return $parser;
@@ -58,16 +63,24 @@ class AddCommand extends Command
         $email = $args->getArgument('email');
         $role = $args->getArgument('role');
         $role = $this->Roles->findByCode($role)->first();
+        $name = $args->getArgument('name');
+        $surname = $args->getArgument('surname');
 
         $user = $this->Users->newEntity([
             'username' => $username,
             'password' => $password,
             'email' => $email,
+            'profile' => $this->UserProfiles->newEntity([
+                'name' => $name,
+                'surname' => $surname,
+                'created' => new \DateTime(),
+                'modified' => new \DateTime(),
+            ]),
             'roles' => [$role->toArray()]
         ], [
             'associated' => ['Roles']
         ]);
-        if ($this->Users->save($user, ['associated' => ['Roles']])) {
+        if ($this->Users->save($user, ['associated' => ['Roles', 'UserProfiles']])) {
             $io->verbose(sprintf(
                 'User created: %s',
                 $user->id

@@ -1,8 +1,6 @@
 # FriendsOfBabba/Core plugin for CakePHP 🥧
 
-FriendsOfBabba/Core it's a nice name choosen for this library because thanks to
-[FriendsOfCake](https://github.com/FriendsOfCake) we are able to built and release
-awesome applications. After years of developing we decide to publish our package.
+A rapid development plugin for CakePHP.
 
 ## Installation
 
@@ -28,7 +26,7 @@ public function boostrap() : void
 
 FriendsOfBabba/Core uses RESTFul API to provide access to the whole set of functionalities
 exposed in to the library. We can disable `CsrfTokenProtectionMiddleware`
-in `src/Application.php` because is not necessary:
+in `src/Application.php` because not necessary:
 
 ```php
         // ->add(new CsrfProtectionMiddleware([
@@ -39,8 +37,24 @@ in `src/Application.php` because is not necessary:
 Generate your private and public key necessary to work with JWT authentication:
 
 ```sh
+
 openssl genrsa -out config/jwt.key 1024
 openssl rsa -in config/jwt.key -outform PEM -pubout -out config/jwt.pem
+
+```
+
+Add `FriendsOfBabba/Core/Error/AppExceptionRenderer.php` to `config/app.php`:
+
+```php
+'Error' => [
+    'exceptionRenderer' => 'FriendsOfBabba/Core/Error/AppExceptionRenderer',
+],
+```
+
+To complete installation you have to execute this command:
+
+```sh
+bin/cake install
 ```
 
 ## API

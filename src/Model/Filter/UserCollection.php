@@ -39,8 +39,5 @@ class UserCollection extends BaseCollection
         $this->add("role_ids", "Search.Callback", ['callback' => function (Query $query, array $args) {
             return $query->innerJoinWith("Roles")->whereInList("Roles.id", explode(",", $args['role_ids']));
         }]);
-
-        $hookName = 'Model/Filter/UserCollection.initialize';
-        HookManager::instance()->fire($hookName, $this);
     }
 }

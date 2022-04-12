@@ -22,8 +22,5 @@ class RoleCollection extends BaseCollection
             "wildcardOne" => "?",
             "fields" => ["code", "name"]
         ]);
-
-        $hookName = 'Model/Filter/RoleCollection.initialize';
-        HookManager::instance()->fire($hookName, $this);
     }
 }

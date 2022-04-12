@@ -19,6 +19,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  * @property \Cake\I18n\FrozenTime|null $deleted
+ * @property UserProfile $profile
  *
  * @property RolePermission[] $permissions
  */
@@ -43,7 +44,8 @@ class User extends Entity
 		'modified' => true,
 		'deleted' => true,
 
-		'roles' => true
+		'roles' => true,
+		'profile' => true
 	];
 
 	/**

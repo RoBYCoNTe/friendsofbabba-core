@@ -31,13 +31,13 @@ class BaseCollection extends FilterCollection
         $this->add("ids", "Search.Callback", [
             'callback' => function (Query $query, array $args, Callback $type) {
                 $ids = explode(",", $args['ids']);
-                return $query->whereInList("$this->table.id", $ids);
+                $query->whereInList("$this->table.id", $ids);
             }
         ]);
         $this->add("_ids", "Search.Callback", [
             'callback' => function (Query $query, array $args, Callback $type) {
                 $ids = explode(",", $args["_ids"]);
-                return $query->whereNotInList("$this->table.id", $ids);
+                $query->whereNotInList("$this->table.id", $ids);
             }
         ]);
     }

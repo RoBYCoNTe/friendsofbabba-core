@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Command;
 
+use Cake\Cache\Cache;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
+use Cake\Utility\Hash;
+use Cake\Utility\Inflector;
 use FriendsOfBabba\Core\Model\Entity\Language;
 use FriendsOfBabba\Core\Model\Entity\LanguageMessage;
 use FriendsOfBabba\Core\Model\Table\LanguageMessagesTable;
 use FriendsOfBabba\Core\Model\Table\LanguagesTable;
+use FriendsOfBabba\Core\PluginManager;
 use SplFileObject;
 
 /**
@@ -26,8 +30,8 @@ class LanguageCommand extends Command
     {
         parent::initialize();
 
-        $this->loadModel('FriendsOfBabba/Core.Languages');
-        $this->loadModel('FriendsOfBabba/Core.LanguageMessages');
+        $this->loadModel(PluginManager::instance()->getModelFQN('Languages'));
+        $this->loadModel(PluginManager::instance()->getModelFQN('LanguageMessages'));
     }
 
     /**
@@ -43,8 +47,8 @@ class LanguageCommand extends Command
         $parser->addArgument('command', [
             'help' => 'The type of command you need to execute.',
             'required' => false,
-            'choices' => ['export', 'import'],
-            'default' => 'insert'
+            'choices' => ['export', 'import', 'clear_cache'],
+            'default' => 'clear_cache'
         ]);
         $parser->addArgument('term', [
             'help' => 'The term you need to searching for.',
@@ -70,6 +74,7 @@ class LanguageCommand extends Command
     public function execute(Arguments $args, ConsoleIo $io)
     {
         $command = $args->getArgument('command');
+        $command = Inflector::camelize($command);
         if (method_exists($this, $command)) {
             $io->info(sprintf("Executing language command %s...", $command), 0);
             $this->{$command}($args, $io);
@@ -79,7 +84,7 @@ class LanguageCommand extends Command
         }
     }
 
-    private function export(Arguments $args, ConsoleIo $io)
+    public function export(Arguments $args, ConsoleIo $io)
     {
         $languages = $this->Languages->find()
             ->contain("LanguageMessages")
@@ -96,6 +101,27 @@ class LanguageCommand extends Command
             $io->verbose(sprintf("Exporting languages in to file %s...", $path));
             $this->_export($path, $languages);
         }
+    }
+
+
+    public function import(Arguments $args, ConsoleIo $io)
+    {
+        $paths = [
+            ROOT . DS . "languages.csv",
+            ROOT . DS . "plugins" . DS . "FriendsOfBabba" . DS . "Core" . DS . "languages.csv",
+            ROOT . DS . "vendor" . DS . "FriendsOfBabba" . DS . "Core" . DS . "languages.csv"
+        ];
+        foreach ($paths as $path) {
+            $io->verbose(sprintf("Importing file %s...", $path));
+            extract($this->_importFile($path, $io));
+            $io->verbose(sprintf("Created=%s, Updated=%s", $created, $updated));
+        }
+    }
+
+    public function clearCache(Arguments $args, ConsoleIo $io)
+    {
+        Cache::delete("Languages");
+        $io->success("Cache cleared!");
     }
 
     private function _export(string $filepath, array $languages)
@@ -119,21 +145,7 @@ class LanguageCommand extends Command
         $file->fwrite(implode(PHP_EOL, $out));
     }
 
-    private function import(Arguments $args, ConsoleIo $io)
-    {
-        $paths = [
-            ROOT . DS . "languages.csv",
-            ROOT . DS . "plugins" . DS . "FriendsOfBabba" . DS . "Core" . DS . "languages.csv",
-            ROOT . DS . "vendor" . DS . "FriendsOfBabba" . DS . "Core" . DS . "languages.csv"
-        ];
-        foreach ($paths as $path) {
-            $io->verbose(sprintf("Importing file %s...", $path));
-            extract($this->_importFile($path));
-            $io->verbose(sprintf("Created=%s, Updated=%s", $created, $updated));
-        }
-    }
-
-    private function _importFile(string $path)
+    private function _importFile(string $path, ConsoleIo $io)
     {
 
         if (!file_exists($path)) {
@@ -146,11 +158,15 @@ class LanguageCommand extends Command
         $created = 0;
         $updated = 0;
 
-        foreach ($lines as $line) {
+        foreach ($lines as $index => $line) {
             $args = explode("\t", $line);
-            $lang = $args[0];
-            $code = $args[1];
-            $text = $args[2];
+            $lang = Hash::get($args, 0);
+            $code = Hash::get($args, 1);
+            $text = Hash::get($args, 2);
+            if (empty($lang) || empty($code) || empty($text)) {
+                $io->warning(sprintf("Invalid line %s in file %s", $index, $line));
+                continue;
+            }
 
             $language = $this->Languages->findOrCreate(["code" => $lang], function (Language $language) {
                 $language->name = $language->code;

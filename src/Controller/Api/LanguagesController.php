@@ -9,6 +9,7 @@ use FriendsOfBabba\Core\Model\Entity\Language;
 use FriendsOfBabba\Core\Model\Entity\LanguageMessage;
 use FriendsOfBabba\Core\Model\Table\LanguageMessagesTable;
 use FriendsOfBabba\Core\Model\Table\LanguagesTable;
+use FriendsOfBabba\Core\PluginManager;
 
 /**
  * @property LanguagesTable $Languages
@@ -19,8 +20,8 @@ class LanguagesController extends AppController
 	public function initialize(): void
 	{
 		parent::initialize();
-		$this->loadModel("FriendsOfBabba/Core.Languages");
-		$this->loadModel("FriendsOfBabba/Core.LanguageMessages");
+		$this->loadModel(PluginManager::instance()->getModelFQN("Languages"));
+		$this->loadModel(PluginManager::instance()->getModelFQN("LanguageMessages"));
 		$this->Authentication->addUnauthenticatedActions(['load']);
 		$debug = Configure::read("debug");
 		if ($debug === true) {

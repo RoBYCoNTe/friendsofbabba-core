@@ -41,6 +41,9 @@ class InstallDbCommand extends Command
 	 */
 	public function execute(Arguments $args, ConsoleIo $io)
 	{
+		if ($io->askChoice('Do you want to (re)install database?', ['yes', 'no'], 'no') === 'no') {
+			return;
+		}
 		$io->info('Installing basic tables...', 0);
 
 		$this->_dropSchema("versions");
@@ -53,6 +56,7 @@ class InstallDbCommand extends Command
 		$this->_dropSchema("languages");
 		$this->_dropSchema("notifications");
 		$this->_dropSchema("users_roles");
+		$this->_dropSchema("user_profiles");
 		$this->_dropSchema("users");
 
 		$this->_dropSchema("role_permissions");
@@ -63,6 +67,7 @@ class InstallDbCommand extends Command
 		$this->_installRolePermissionSchema($io);
 
 		$this->_installUserSchema($io);
+		$this->_installUserProfileSchema($io);
 		$this->_installUserRoleSchema($io);
 		$this->_installNotificationSchema($io);
 		$this->_installLanguageSchema($io);
@@ -327,6 +332,41 @@ class InstallDbCommand extends Command
 			->addColumn('created', ['type' => 'datetime', 'null' => false])
 			->addColumn('modified', ['type' => 'datetime', 'null' => false])
 			->addColumn('deleted', ['type' => 'datetime', 'null' => true])
+			->addConstraint('primary', [
+				'type' => 'primary',
+				'columns' => ['id']
+			]);
+
+		$this->_installSchema($io, $userSchema);
+	}
+
+	private function _installUserProfileSchema(ConsoleIo $io)
+	{
+		$userSchema = new TableSchema('user_profiles');
+		$userSchema
+			->addColumn('id', [
+				'type' => 'integer',
+				'length' => 11,
+				'unsigned' => true,
+				'null' => false,
+				'autoIncrement' => true
+			])
+			->addColumn('user_id', [
+				'type' => 'integer',
+				'length' => 11,
+				'unsigned' => true,
+				'null' => false
+			])
+			->addColumn('name', ['type' => 'string', 'length' => 50, 'null' => false])
+			->addColumn('surname', ['type' => 'string', 'length' => 100, 'null' => false])
+			->addColumn('created', ['type' => 'datetime', 'null' => false])
+			->addColumn('modified', ['type' => 'datetime', 'null' => false])
+			->addColumn('deleted', ['type' => 'datetime', 'null' => true])
+			->addConstraint('fk_user_profiles_users', [
+				'type' => 'foreign',
+				'columns' => ['user_id'],
+				'references' => ['users', 'id']
+			])
 			->addConstraint('primary', [
 				'type' => 'primary',
 				'columns' => ['id']

@@ -5,15 +5,21 @@ declare(strict_types=1);
 namespace FriendsOfBabba\Core\Controller\Api;
 
 use Cake\Core\Configure;
+use Cake\Event\Event;
+use Cake\ORM\Query;
+use Crud\Action\AddAction;
 use Firebase\JWT\JWT;
 use FriendsOfBabba\Core\Hook\HookManager;
+use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\PluginManager;
 use FriendsOfBabba\Core\Security\LoginData;
+use Seld\JsonLint\Undefined;
 
 /**
  * Users Controller
  *
  * @property \FriendsOfBabba\Core\Model\Table\UsersTable $Users
+ * @property \FriendsOfBabba\Core\Model\Table\UserProfilesTable $UserProfiles
  */
 class UsersController extends AppController
 {
@@ -27,6 +33,7 @@ class UsersController extends AppController
 		parent::initialize();
 
 		$this->loadModel($modelName);
+		$this->loadModel(PluginManager::instance()->getModelFQN('UserProfiles'));
 
 		$this->Authentication->allowUnauthenticated(['login']);
 		$this->Crud->useModel($modelName);
@@ -37,7 +44,9 @@ class UsersController extends AppController
 		$result = $this->Authentication->getResult();
 		if ($result->isValid()) {
 			$privateKey = file_get_contents(CONFIG . 'jwt.key');
+			/** @var User */
 			$user = $result->getData();
+			$profile = $this->UserProfiles->find()->where(['user_id' => $user->id])->first();
 			$payload = [
 				'iss' => Configure::read('App.name', 'App'),
 				'sub' => $user->id,
@@ -47,6 +56,8 @@ class UsersController extends AppController
 				'success' => true,
 				'data' => [
 					'token' => JWT::encode($payload, $privateKey, 'RS256'),
+					'profile' => $profile,
+					'full_name' => $profile->full_name
 				]
 			];
 
@@ -74,5 +85,44 @@ class UsersController extends AppController
 		}
 		$this->set(compact('json'));
 		$this->viewBuilder()->setOption('serialize', 'json');
+	}
+
+	public function index()
+	{
+		$this->Crud->on('beforePaginate', function (Event $event) {
+			/** @var Query */
+			$query = $event->getSubject()->query;
+			$query = $query->contain([
+				'UserProfiles',
+				'Roles'
+			]);
+		});
+		$this->Crud->execute();
+	}
+
+	public function view()
+	{
+		$this->Crud->on('beforeFind', function (Event $event) {
+			/** @var Query */
+			$query = $event->getSubject()->query;
+			$query = $query->contain([
+				'UserProfiles',
+				'Roles'
+			]);
+		});
+		$this->Crud->execute();
+	}
+
+	public function edit()
+	{
+		/** @var AddAction */
+		$action = $this->Crud->action();
+		$action->saveOptions([
+			'associated' => [
+				'UserProfiles',
+				'Roles'
+			]
+		]);
+		$this->Crud->execute();
 	}
 }

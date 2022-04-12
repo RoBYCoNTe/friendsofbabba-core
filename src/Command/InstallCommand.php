@@ -61,10 +61,14 @@ class InstallCommand extends Command
         $username = 'Administrator';
         $password = substr(Text::uuid(), 0, 6);
         $email = $io->ask('Insert valid email address:');
+        $name = $io->ask('Insert your name:');
+        $surname = $io->ask('Insert your surname:');
         $this->executeCommand(AddUserCommand::class, [
             $username,
             $password,
             $email,
+            $name,
+            $surname,
             Role::ADMIN
         ]);
 

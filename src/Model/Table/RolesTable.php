@@ -55,7 +55,7 @@ class RolesTable extends Table
 
         $this->hasMany('RolePermissions', [
             'foreignKey' => 'role_id',
-            'className' => 'FriendsOfBabba/Core.RolePermissions',
+            'className' => PluginManager::instance()->getModelFQN('RolePermissions'),
             'propertyName' => 'permissions',
             'saveStrategy' => 'replace',
             'dependent' => true
@@ -64,7 +64,7 @@ class RolesTable extends Table
             'foreignKey' => 'role_id',
             'targetForeignKey' => 'user_id',
             'joinTable' => 'users_roles',
-            'className' => 'FriendsOfBabba/Core.Users',
+            'className' => PluginManager::instance()->getModelFQN('Users'),
         ]);
     }
 

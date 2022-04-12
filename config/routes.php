@@ -14,7 +14,7 @@ $routes->plugin(
 			$builder->resources('Users');
 			$builder->resources('Roles');
 			$builder->resources('Notifications');
-			$builder->resources('Languages');
+			$builder->resources('Languages', ['inflect' => 'dasherize']);
 			$builder->resources('LanguageMessages', ['inflect' => 'dasherize']);
 			$builder->resources('Resources');
 
@@ -25,6 +25,13 @@ $routes->plugin(
 				'inflect' => 'dasherize'
 			], [
 				'pass' => ['resource']
+			]);
+
+			$builder->connect("/languages/put-message", [
+				'controller' => 'Languages',
+				'action' => 'putMessage',
+				'prefix' => 'api',
+				'inflect' => 'dasherize'
 			]);
 
 			$builder->connect('/.well-known/*', [

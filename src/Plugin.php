@@ -11,11 +11,13 @@ use Authentication\Identifier\IdentifierInterface;
 use Authentication\Middleware\AuthenticationMiddleware;
 use Cake\Console\CommandCollection;
 use Cake\Core\BasePlugin;
+use Cake\Core\Configure;
 use Cake\Core\PluginApplicationInterface;
 use Cake\Http\MiddlewareQueue;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 use FriendsOfBabba\Core\Hook\HookManager;
+use FriendsOfBabba\Core\Routing\Middleware\CorsMiddleware;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -36,16 +38,27 @@ class Plugin extends BasePlugin implements AuthenticationServiceProviderInterfac
     {
         // Add authentication plugin necessary to work with core.
         $app->addPlugin("Authentication");
+
+        // Configure CORS.
+        Configure::load('FriendsOfBabba/Core.default', 'default');
+
+        $defaultConfig = (array) Configure::consume('Cors-default');
+        $personnalConfig = (array) Configure::consume('Cors');
+        $config = array_merge($defaultConfig, $personnalConfig);
+
+        Configure::write('Cors', $config);
     }
 
     public function console(CommandCollection $commands): CommandCollection
     {
         $commands->add('user add', \FriendsOfBabba\Core\Command\User\AddCommand::class);
+        $commands->add('user pwd', \FriendsOfBabba\Core\Command\User\PwdCommand::class);
         $commands->add('installdb', \FriendsOfBabba\Core\Command\InstallDbCommand::class);
         $commands->add('permission scan', \FriendsOfBabba\Core\Command\PermissionCommand::class);
         $commands->add('language', \FriendsOfBabba\Core\Command\LanguageCommand::class);
         $commands->add('install', \FriendsOfBabba\Core\Command\InstallCommand::class);
         $commands->add('migration', \FriendsOfBabba\Core\Command\MigrationCommand::class);
+
         return $commands;
     }
 
@@ -59,6 +72,7 @@ class Plugin extends BasePlugin implements AuthenticationServiceProviderInterfac
     {
         // Add your middlewares here
         $middlewareQueue->add(new AuthenticationMiddleware($this));
+        $middlewareQueue->add(new CorsMiddleware());
         return $middlewareQueue;
     }
 

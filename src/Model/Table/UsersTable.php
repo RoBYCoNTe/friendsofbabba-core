@@ -59,11 +59,16 @@ class UsersTable extends Table
             'foreignKey' => 'user_id',
             'targetForeignKey' => 'role_id',
             'joinTable' => 'users_roles',
-            'className' => 'FriendsOfBabba/Core.Roles',
+            'saveStrategy' => 'replace',
+            'className' => PluginManager::instance()->getModelFQN('Roles')
         ]);
 
-        $hookName = 'Model/Table/UsersTable.initialize';
-        HookManager::instance()->fire($hookName, $this);
+        $this->hasOne('UserProfiles', [
+            'foreignKey' => 'user_id',
+            'propertyName' => 'profile',
+            'dependent' => true,
+            'className' => PluginManager::instance()->getModelFQN('UserProfiles')
+        ]);
     }
 
     /**
@@ -104,9 +109,6 @@ class UsersTable extends Table
             ->dateTime('deleted')
             ->allowEmptyDateTime('deleted');
 
-        $hookName = 'Model/Table/UsersTable.validationDefault';
-        HookManager::instance()->fire($hookName, $validator);
-
         return $validator;
     }
 
@@ -121,9 +123,6 @@ class UsersTable extends Table
     {
         $rules->add($rules->isUnique(['username']), ['errorField' => 'username']);
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
-
-        $hookName = 'Model/Table/UsersTable.validationDefault';
-        HookManager::instance()->fire($hookName, $rules);
 
         return $rules;
     }
