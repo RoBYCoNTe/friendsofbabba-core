@@ -7,6 +7,7 @@ use Cake\ORM\Locator\TableLocator;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
 use FriendsOfBabba\Core\Command\LanguageCommand;
+use FriendsOfBabba\Core\PluginManager;
 
 class LanguageMessagesController extends AppController
 {
@@ -20,7 +21,7 @@ class LanguageMessagesController extends AppController
 	{
 		parent::initialize();
 
-		$this->Crud->useModel('FriendsOfBabba/Core.LanguageMessages');
+		$this->Crud->useModel(PluginManager::instance()->getModelFQN('LanguageMessages'));
 	}
 
 	public function index()

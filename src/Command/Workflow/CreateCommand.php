@@ -8,11 +8,9 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Utility\Inflector;
-use FriendsOfBabba\Core\Model\Table\TransactionsTable;
-use FriendsOfBabba\Core\PluginManager;
-use FriendsOfBabba\Core\Workflow\WorkflowRegistry;
+use FriendsOfBabba\Core\Command\Api\CreateCommand as ApiCreateCommand;
+use FriendsOfBabba\Core\Command\Entity\CreateCommand as EntityCreateCommand;
 
 /**
  * Create Workflow.
@@ -34,11 +32,11 @@ class CreateCommand extends Command
 	public function buildOptionParser(ConsoleOptionParser $parser): ConsoleOptionParser
 	{
 		$parser = parent::buildOptionParser($parser);
-		$parser->addOption('entity', ['short' => 'e']);
-		$parser->addOption('plugin', ['short' => 'p', 'default' => '', 'help' => 'Plugin name']);
+		$parser->addArgument('entity', ['required' => true]);
 		$parser->addOption('namespace', ['short' => 'n']);
 		$parser->addOption('states', ['short' => 's', 'default' => '', 'help' => 'List of states separated by comma', 'default' => 'Draft,Approved']);
 		$parser->addOption('routes', ['short' => 'r', 'default' => '', 'help' => 'List of routes separated by comma: state1:state2', 'default' => 'Draft:Approved']);
+		$parser->addOption('erase', ['short' => 'e', 'default' => false, 'help' => 'Erase workflow files before creation (you lost everything!)']);
 
 		return $parser;
 	}
@@ -53,62 +51,84 @@ class CreateCommand extends Command
 		$steps = [
 			'Creating entity model...' => 'createEntity',
 			'Creating entity transaction table...' => 'createTransactionTable',
-			'Creating workflow files...' => 'createFiles'
+			'Creating entity for transaction...' => 'createTransactionEntity',
+			'Creating workflow files...' => 'createFiles',
+			'Creating API controller...' => 'createApiController'
 		];
+		$entity = $args->getArgument('entity');
 		foreach ($steps as $message => $step) {
-			$io->out($message);
+			$io->out(PHP_EOL);
+			$io->hr();
+			$io->out(sprintf("<info>%s</info> %s", $entity, $message));
+			$io->hr();
 			$r = $this->{$step}($args, $io);
 			if (!is_null($r)) {
-				$io->error(sprintf('Unable to complete the task, exit code: %s', $r));
+				$io->out(sprintf("<error>Error</error> executing %s", $step));
 				break;
 			}
 		}
 	}
 
+
 	public function createEntity(Arguments $args, ConsoleIo $io): ?int
 	{
-		$entity = $args->getOption('entity');
-		$plugin = $args->getOption('plugin');
-
-		$r = $this->executeCommand(CreateEntityCommand::class, [
-			'--entity', $entity,
-			'--plugin', $plugin,
-		], $io);
+		$entity = $args->getArgument('entity');
+		$r = $this->executeCommand(EntityCreateCommand::class, [$entity], $io);
 
 		return $r;
 	}
 
 	public function createTransactionTable(Arguments $args, ConsoleIo $io): ?int
 	{
-		$entity = $args->getOption('entity');
+		$entity = $args->getArgument('entity');
 		$namespace = $args->getOption('namespace');
 
-		$r = $this->executeCommand(CreateTransactionTableCommand::class, [
-			'--entity', $entity,
-			'--namespace', $namespace,
-		], $io);
+		$r = $this->executeCommand(CreateTransactionTableCommand::class, [$entity, '--namespace', $namespace], $io);
+
+		return $r;
+	}
+
+	public function createTransactionEntity(Arguments $args, ConsoleIo $io): ?int
+	{
+		$entity = $args->getArgument('entity');
+		$entity = Inflector::singularize($entity);
+
+		$r = $this->executeCommand(EntityCreateCommand::class, [$entity . "Transactions"], $io);
 
 		return $r;
 	}
 
 	public function createFiles(Arguments $args, ConsoleIo $io): ?int
 	{
-		$entity = $args->getOption('entity');
+		$entity = $args->getArgument('entity');
 		$namespace = $args->getOption('namespace');
 		$states = $args->getOption('states');
 		$routes = $args->getOption('routes');
 
+		$erase = $args->getOption('erase');
 		$args = [
-			'--entity', $entity,
+			$entity,
 			'--states', $states,
 			'--routes', $routes
 		];
+		if ($erase) {
+			$args[] = '--erase';
+			$args[] = $erase;
+		}
 		if ($namespace) {
 			$args[] = '--namespace';
 			$args[] = $namespace;
 		}
 
 		$r = $this->executeCommand(CreateFilesCommand::class, $args, $io);
+
+		return $r;
+	}
+
+	public function createApiController(Arguments $args, ConsoleIo $io): ?int
+	{
+		$entity = $args->getArgument('entity');
+		$r = $this->executeCommand(ApiCreateCommand::class, [$entity], $io);
 
 		return $r;
 	}

@@ -35,7 +35,7 @@ class CreateTransactionTableCommand extends Command
     public function buildOptionParser(ConsoleOptionParser $parser): ConsoleOptionParser
     {
         $parser = parent::buildOptionParser($parser);
-        $parser->addOption('entity');
+        $parser->addArgument('entity');
         $parser->addOption('namespace', ['short' => 'n', 'default' => '\\App\\Model\\Table\\']);
         $parser->addOption('drop', ['default' => 0]);
 
@@ -49,18 +49,22 @@ class CreateTransactionTableCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
+        $entity = $args->getArgument('entity');
+
+        $io->out(sprintf("\nBaking Transaction Table for %s...\n", $entity));
+
         $drop = $args->getOption('drop');
         $namespace = $args->getOption('namespace');
-        $entityName = $args->getOption('entity');
-        $className = $namespace . $entityName . "Table";
+
+        $className = $namespace . $entity . "Table";
         if (!class_exists($className)) {
-            $io->warning(__d("shell", "Unable to generate transactions table, table {0} not exists!", $className));
+            $io->warning(sprintf("Unable to generate transactions table, table %s not exists!", $className));
             return;
         }
-        $tableName = Inflector::singularize($entityName);
+        $tableName = Inflector::singularize($entity);
         $tableName = Inflector::tableize($tableName . "Transactions");
-        $table = Inflector::tableize($entityName);
-        $connection = TableRegistry::getTableLocator()->get($entityName)->getConnection();
+        $table = Inflector::tableize($entity);
+        $connection = TableRegistry::getTableLocator()->get($entity)->getConnection();
         if ($drop == 1) {
             $connection->execute("DROP TABLE $tableName");
         }
@@ -78,6 +82,6 @@ class CreateTransactionTableCommand extends Command
             FOREIGN KEY (`user_id`) REFERENCES users (`id`),
             FOREIGN KEY (`record_id`) REFERENCES $table (`id`)
         );");
-        $io->success(__d("shell", "Transactions table for {0} configured.", $entityName));
+        $io->out(sprintf("<success>Created</success> %s transations table: <info>%s</info>", $entity, $tableName));
     }
 }

@@ -62,7 +62,10 @@ class Plugin extends BasePlugin implements AuthenticationServiceProviderInterfac
         $commands->add('workflow create', \FriendsOfBabba\Core\Command\Workflow\CreateCommand::class);
         $commands->add('workflow create_transaction_table', \FriendsOfBabba\Core\Command\Workflow\CreateTransactionTableCommand::class);
         $commands->add('workflow create_files', \FriendsOfBabba\Core\Command\Workflow\CreateFilesCommand::class);
-        $commands->add('workflow create_entity', \FriendsOfBabba\Core\Command\Workflow\CreateEntityCommand::class);
+
+        $commands->add('entity create', \FriendsOfBabba\Core\Command\Entity\CreateCommand::class);
+
+        $commands->add('api create', \FriendsOfBabba\Core\Command\Api\CreateCommand::class);
 
         return $commands;
     }

@@ -10,7 +10,7 @@ class StateTemplate extends State
 {
 	use WorkflowTrait;
 
-	const CODE = "sent";
+	const CODE = "// __STATE_CODE__";
 
 	function __construct()
 	{

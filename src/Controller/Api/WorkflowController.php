@@ -25,7 +25,7 @@ class WorkflowController extends AppController
 	{
 		parent::initialize();
 		$this->loadModel(PluginManager::instance()->getModelFQN("Transactions"));
-		$this->Authentication->addUnauthenticatedActions(['resolve', 'load']);
+		$this->Authentication->addUnauthenticatedActions(['resolve', 'index']);
 	}
 
 	public function index()
