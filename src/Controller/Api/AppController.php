@@ -20,6 +20,7 @@ use FriendsOfBabba\Core\Hook\HookManager;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Table\UsersTable;
 use FriendsOfBabba\Core\PluginManager;
+use FriendsOfBabba\Core\Workflow\WorkflowRegistry;
 
 /**
  * App Controller
@@ -134,5 +135,66 @@ class AppController extends Controller
 
         $user = $query->first();
         return $user;
+    }
+
+    public function implementedEvents(): array
+    {
+        return parent::implementedEvents() + [
+            'Crud.beforePaginate' => '_beforePaginate',
+            'Crud.beforeFind' => '_beforeFind',
+            'Crud.beforeSave' => '_beforeSave',
+            'Crud.afterSave' => '_afterSave',
+            'Crud.afterPaginate' => '_afterPaginate'
+        ];
+    }
+
+    public function _beforePaginate(\Cake\Event\Event $event)
+    {
+        $entityName = $this->request->getParam("controller");
+        $workflow = WorkflowRegistry::getInstance()->resolve($entityName);
+        if (!is_null($workflow)) {
+            $user = $this->getUser();
+            $workflow->beforePaginate($entityName, $user, $event);
+        }
+    }
+
+    public function _beforeFind(\Cake\Event\Event $event)
+    {
+        $entityName = $this->request->getParam("controller");
+        $workflow = WorkflowRegistry::getInstance()->resolve($entityName);
+        if (!is_null($workflow)) {
+            $user = $this->getUser();
+            $workflow->beforeFind($entityName, $user, $event);
+        }
+    }
+
+    public function _beforeSave(\Cake\Event\Event $event)
+    {
+        $entityName = $this->request->getParam("controller");
+        $workflow = WorkflowRegistry::getInstance()->resolve($entityName);
+        if (!is_null($workflow)) {
+            $user = $this->getUser();
+            $workflow->beforeSave($entityName, $user, $event);
+        }
+    }
+
+    public function _afterSave(\Cake\Event\Event $event)
+    {
+        $entityName = $this->request->getParam("controller");
+        $workflow = WorkflowRegistry::getInstance()->resolve($entityName);
+        if (!is_null($workflow)) {
+            $user = $this->getUser();
+            $workflow->afterSave($entityName, $user, $event);
+        }
+    }
+
+    public function _afterPaginate(\Cake\Event\Event $event)
+    {
+        $entityName = $this->request->getParam("controller");
+        $workflow = WorkflowRegistry::getInstance()->resolve($entityName);
+        if (!is_null($workflow)) {
+            $user = $this->getUser();
+            $workflow->afterPaginate($entityName, $user, $event);
+        }
     }
 }

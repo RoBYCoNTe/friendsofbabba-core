@@ -50,6 +50,26 @@ $routes->plugin(
 				'controller' => 'Languages',
 				'action' => 'load'
 			]);
+
+			$builder->connect("/workflow", [
+				'controller' => 'Workflow',
+				'action' => 'index',
+				'prefix' => 'api',
+				'_method' => 'GET'
+			]);
+			$builder->connect("/workflow/resolve/:resource", [
+				'controller' => 'Workflow',
+				'action' => 'resolve',
+				'prefix' => 'api',
+				'_method' => 'GET'
+			], ['pass' => ['resource']]);
+			$builder->connect("/workflow/transactions/:resource", [
+				'controller' => 'Workflow',
+				'action' => 'getTransactions',
+				'prefix' => 'api',
+			], ['pass' => ['resource']]);
+
+
 			$builder->connect('/tester', [
 				'controller' => 'Tester',
 				'action' => 'index'

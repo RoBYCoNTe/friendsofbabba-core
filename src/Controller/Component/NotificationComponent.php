@@ -5,10 +5,12 @@ namespace FriendsOfBabba\Core\Controller\Component;
 use Cake\Controller\Component;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
+use FriendsOfBabba\Core\Model\Table\NotificationsTable;
+use FriendsOfBabba\Core\Notification\NotificationBuilder;
 use FriendsOfBabba\Core\PluginManager;
 
 /**
- * @property \FriendsOfBabba\Core\Model\Table\NotificationsTable $Notifications
+ * @property NotificationsTable $Notifications
  */
 class NotificationComponent extends Component
 {

@@ -84,3 +84,15 @@ bin/cake permission scan
 ```
 
 Regenerate new list of permissions.
+
+### Workflow(s)
+
+To create a new workflow you can use the cli:
+
+```sh
+bin/cake workflow create \
+  -e <EntityName> \
+  -s <List of states separated by comma> \
+  -r <List of routes in from:to state format separated by comma>
+  -n <Namespace>
+```

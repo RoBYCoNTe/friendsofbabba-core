@@ -14,8 +14,6 @@ use Cake\Core\BasePlugin;
 use Cake\Core\Configure;
 use Cake\Core\PluginApplicationInterface;
 use Cake\Http\MiddlewareQueue;
-use Cake\ORM\TableRegistry;
-use Cake\Routing\Router;
 use FriendsOfBabba\Core\Hook\HookManager;
 use FriendsOfBabba\Core\Routing\Middleware\CorsMiddleware;
 use Psr\Http\Message\ServerRequestInterface;
@@ -53,11 +51,18 @@ class Plugin extends BasePlugin implements AuthenticationServiceProviderInterfac
     {
         $commands->add('user add', \FriendsOfBabba\Core\Command\User\AddCommand::class);
         $commands->add('user pwd', \FriendsOfBabba\Core\Command\User\PwdCommand::class);
-        $commands->add('installdb', \FriendsOfBabba\Core\Command\InstallDbCommand::class);
+
         $commands->add('permission scan', \FriendsOfBabba\Core\Command\PermissionCommand::class);
         $commands->add('language', \FriendsOfBabba\Core\Command\LanguageCommand::class);
         $commands->add('install', \FriendsOfBabba\Core\Command\InstallCommand::class);
+        $commands->add('install db', \FriendsOfBabba\Core\Command\InstallDbCommand::class);
+
         $commands->add('migration', \FriendsOfBabba\Core\Command\MigrationCommand::class);
+
+        $commands->add('workflow create', \FriendsOfBabba\Core\Command\Workflow\CreateCommand::class);
+        $commands->add('workflow create_transaction_table', \FriendsOfBabba\Core\Command\Workflow\CreateTransactionTableCommand::class);
+        $commands->add('workflow create_files', \FriendsOfBabba\Core\Command\Workflow\CreateFilesCommand::class);
+        $commands->add('workflow create_entity', \FriendsOfBabba\Core\Command\Workflow\CreateEntityCommand::class);
 
         return $commands;
     }

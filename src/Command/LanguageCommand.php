@@ -109,7 +109,7 @@ class LanguageCommand extends Command
         $paths = [
             ROOT . DS . "languages.csv",
             ROOT . DS . "plugins" . DS . "FriendsOfBabba" . DS . "Core" . DS . "languages.csv",
-            ROOT . DS . "vendor" . DS . "FriendsOfBabba" . DS . "Core" . DS . "languages.csv"
+            ROOT . DS . "vendor" . DS . "friendsofbabba" . DS . "core" . DS . "languages.csv"
         ];
         foreach ($paths as $path) {
             $io->verbose(sprintf("Importing file %s...", $path));
