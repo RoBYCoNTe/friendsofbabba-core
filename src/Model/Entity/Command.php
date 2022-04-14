@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Model\Entity;
 
-use Cake\ORM\Entity;
 use Cake\Utility\Inflector;
 
 /**
@@ -23,7 +22,7 @@ use Cake\Utility\Inflector;
  *
  * @property \FriendsOfBabba\Core\Model\Entity\User $user
  */
-class Command extends Entity
+class Command extends BaseEntity
 {
     const STATUS_PENDING = 'pending';
     const STATUS_EXECUTING = 'executing';

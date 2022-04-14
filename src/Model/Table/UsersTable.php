@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\Model\Filter\UserCollection;
 use FriendsOfBabba\Core\PluginManager;
@@ -32,7 +31,7 @@ use SoftDelete\Model\Table\SoftDeleteTrait;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class UsersTable extends Table
+class UsersTable extends BaseTable
 {
     use SoftDeleteTrait;
 

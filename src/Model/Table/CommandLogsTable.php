@@ -1,12 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Model\Table;
 
-use Cake\ORM\Query;
-use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use FriendsOfBabba\Core\Model\Entity\User;
+use FriendsOfBabba\Core\Model\Crud\Grid;
+use FriendsOfBabba\Core\PluginManager;
 
 /**
  * CommandLogs Model
@@ -29,7 +30,7 @@ use Cake\Validation\Validator;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class CommandLogsTable extends Table
+class CommandLogsTable extends BaseTable
 {
     /**
      * Initialize method
@@ -49,7 +50,7 @@ class CommandLogsTable extends Table
 
         $this->hasMany('CommandLogRows', [
             'foreignKey' => 'command_log_id',
-            'className' => 'FriendsOfBabba/Core.CommandLogRows',
+            'className' => PluginManager::instance()->getModelFQN('CommandLogRows'),
         ]);
     }
 
@@ -70,5 +71,10 @@ class CommandLogsTable extends Table
             ->allowEmptyString('command');
 
         return $validator;
+    }
+
+    public function getGrid(?User $user): ?Grid
+    {
+        return NULL;
     }
 }

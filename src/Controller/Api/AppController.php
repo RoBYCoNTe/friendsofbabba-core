@@ -104,14 +104,18 @@ class AppController extends Controller
     /**
      * Returns information of the connected user.
      *
-     * @return User
+     * @return ?User
      */
-    public function getUser()
+    public function getUser(bool $throws = true): ?User
     {
         $result = $this->Authentication->getResult();
         if (!$result->isValid()) {
-            throw new UnauthenticatedException(__d('fob', 'Unable to authenticate user.'));
+            if ($throws) {
+                throw new UnauthenticatedException("User not authenticated or session expired!");
+            }
+            return NULL;
         }
+
         $user = $result->getData();
 
         $modelName = PluginManager::instance()->getModelFQN('Users');

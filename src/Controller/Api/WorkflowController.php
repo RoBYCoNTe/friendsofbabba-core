@@ -25,10 +25,10 @@ class WorkflowController extends AppController
 	{
 		parent::initialize();
 		$this->loadModel(PluginManager::instance()->getModelFQN("Transactions"));
-		$this->Authentication->addUnauthenticatedActions(['resolve', 'index']);
+		$this->Authentication->addUnauthenticatedActions(['resolve', 'load']);
 	}
 
-	public function index()
+	public function load()
 	{
 		$collection = WorkflowRegistry::getInstance()->getConfigured();
 		$collection = array_map(function (WorkflowBase $workflow) {

@@ -1,13 +1,13 @@
 <?php
 
-namespace {{ namespace }}\{{ entities }};
+namespace {{ namespace }}\{{ entity|pluralize }};
 
 use Cake\Event\Event;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Workflow\WorkflowBase;
 
 {% for state in states %}
-use App\Workflow\{{ entities }}\States\{{ state }};
+use App\Workflow\{{ entity|pluralize }}\States\{{ state }};
 {% endfor %}
 
 class Workflow extends WorkflowBase

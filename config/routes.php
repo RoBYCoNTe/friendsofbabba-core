@@ -1,9 +1,20 @@
 <?php
 
-use Cake\Core\Configure;
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
 use FriendsOfBabba\Core\Workflow\WorkflowRegistry;
+
+/** @var RouteBuilder $routes */
+$routes->prefix("api", function (RouteBuilder $builder) {
+	/**
+	 * Autoload workflow entities.
+	 */
+	$workflows = WorkflowRegistry::getInstance()->getConfigured();
+	$names = array_keys($workflows);
+	foreach ($names as $workflow) {
+		$builder->resources($workflow, ['inflect' => 'dasherize']);
+	}
+});
 
 /** @var RouteBuilder $routes */
 $routes->plugin(
@@ -53,9 +64,9 @@ $routes->plugin(
 				'action' => 'load'
 			]);
 
-			$builder->connect("/workflow", [
+			$builder->connect("/workflow/load", [
 				'controller' => 'Workflow',
-				'action' => 'index',
+				'action' => 'load',
 				'prefix' => 'api',
 				'_method' => 'GET'
 			]);
@@ -72,17 +83,11 @@ $routes->plugin(
 			], ['pass' => ['resource']]);
 
 
-			$builder->connect('/tester', [
-				'controller' => 'Tester',
-				'action' => 'index'
+			$builder->connect('/crud/load', [
+				'controller' => 'Crud',
+				'action' => 'load',
+				'prefix' => 'api'
 			]);
-
-			// Load workflow entities
-			$workflows = WorkflowRegistry::getInstance()->getConfigured();
-			$names = array_keys($workflows);
-			foreach ($names as $workflow) {
-				$builder->resources($workflow, ['inflect' => 'dasherize']);
-			}
 		});
 
 		$routes->setRouteClass(DashedRoute::class);

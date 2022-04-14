@@ -69,29 +69,25 @@ class CreateTransactionTableCommand extends Command
         $connection = TableRegistry::getTableLocator()->get($entity)->getConnection();
         $tableSchema = new TableSchema($tableName);
         $tableSchema
-            ->addColumn('id', 'integer', ['autoIncrement' => true, 'unsigned' => true])
-            ->addColumn('user_id', 'integer', ['null' => false, 'unsigned' => true])
-            ->addColumn('record_id', 'integer', ['null' => false, 'unsigned' => true])
-            ->addColumn('state', 'string', ['null' => false, 'limit' => 255])
-            ->addColumn('notes', 'string', ['null' => true, 'limit' => 4000])
-            ->addColumn('is_current', 'boolean', ['null' => false, 'default' => false])
-            ->addColumn('is_private', 'boolean', ['null' => false, 'default' => false])
-            ->addColumn('data', 'text', ['null' => true])
-            ->addColumn('created', 'datetime', ['null' => false])
-            ->addConstraint('primary', ['type' => 'primary', 'columns' => ['id']])
+            ->addColumn('id', ['type' => 'integer', 'autoIncrement' => true, 'unsigned' => true])
+            ->addColumn('user_id', ['type' => 'integer', 'null' => false, 'unsigned' => true])
+            ->addColumn('record_id', ['type' => 'integer', 'null' => false, 'unsigned' => true])
+            ->addColumn('state', ['type' => 'string', 'null' => false, 'limit' => 255])
+            ->addColumn('notes', ['type' => 'string', 'null' => true, 'limit' => 4000])
+            ->addColumn('is_current', ['type' => 'boolean', 'null' => false, 'default' => false])
+            ->addColumn('is_private', ['type' => 'boolean', 'null' => false, 'default' => false])
+            ->addColumn('data', ['type' => 'text', 'null' => true])
+            ->addColumn('created', ['type' => 'datetime', 'null' => false])
+            ->addConstraint("pk_{$tableName}", ['type' => 'primary', 'columns' => ['id']])
             ->addConstraint("fk_{$table}_transactions_users", [
                 'type' => 'foreign',
                 'columns' => ['user_id'],
-                'references' => ['users', 'id'],
-                'update' => 'cascade',
-                'delete' => 'cascade'
+                'references' => ['users', 'id']
             ])
             ->addConstraint("fk_{$table}_transactions_$table", [
                 'type' => 'foreign',
                 'columns' => ['record_id'],
-                'references' => [$table, 'id'],
-                'update' => 'cascade',
-                'delete' => 'cascade'
+                'references' => [$table, 'id']
             ]);
         try {
             if ($drop == 1) {
@@ -99,16 +95,22 @@ class CreateTransactionTableCommand extends Command
                 foreach ($sql as $query) {
                     $connection->execute($query);
                 }
+            } else {
+                $tables = $connection->getSchemaCollection()->listTables();
+                if (in_array($tableName, $tables)) {
+                    $io->warning(sprintf("Table %s already exists!", $tableName));
+                    return;
+                }
             }
             $sql = $tableSchema->createSql($connection);
+
             foreach ($sql as $query) {
                 $connection->execute($query);
             }
+            $io->out(sprintf("<success>Created</success> %s transations table: <info>%s</info>", $entity, $tableName));
         } catch (Exception $e) {
             $io->warning(sprintf("Error handling transactions table: %s", $e->getMessage()));
+            return 1;
         }
-
-
-        $io->out(sprintf("<success>Created</success> %s transations table: <info>%s</info>", $entity, $tableName));
     }
 }

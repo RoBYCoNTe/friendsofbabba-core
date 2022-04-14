@@ -4,7 +4,6 @@ namespace FriendsOfBabba\Core\Model\Entity;
 
 use App\Model\Table\RolePermissionsTable;
 use Cake\Collection\Collection;
-use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 use Cake\Utility\Inflector;
@@ -22,7 +21,7 @@ use Cake\Utility\Inflector;
  * @property \App\Model\Entity\RolePermission[] $permissions
  * @property \App\Model\Entity\User[] $users
  */
-class Role extends Entity
+class Role extends BaseEntity
 {
 	const DEVELOPER = "developer";
 	const ADMIN = "admin";

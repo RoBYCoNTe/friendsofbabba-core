@@ -1,12 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Model\Table;
 
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use FriendsOfBabba\Core\Model\Entity\User;
+use FriendsOfBabba\Core\Model\Crud\Grid;
+use FriendsOfBabba\Core\PluginManager;
 
 /**
  * CommandLogRows Model
@@ -29,7 +31,7 @@ use Cake\Validation\Validator;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class CommandLogRowsTable extends Table
+class CommandLogRowsTable extends BaseTable
 {
     /**
      * Initialize method
@@ -50,7 +52,7 @@ class CommandLogRowsTable extends Table
         $this->belongsTo('CommandLogs', [
             'foreignKey' => 'command_log_id',
             'joinType' => 'INNER',
-            'className' => 'FriendsOfBabba/Core.CommandLogs',
+            'className' => PluginManager::instance()->getModelFQN('CommandLogs'),
         ]);
     }
 
@@ -87,8 +89,13 @@ class CommandLogRowsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['command_log_id'], 'CommandLogs'), ['errorField' => 'command_log_id']);
+        $rules->add($rules->existsIn(['command_log_id'], PluginManager::instance()->getModelFQN('CommandLogs')), ['errorField' => 'command_log_id']);
 
         return $rules;
+    }
+
+    public function getGrid(?User $user): ?Grid
+    {
+        return NULL;
     }
 }

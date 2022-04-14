@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace FriendsOfBabba\Core\Model\Entity;
 
 use Authentication\PasswordHasher\DefaultPasswordHasher;
-use Cake\ORM\Entity;
 
 /**
  * User Entity
@@ -23,7 +22,7 @@ use Cake\ORM\Entity;
  *
  * @property RolePermission[] $permissions
  */
-class User extends Entity
+class User extends BaseEntity
 {
 	/**
 	 * Fields that can be mass assigned using newEntity() or patchEntity().

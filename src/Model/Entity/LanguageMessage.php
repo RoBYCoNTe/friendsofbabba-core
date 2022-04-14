@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Model\Entity;
 
-use Cake\ORM\Entity;
-
 /**
  * LanguageMessage Entity
  *
@@ -16,7 +14,7 @@ use Cake\ORM\Entity;
  *
  * @property \FriendsOfBabba\Core\Model\Entity\Language $language
  */
-class LanguageMessage extends Entity
+class LanguageMessage extends BaseEntity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

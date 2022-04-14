@@ -2,7 +2,6 @@
 
 namespace FriendsOfBabba\Core\Model\Table;
 
-use Cake\ORM\Table;
 use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\Model\Entity\Transaction;
@@ -16,7 +15,7 @@ use FriendsOfBabba\Core\PluginManager;
  * Please referer to TransactionCommand to know how to create transaction
  * tables automatically.
  */
-class TransactionsTable extends Table
+class TransactionsTable extends BaseTable
 {
     public function initialize(array $config): void
     {

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Model\Entity;
 
-use Cake\ORM\Entity;
 
 /**
  * UsersRole Entity
@@ -16,7 +15,7 @@ use Cake\ORM\Entity;
  * @property \FriendsOfBabba\Core\Model\Entity\User $user
  * @property \FriendsOfBabba\Core\Model\Entity\Role $role
  */
-class UsersRole extends Entity
+class UsersRole extends BaseEntity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

@@ -92,7 +92,6 @@ class CreateFilesCommand extends Command
 		$renderer = new TemplateRenderer($theme);
 		$renderer->set([
 			'entity' => Inflector::singularize($entity),
-			'entities' => Inflector::pluralize($entity),
 			'state' => [
 				'code' => Inflector::underscore($state),
 				'name' => $state,
@@ -116,7 +115,6 @@ class CreateFilesCommand extends Command
 		$renderer = new TemplateRenderer($theme);
 		$renderer->set([
 			'entity' => $entity,
-			'entities' => Inflector::pluralize($entity),
 
 			'states' => explode(",", $args->getOption('states')),
 			'routes' => explode(",", $args->getOption('routes')),

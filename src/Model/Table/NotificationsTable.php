@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\Model\Filter\NotificationCollection;
 use FriendsOfBabba\Core\PluginManager;
@@ -31,7 +30,7 @@ use FriendsOfBabba\Core\PluginManager;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class NotificationsTable extends Table
+class NotificationsTable extends BaseTable
 {
     /**
      * Initialize method
@@ -53,7 +52,7 @@ class NotificationsTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
-            'className' => 'FriendsOfBabba/Core.Users',
+            'className' => PluginManager::instance()->getModelFQN('FriendsOfBabba/Core.Users'),
         ]);
     }
 
@@ -105,7 +104,7 @@ class NotificationsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
+        $rules->add($rules->existsIn(['user_id'], PluginManager::instance()->getModelFQN('Users')), ['errorField' => 'user_id']);
 
         return $rules;
     }

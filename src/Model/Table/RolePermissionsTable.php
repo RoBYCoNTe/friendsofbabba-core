@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Model\Table;
 
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\PluginManager;
 
@@ -31,7 +29,7 @@ use FriendsOfBabba\Core\PluginManager;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class RolePermissionsTable extends Table
+class RolePermissionsTable extends BaseTable
 {
     /**
      * Initialize method
@@ -52,7 +50,7 @@ class RolePermissionsTable extends Table
         $this->belongsTo('Roles', [
             'foreignKey' => 'role_id',
             'joinType' => 'INNER',
-            'className' => 'FriendsOfBabba/Core.Roles',
+            'className' => PluginManager::instance()->getModelFQN('Roles'),
         ]);
     }
 
@@ -86,7 +84,7 @@ class RolePermissionsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['role_id'], 'Roles'), ['errorField' => 'role_id']);
+        $rules->add($rules->existsIn(['role_id'], PluginManager::instance()->getModelFQN('Roles')), ['errorField' => 'role_id']);
 
         return $rules;
     }

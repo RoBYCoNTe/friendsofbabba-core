@@ -2,7 +2,6 @@
 
 namespace FriendsOfBabba\Core\Model\Entity;
 
-use Cake\ORM\Entity;
 
 /**
  * RolePermission Entity
@@ -14,7 +13,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Role $role
  */
-class RolePermission extends Entity
+class RolePermission extends BaseEntity
 {
 	/**
 	 * Fields that can be mass assigned using newEntity() or patchEntity().

@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Model\Table;
 
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\Model\Filter\LanguageMessageCollection;
+use FriendsOfBabba\Core\PluginManager;
 
 /**
  * LanguageMessages Model
@@ -29,7 +28,7 @@ use FriendsOfBabba\Core\Model\Filter\LanguageMessageCollection;
  * @method \FriendsOfBabba\Core\Model\Entity\LanguageMessage[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method \FriendsOfBabba\Core\Model\Entity\LanguageMessage[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  */
-class LanguageMessagesTable extends Table
+class LanguageMessagesTable extends BaseTable
 {
     /**
      * Initialize method
@@ -48,7 +47,7 @@ class LanguageMessagesTable extends Table
         $this->belongsTo('Languages', [
             'foreignKey' => 'language_id',
             'joinType' => 'INNER',
-            'className' => 'FriendsOfBabba/Core.Languages',
+            'className' => PluginManager::instance()->getModelFQN('Languages'),
         ]);
 
         $this->addBehavior('Search.Search', ['collectionClass' => LanguageMessageCollection::class]);
@@ -89,7 +88,7 @@ class LanguageMessagesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['language_id'], 'Languages'), ['errorField' => 'language_id']);
+        $rules->add($rules->existsIn(['language_id'], PluginManager::instance()->getModelFQN('Languages')), ['errorField' => 'language_id']);
 
         return $rules;
     }

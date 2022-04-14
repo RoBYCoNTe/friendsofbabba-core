@@ -1,9 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Model\Entity;
-
-use Cake\ORM\Entity;
 
 /**
  * CommandLogRow Entity
@@ -17,7 +16,7 @@ use Cake\ORM\Entity;
  *
  * @property \FriendsOfBabba\Core\Model\Entity\CommandLog $command_log
  */
-class CommandLogRow extends Entity
+class CommandLogRow extends BaseEntity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

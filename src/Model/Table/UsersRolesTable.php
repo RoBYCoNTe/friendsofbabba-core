@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Model\Table;
 
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use FriendsOfBabba\Core\Model\Entity\User;
+use FriendsOfBabba\Core\Model\Crud\Grid;
 use FriendsOfBabba\Core\PluginManager;
 
 /**
@@ -30,7 +30,7 @@ use FriendsOfBabba\Core\PluginManager;
  * @method \FriendsOfBabba\Core\Model\Entity\UsersRole[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method \FriendsOfBabba\Core\Model\Entity\UsersRole[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  */
-class UsersRolesTable extends Table
+class UsersRolesTable extends BaseTable
 {
     /**
      * Initialize method
@@ -49,12 +49,12 @@ class UsersRolesTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
-            'className' => 'FriendsOfBabba/Core.Users',
+            'className' => PluginManager::instance()->getModelFQN('Users'),
         ]);
         $this->belongsTo('Roles', [
             'foreignKey' => 'role_id',
             'joinType' => 'INNER',
-            'className' => 'FriendsOfBabba/Core.Roles',
+            'className' => PluginManager::instance()->getModelFQN('Roles'),
         ]);
     }
 
@@ -82,9 +82,14 @@ class UsersRolesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
-        $rules->add($rules->existsIn(['role_id'], 'Roles'), ['errorField' => 'role_id']);
+        $rules->add($rules->existsIn(['user_id'], PluginManager::instance()->getModelFQN('Users')), ['errorField' => 'user_id']);
+        $rules->add($rules->existsIn(['role_id'], PluginManager::instance()->getModelFQN('Roles')), ['errorField' => 'role_id']);
 
         return $rules;
+    }
+
+    public function getGrid(?User $user): ?Grid
+    {
+        return NULL;
     }
 }

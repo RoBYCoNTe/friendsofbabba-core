@@ -1,9 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Model\Entity;
 
-use Cake\ORM\Entity;
 
 /**
  * Notification Entity
@@ -19,7 +19,7 @@ use Cake\ORM\Entity;
  *
  * @property \FriendsOfBabba\Core\Model\Entity\User $user
  */
-class Notification extends Entity
+class Notification extends BaseEntity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

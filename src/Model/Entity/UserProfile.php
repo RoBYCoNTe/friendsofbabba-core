@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Model\Entity;
 
-use Cake\ORM\Entity;
 
 /**
  * UserProfile Entity
@@ -20,7 +19,7 @@ use Cake\ORM\Entity;
  *
  * @property \FriendsOfBabba\Core\Model\Entity\User $user
  */
-class UserProfile extends Entity
+class UserProfile extends BaseEntity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

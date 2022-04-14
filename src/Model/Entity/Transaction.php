@@ -2,9 +2,8 @@
 
 namespace FriendsOfBabba\Core\Model\Entity;
 
-use Cake\ORM\Entity;
 
-class Transaction extends Entity
+class Transaction extends BaseEntity
 {
     protected $_accessible = [
         'record_id' => true,

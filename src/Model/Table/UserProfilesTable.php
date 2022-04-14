@@ -1,12 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Model\Table;
 
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use FriendsOfBabba\Core\PluginManager;
 
 /**
  * UserProfiles Model
@@ -29,7 +29,7 @@ use Cake\Validation\Validator;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class UserProfilesTable extends Table
+class UserProfilesTable extends BaseTable
 {
     /**
      * Initialize method
@@ -50,7 +50,7 @@ class UserProfilesTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
-            'className' => 'FriendsOfBabba/Core.Users',
+            'className' => PluginManager::instance()->getModelFQN('Users'),
         ]);
     }
 
@@ -94,7 +94,7 @@ class UserProfilesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
+        $rules->add($rules->existsIn(['user_id'], PluginManager::instance()->getModelFQN('Users')), ['errorField' => 'user_id']);
 
         return $rules;
     }

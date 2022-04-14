@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Model\Table;
 
-use Cake\ORM\Query;
-use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\Model\Filter\LanguageCollection;
+use FriendsOfBabba\Core\PluginManager;
 
 /**
  * Languages Model
@@ -29,7 +27,7 @@ use FriendsOfBabba\Core\Model\Filter\LanguageCollection;
  * @method \FriendsOfBabba\Core\Model\Entity\Language[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method \FriendsOfBabba\Core\Model\Entity\Language[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  */
-class LanguagesTable extends Table
+class LanguagesTable extends BaseTable
 {
     /**
      * Initialize method
@@ -49,7 +47,7 @@ class LanguagesTable extends Table
 
         $this->hasMany('LanguageMessages', [
             'foreignKey' => 'language_id',
-            'className' => 'FriendsOfBabba/Core.LanguageMessages',
+            'className' => PluginManager::instance()->getModelFQN('LanguageMessages'),
             'propertyName' => 'messages',
             'saveStrategy' => 'append',
             'dependent' => true,

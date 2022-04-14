@@ -87,6 +87,18 @@ Regenerate list of role's permissions.
 
 ### Workflow(s)
 
+Before execute any action you need to create your table. Table must follow
+this rules:
+
+- must have created, modified and deleted fields (datetime)
+- must have always an id field (integer unsigned not null)
+- cannot have fields with these names (reserved for workflow):
+  - notes
+  - state
+  - is_private
+  - is_current
+  - transaction
+
 To create a new workflow you can use the cli:
 
 ```sh
