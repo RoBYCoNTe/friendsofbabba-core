@@ -1,0 +1,35 @@
+<?php
+
+namespace {{ namespace }}\{{ entities }}\States;
+
+use FriendsOfBabba\Core\Workflow\State;
+use FriendsOfBabba\Core\Workflow\WorkflowTrait;
+use FriendsOfBabba\Core\Model\Entity\Role;
+
+class {{ state.name }} extends State
+{
+	use WorkflowTrait;
+
+	const CODE = "{{ state.code }}";
+
+	function __construct()
+	{
+		parent::__construct(self::CODE, __d('workflow', '{{ state.name }}'));
+
+		$this
+			->withLabel(__d("workflow", "{{ state.label }}"))
+			->withDescription(__d("workflow", "{{ state.description }} "))
+			->setIsInitial(TRUE)
+			->setPermissions([
+				// Example:
+				Role::ADMIN => ['create' => true, 'read' => true, 'edit' => true, 'move' => true]
+			])
+			->setFieldsPermissions([
+				// Example:
+				// 'user_id' => [
+				// 	Role::ADMIN => ['edit' => true],
+				// 	Role::USER => ['edit' => false, 'read' => true]
+				// ],
+			]);
+	}
+}

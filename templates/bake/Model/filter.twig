@@ -4,9 +4,9 @@ namespace App\Model\Filter;
 
 use FriendsOfBabba\Core\Model\Filter\BaseCollection;
 
-class EntityCollection extends BaseCollection
+class {{ nameSingular }}Collection extends BaseCollection
 {
-	public $table = "Entities";
+	public $table = "{{ name }}";
 
 	public function initialize(): void
 	{

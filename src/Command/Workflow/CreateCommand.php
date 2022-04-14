@@ -73,7 +73,7 @@ class CreateCommand extends Command
 	public function createEntity(Arguments $args, ConsoleIo $io): ?int
 	{
 		$entity = $args->getArgument('entity');
-		$r = $this->executeCommand(EntityCreateCommand::class, [$entity], $io);
+		$r = $this->executeCommand(EntityCreateCommand::class, [$entity, "--theme", "FriendsOfBabba/Core"], $io);
 
 		return $r;
 	}

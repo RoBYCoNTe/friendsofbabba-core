@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Command\Entity;
 
-use Bake\Command\ModelCommand;
+use Bake\Utility\TemplateRenderer;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Utility\Inflector;
+use FriendsOfBabba\Core\PluginManager;
 
 /**
- * Create Entity
+ * Create Filter Collection command
  */
-class CreateCommand extends Command
+class CreateFilterCollectionCommand extends Command
 {
 	public function initialize(): void
 	{
@@ -31,7 +32,6 @@ class CreateCommand extends Command
 	{
 		$parser = parent::buildOptionParser($parser);
 		$parser->addArgument('entity', ['required' => true, 'help' => 'The entity for which generate the model and tables.']);
-		$parser->addOption('theme', ['help' => 'The theme to use when baking code.', 'short' => 't']);
 		return $parser;
 	}
 
@@ -43,20 +43,14 @@ class CreateCommand extends Command
 	public function execute(Arguments $args, ConsoleIo $io)
 	{
 		$entity = $args->getArgument('entity');
-		$table = Inflector::tableize($entity);
-		$theme = $args->getOption('theme');
-		$argv = [
-			$table,
-			"--no-test",
-			"--no-fixture"
-		];
-
-		if ($theme) {
-			$argv[] = "--theme";
-			$argv[] = $theme;
-		}
-
-		$this->executeCommand(CreateFilterCollectionCommand::class, [$entity]);
-		$this->executeCommand(ModelCommand::class, $argv, $io);
+		$io->out(sprintf("\nBaking filter collection class for %s...\n", $entity));
+		$renderer = new TemplateRenderer();
+		$renderer->set([
+			'nameSingular' => Inflector::singularize($entity),
+			'name' => Inflector::pluralize($entity)
+		]);
+		$out = $renderer->generate(PluginManager::instance()->getFQN('Model/filter'));
+		$filename = sprintf('%s/Model/Filter/%sCollection.php', APP, Inflector::singularize($entity));
+		$io->createFile($filename, $out);
 	}
 }

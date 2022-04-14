@@ -7,11 +7,11 @@ namespace App\Controller\Api;
 use FriendsOfBabba\Core\Controller\Api\AppController;
 
 /**
- * Entities Controller
+ * {{ name }} Controller
  *
- * @property \App\Model\Table\EntitiesTable $Entities
+ * @property \App\Model\Table\{{ name }}Table ${{ name }}
  */
-class EntitiesController extends AppController
+class {{ name }}Controller extends AppController
 {
 	public $paginate = [
 		'page' => 1,
@@ -19,3 +19,4 @@ class EntitiesController extends AppController
 		'maxLimit' => 200
 	];
 }
+

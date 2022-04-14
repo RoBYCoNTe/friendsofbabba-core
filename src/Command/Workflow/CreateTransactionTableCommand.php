@@ -8,8 +8,10 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
+use Cake\Database\Schema\TableSchema;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
+use Exception;
 use FriendsOfBabba\Core\Model\Table\TransactionsTable;
 use FriendsOfBabba\Core\PluginManager;
 
@@ -65,23 +67,48 @@ class CreateTransactionTableCommand extends Command
         $tableName = Inflector::tableize($tableName . "Transactions");
         $table = Inflector::tableize($entity);
         $connection = TableRegistry::getTableLocator()->get($entity)->getConnection();
-        if ($drop == 1) {
-            $connection->execute("DROP TABLE $tableName");
+        $tableSchema = new TableSchema($tableName);
+        $tableSchema
+            ->addColumn('id', 'integer', ['autoIncrement' => true, 'unsigned' => true])
+            ->addColumn('user_id', 'integer', ['null' => false, 'unsigned' => true])
+            ->addColumn('record_id', 'integer', ['null' => false, 'unsigned' => true])
+            ->addColumn('state', 'string', ['null' => false, 'limit' => 255])
+            ->addColumn('notes', 'string', ['null' => true, 'limit' => 4000])
+            ->addColumn('is_current', 'boolean', ['null' => false, 'default' => false])
+            ->addColumn('is_private', 'boolean', ['null' => false, 'default' => false])
+            ->addColumn('data', 'text', ['null' => true])
+            ->addColumn('created', 'datetime', ['null' => false])
+            ->addConstraint('primary', ['type' => 'primary', 'columns' => ['id']])
+            ->addConstraint("fk_{$table}_transactions_users", [
+                'type' => 'foreign',
+                'columns' => ['user_id'],
+                'references' => ['users', 'id'],
+                'update' => 'cascade',
+                'delete' => 'cascade'
+            ])
+            ->addConstraint("fk_{$table}_transactions_$table", [
+                'type' => 'foreign',
+                'columns' => ['record_id'],
+                'references' => [$table, 'id'],
+                'update' => 'cascade',
+                'delete' => 'cascade'
+            ]);
+        try {
+            if ($drop == 1) {
+                $sql = $tableSchema->dropSql($connection);
+                foreach ($sql as $query) {
+                    $connection->execute($query);
+                }
+            }
+            $sql = $tableSchema->createSql($connection);
+            foreach ($sql as $query) {
+                $connection->execute($query);
+            }
+        } catch (Exception $e) {
+            $io->warning(sprintf("Error handling transactions table: %s", $e->getMessage()));
         }
-        $connection->execute("CREATE TABLE IF NOT EXISTS $tableName (
-            `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-            `user_id` INT UNSIGNED NOT NULL,
-            `record_id` INT UNSIGNED NOT NULL,
-            `state` VARCHAR(250) NOT NULL,
-            `notes` VARCHAR(4000) NULL,
-            `is_current` TINYINT(1) NOT NULL DEFAULT(0),
-            `is_private` TINYINT(1) NOT NULL DEFAULT(1),
-            `data` LONGTEXT NULL,
-            `created` DATETIME NOT NULL,
-            PRIMARY KEY (`id`),
-            FOREIGN KEY (`user_id`) REFERENCES users (`id`),
-            FOREIGN KEY (`record_id`) REFERENCES $table (`id`)
-        );");
+
+
         $io->out(sprintf("<success>Created</success> %s transations table: <info>%s</info>", $entity, $tableName));
     }
 }

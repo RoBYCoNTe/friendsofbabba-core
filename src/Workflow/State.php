@@ -168,8 +168,26 @@ abstract class State
      *  Next state of the route.
      * @return Route
      *  Created instance of the Route class.
+     *
+     * @deprecated Use addTransition instead.
      */
     public function addRoute(State $nextState): Route
+    {
+        $code = $nextState->code;
+        $route = new Route($code);
+        $this->routes[$code] = $route;
+        return $route;
+    }
+
+    /**
+     * Add a transition to the state.
+     *
+     * @param State $nextState
+     *  Next state of the transition.
+     * @return void
+     *  Created instance of the Transition class.
+     */
+    public function addTransition(State $nextState): Route
     {
         $code = $nextState->code;
         $route = new Route($code);

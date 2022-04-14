@@ -1,0 +1,31 @@
+<?php
+
+namespace {{ namespace }}\{{ entities }};
+
+use Cake\Event\Event;
+use FriendsOfBabba\Core\Model\Entity\User;
+use FriendsOfBabba\Core\Workflow\WorkflowBase;
+
+{% for state in states %}
+use App\Workflow\{{ entities }}\States\{{ state }};
+{% endfor %}
+
+class Workflow extends WorkflowBase
+{
+    public function init()
+    {
+{% for state in states %}
+        $this->addState(new {{ state }}());
+{% endfor %}
+
+{% for route in routes %}
+{% set args = route|split(':') %}
+        $this->getState({{ args[0] }}::CODE)->addTransition($this->getState({{ args[1] }}::CODE));
+{% endfor %}
+    }
+
+    public function beforePaginate(string $entityName, User $user, Event $event): void
+    {
+        parent::beforePaginate($entityName, $user, $event);
+    }
+}
