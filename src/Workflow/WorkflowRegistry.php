@@ -119,6 +119,7 @@ class WorkflowRegistry
         return $this->_configured;
     }
 
+
     /**
      * Register new workflow to be used.
      *

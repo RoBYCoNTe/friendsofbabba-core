@@ -1,7 +1,9 @@
 <?php
 
+use Cake\Core\Configure;
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
+use FriendsOfBabba\Core\Workflow\WorkflowRegistry;
 
 /** @var RouteBuilder $routes */
 $routes->plugin(
@@ -74,6 +76,13 @@ $routes->plugin(
 				'controller' => 'Tester',
 				'action' => 'index'
 			]);
+
+			// Load workflow entities
+			$workflows = WorkflowRegistry::getInstance()->getConfigured();
+			$names = array_keys($workflows);
+			foreach ($names as $workflow) {
+				$builder->resources($workflow, ['inflect' => 'dasherize']);
+			}
 		});
 
 		$routes->setRouteClass(DashedRoute::class);
