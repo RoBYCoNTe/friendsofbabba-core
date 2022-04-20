@@ -14,7 +14,7 @@ use Cake\Utility\Hash;
  * @property string $label
  * @property StatePermission[] $permissions
  * @property Field[] $fields
- * @property Route[] $routes
+ * @property Transition[] $routes
  */
 abstract class State
 {
@@ -51,9 +51,9 @@ abstract class State
      */
     public $fields = [];
     /**
-     * Routes of the state.
+     * List of transitions of the state.
      */
-    public $routes = [];
+    public $transitions = [];
 
     /**
      * State constructor.
@@ -162,35 +162,17 @@ abstract class State
     }
 
     /**
-     * Add a route to the state.
-     *
-     * @param State $nextState
-     *  Next state of the route.
-     * @return Route
-     *  Created instance of the Route class.
-     *
-     * @deprecated Use addTransition instead.
-     */
-    public function addRoute(State $nextState): Route
-    {
-        $code = $nextState->code;
-        $route = new Route($code);
-        $this->routes[$code] = $route;
-        return $route;
-    }
-
-    /**
      * Add a transition to the state.
      *
-     * @param State $nextState
+     * @param State $state
      *  Next state of the transition.
      * @return void
      *  Created instance of the Transition class.
      */
-    public function addTransition(State $nextState): Route
+    public function addTransitionTo(State $state): Transition
     {
-        $code = $nextState->code;
-        $route = new Route($code);
+        $code = $state->code;
+        $route = new Transition($code);
         $this->routes[$code] = $route;
         return $route;
     }
@@ -222,29 +204,29 @@ abstract class State
     }
 
     /**
-     * Check if this state can move to the next state.
+     * Check if state has transition to the given state.
      *
-     * @param String $nextState
+     * @param string $state
      *  Code of the next state.
      * @return boolean
      *  True if the state can move to the next state.
      */
-    public function hasRoute(String $nextState): bool
+    public function hasTransitionTo(string $state): bool
     {
-        return isset($this->routes[$nextState]);
+        return isset($this->transitions[$state]);
     }
 
     /**
-     * Get route to the next state.
+     * Get transition to the given state.
      *
-     * @param String $nextState
+     * @param String $state
      *  Code of the next state.
      * @return Route
      *  Route to the next state.
      */
-    public function getRoute(String $nextState): Route
+    public function getTransitionTo(string $state): Transition
     {
-        return $this->routes[$nextState];
+        return $this->routes[$state];
     }
 
     /**

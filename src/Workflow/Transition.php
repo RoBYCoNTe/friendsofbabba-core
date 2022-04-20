@@ -3,11 +3,11 @@
 namespace FriendsOfBabba\Core\Workflow;
 
 /**
- * Class Route
+ * Class Transition
  *
  * @property bool $notesRequired
  */
-class Route
+class Transition
 {
 	/**
 	 * True if the route requires notes.
@@ -15,13 +15,13 @@ class Route
 	public $notesRequired = false;
 
 	/**
-	 * Configure the route.
+	 * Set if notes are required to execute transition.
 	 *
 	 * @param Bool $notesRequired
 	 * 	True if the route requires notes.
-	 * @return Route
+	 * @return Transition
 	 */
-	public function withNotesRequired(Bool $notesRequired = TRUE): Route
+	public function withNotesRequired(bool $notesRequired = TRUE): Transition
 	{
 		$this->notesRequired = $notesRequired;
 		return $this;

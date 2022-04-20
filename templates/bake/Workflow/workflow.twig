@@ -20,7 +20,7 @@ class Workflow extends WorkflowBase
 
 {% for route in routes %}
 {% set args = route|split(':') %}
-        $this->getState({{ args[0] }}::CODE)->addTransition($this->getState({{ args[1] }}::CODE));
+        $this->getState({{ args[0] }}::CODE)->addTransitionTo($this->getState({{ args[1] }}::CODE));
 {% endfor %}
     }
 

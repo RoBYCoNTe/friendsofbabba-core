@@ -270,46 +270,50 @@ abstract class WorkflowBase
         $entity = $event->getSubject()->entity;
         $last = !is_null($entity->id) ? $this->Transactions->getLast($entity->id, $entityName) : NULL;
         $lastState = !empty($last) ? $this->getState($last->state) : $this->getInitial();
+        if (empty($entity->state)) {
+            $entity->state = $lastState->code;
+        }
         $moved = FALSE;
 
-        if (empty($last)) {
+        if (empty($lastTransaction)) {
             $canCreate = $this->canCreate($user);
             if (!$canCreate) {
                 throw new ForbiddenException(__d("workflow", "Forbidden"));
             }
             $moved = TRUE;
         } else {
-            $moved = !empty($entity->state) && $last->state !== $entity->state;
+            $moved = !empty($entity->state) && $lastTransaction->state !== $entity->state;
         }
 
-        $nextStateCode = $entity->state;
-        if (is_null($nextStateCode) || (!is_null($last) && $last->state === $nextStateCode)) {
+        $next = $entity->state;
+
+        if (!empty($last) && (is_null($next) || (!is_null($last) && $last->state === $next))) {
             $canEdit = $this->canEdit($user, $last->state);
             if (!$canEdit) {
                 throw new ForbiddenException(__d("workflow", "Forbidden"));
             }
-            $nextStateCode = $last->state;
+            $next = $last->state;
         } else {
-            $canMove = $this->canMove($user, $nextStateCode);
+            $canMove = $this->canMove($user, $next);
             if (!$canMove) {
                 throw new ForbiddenException(__d("workflow", "Forbidden"));
             }
         }
 
-        if ($lastState->hasRoute($nextStateCode)) {
-            $route = $lastState->getRoute($nextStateCode);
+        if ($lastState->hasTransitionTo($next)) {
+            $route = $lastState->getTransitionTo($next);
             if ($route->notesRequired && (is_null($entity->notes) || empty($entity->notes))) {
                 $entity->setError('notes', __('Required.'));
                 throw new ValidationException($entity);
             }
         }
 
-        $nextState = $this->getState($nextStateCode);
+        $next = $this->getState($next);
 
         $event->getSubject()->moved = $moved;
 
         $workflowEvent = WorkflowEvent::create($event, $user, $event->getSubject()->moved);
-        $workflowEvent = $nextState->beforeSave($workflowEvent);
+        $workflowEvent = $next->beforeSave($workflowEvent);
 
         $event->getSubject()->bag = $workflowEvent->getBag();
 

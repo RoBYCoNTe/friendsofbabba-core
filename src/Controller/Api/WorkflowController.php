@@ -30,10 +30,11 @@ class WorkflowController extends AppController
 
 	public function load()
 	{
-		$collection = WorkflowRegistry::getInstance()->getConfigured();
+		$collection = WorkflowRegistry::getInstance()->getConfiguredAsResources();
 		$collection = array_map(function (WorkflowBase $workflow) {
 			return $workflow->toArray();
 		}, $collection);
+
 		$this->set([
 			'data' => $collection,
 			'success' => true,

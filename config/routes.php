@@ -88,6 +88,11 @@ $routes->plugin(
 				'action' => 'load',
 				'prefix' => 'api'
 			]);
+			$builder->connect('/crud/load/:resource', [
+				'controller' => 'Crud',
+				'action' => 'load',
+				'prefix' => 'api'
+			], ['pass' => ['resource']]);
 		});
 
 		$routes->setRouteClass(DashedRoute::class);

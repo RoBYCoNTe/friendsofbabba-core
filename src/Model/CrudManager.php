@@ -7,6 +7,7 @@ use Cake\Datasource\ConnectionManager;
 use Cake\ORM\Exception\MissingTableClassException;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
+use FriendsOfBabba\Core\Model\Crud\ViewConfig;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Table\BaseTable;
 use FriendsOfBabba\Core\PluginManager;
@@ -25,33 +26,59 @@ class CrudManager
 	}
 
 	/**
-	 * Returns list of tables allowed to be used in CRUD
+	 * Returns list of views allowed to be used in CRUD
 	 *
 	 * @param ?User $user
 	 * 	The user requesting the list.
 	 * @return array
-	 *  List of tables allowed to be used in CRUD
+	 *  List of view config allowed.
 	 */
-	public function getTables(?User $user = NULL): array
+	public function getViewConfigList(?User $user = NULL): array
 	{
 		$tables = ConnectionManager::get('default')->getSchemaCollection()->listTables();
-		$tables = (new Collection($tables))
+		$viewConfigList = (new Collection($tables))
 			->map(function (string $tableName) {
 				$s = Inflector::camelize($tableName);
 				return $s;
 			})
-			->reduce(function (array $tables, string $tableName) use ($user) {
-				$table = $this->getTable($tableName);
-				if (!is_null($table)) {
-					$grid = $table->getGrid($user);
-					if (!is_null($grid)) {
-						$tables[$tableName] = compact('grid');
-					}
+			->reduce(function (array $viewConfigList, string $tableName) use ($user) {
+				$viewConfig = $this->getViewConfig($tableName, $user);
+				if ($viewConfig !== NULL) {
+					$resourceName = Inflector::dasherize($tableName);
+					$viewConfigList[$resourceName] = $viewConfig;
 				}
-				return $tables;
+				return $viewConfigList;
 			}, []);
 
-		return $tables;
+		return $viewConfigList;
+	}
+
+	/**
+	 * Detect if a table is allowed to be used in CRUD and return crud view config.
+	 *
+	 * @param string $entity
+	 * 	Name of the entity to check.
+	 * @param User $user
+	 *  The user requesting the view config.
+	 * @return ViewConfig
+	 *  The view config for the entity.
+	 * @throws MissingTableClassException
+	 *  If the entity does not exist or user does not have access to it.
+	 */
+	public function getViewConfig(string $entity, ?User $user): ?ViewConfig
+	{
+		$table = $this->getTable($entity);
+		if (is_null($table)) {
+			return NULL;
+		}
+
+		$grid = $table->getGrid($user);
+		$form = $table->getForm($user);
+
+		$viewConfig = new ViewConfig();
+		$viewConfig->grid = $grid;
+		$viewConfig->form = $form;
+		return $viewConfig;
 	}
 
 	/**

@@ -5,6 +5,7 @@ namespace FriendsOfBabba\Core\Workflow;
 use Cake\Core\Configure;
 use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Utility\Hash;
+use Cake\Utility\Inflector;
 
 /**
  * Represents the root access to every configured workflow for the application.
@@ -109,14 +110,28 @@ class WorkflowRegistry
     }
 
     /**
-     * Get the workflow for the given entity.
+     * Get full list of configured workflows.
      *
-     * @param string $entityName The name of the entity.
      * @return array
      */
-    public function getConfigured()
+    public function getConfigured(): array
     {
         return $this->_configured;
+    }
+
+    /**
+     * Returns the same list as getConfigured() but with the resource dashed name as key.
+     *
+     * @return array
+     */
+    public function getConfiguredAsResources(): array
+    {
+        $configured = $this->getConfigured();
+        $output = [];
+        foreach ($configured as $entity => $workflow) {
+            $output[Inflector::dasherize($entity)] = $workflow;
+        }
+        return $output;
     }
 
 
