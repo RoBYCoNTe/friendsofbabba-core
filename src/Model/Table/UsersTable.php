@@ -11,6 +11,7 @@ use FriendsOfBabba\Core\Model\Crud\FormInput;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Crud\Grid;
 use FriendsOfBabba\Core\Model\Crud\GridColumn;
+use FriendsOfBabba\Core\Model\Crud\GridField;
 use FriendsOfBabba\Core\Model\Filter\UserCollection;
 use FriendsOfBabba\Core\PluginManager;
 use SoftDelete\Model\Table\SoftDeleteTrait;
@@ -132,12 +133,12 @@ class UsersTable extends BaseTable
     public function getGrid(?User $user): ?Grid
     {
         $grid = parent::getGrid($user);
-        $grid->getColumn("status")->setComponent("ChipField");
+        $grid->getField("status")->setComponent("ChipField");
         $grid
-            ->addColumn(GridColumn::create("roles", "Roles")
+            ->addField(GridField::create("roles", "Roles")
                 ->setComponent("ArrayOfChipField")
                 ->setComponentProp("chipSource", "name"))
-            ->removeColumn("created")
+            ->removeField("created")
             ->setMobilePrimaryText("username")
             ->setMobileSecondaryText("email")
             ->setMobileTertiaryText("status");

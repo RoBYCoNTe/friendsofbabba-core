@@ -18,8 +18,8 @@ class Workflow extends WorkflowBase
         $this->addState(new {{ state }}());
 {% endfor %}
 
-{% for route in routes %}
-{% set args = route|split(':') %}
+{% for transition in transitions %}
+{% set args = transition|split(':') %}
         $this->getState({{ args[0] }}::CODE)->addTransitionTo($this->getState({{ args[1] }}::CODE));
 {% endfor %}
     }

@@ -68,8 +68,13 @@ class WorkflowController extends AppController
 
 		$baseQuery = $this->Transactions
 			->forEntity($entityName)
-			->find()
-			->where(['record_id' => $id]);
+			->find();
+		if (!empty($id)) {
+			$baseQuery = $baseQuery->where(['record_id' => $id]);
+		} else {
+			// Secure
+			$baseQuery = $baseQuery->where(['record_id < 0']);
+		}
 
 
 		$workflow = WorkflowRegistry::getInstance()->resolve($entityName);

@@ -7,15 +7,9 @@ use FriendsOfBabba\Core\Model\CrudManager;
 
 class CrudController extends AppController
 {
-	public function initialize(): void
-	{
-		parent::initialize();
-		$this->Authentication->allowUnauthenticated(['load']);
-	}
-
 	public function load(string $resource = NULL)
 	{
-		$user = $this->getUser(false);
+		$user = $this->getUser();
 		if (!is_null($resource)) {
 			$entity = Inflector::underscore($resource);
 			$entity = Inflector::camelize($entity);

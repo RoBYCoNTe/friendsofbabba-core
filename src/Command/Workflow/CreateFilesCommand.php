@@ -37,7 +37,7 @@ class CreateFilesCommand extends Command
 		$parser->addArgument('entity', ['required' => true]);
 		$parser->addOption('namespace', ['short' => 'n', 'default' => "App\Workflow"]);
 		$parser->addOption('states', ['short' => 's', 'required' => true, 'help' => 'List of states separated by comma', 'default' => 'Draft,Approved']);
-		$parser->addOption('routes', ['short' => 'r', 'required' => true, 'help' => 'List of routes separated by comma: state1:state2']);
+		$parser->addOption('transitions', ['short' => 'r', 'required' => true, 'help' => 'List of transitions separated by comma: state1:state2']);
 		$parser->addOption('erase', ['short' => 'e', 'required' => false, 'help' => 'Erase workflow files before creation (you lost everything!)']);
 		$parser->addOption('theme', ['short' => 't', 'required' => false, 'help' => 'Theme to use for generating files', 'default' => 'FriendsOfBabba/Core']);
 
@@ -117,7 +117,7 @@ class CreateFilesCommand extends Command
 			'entity' => $entity,
 
 			'states' => explode(",", $args->getOption('states')),
-			'routes' => explode(",", $args->getOption('routes')),
+			'transitions' => explode(",", $args->getOption('transitions')),
 
 			'namespace' => $args->getOption('namespace'),
 		]);

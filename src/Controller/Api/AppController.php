@@ -147,8 +147,10 @@ class AppController extends Controller
             'Crud.beforePaginate' => '_beforePaginate',
             'Crud.beforeFind' => '_beforeFind',
             'Crud.beforeSave' => '_beforeSave',
+            'Crud.beforeDelete' => '_beforeDelete',
             'Crud.afterSave' => '_afterSave',
-            'Crud.afterPaginate' => '_afterPaginate'
+            'Crud.afterPaginate' => '_afterPaginate',
+
         ];
     }
 
@@ -179,6 +181,16 @@ class AppController extends Controller
         if (!is_null($workflow)) {
             $user = $this->getUser();
             $workflow->beforeSave($entityName, $user, $event);
+        }
+    }
+
+    public function _beforeDelete(\Cake\Event\Event $event)
+    {
+        $entityName = $this->request->getParam("controller");
+        $workflow = WorkflowRegistry::getInstance()->resolve($entityName);
+        if (!is_null($workflow)) {
+            $user = $this->getUser();
+            $workflow->beforeDelete($entityName, $user, $event);
         }
     }
 

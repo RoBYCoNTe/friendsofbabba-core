@@ -107,7 +107,7 @@ class CommandsTable extends BaseTable
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['user_id'], PluginManager::instance()->getModelFQN('Users')), ['errorField' => 'user_id']);
+        $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
 
         return $rules;
     }

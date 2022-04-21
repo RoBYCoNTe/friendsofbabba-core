@@ -35,7 +35,7 @@ class CreateCommand extends Command
 		$parser->addArgument('entity', ['required' => true]);
 		$parser->addOption('namespace', ['short' => 'n']);
 		$parser->addOption('states', ['short' => 's', 'default' => '', 'help' => 'List of states separated by comma', 'default' => 'Draft,Approved']);
-		$parser->addOption('routes', ['short' => 'r', 'default' => '', 'help' => 'List of routes separated by comma: state1:state2', 'default' => 'Draft:Approved']);
+		$parser->addOption('transitions', ['short' => 't', 'default' => '', 'help' => 'List of transitions separated by comma: state1:state2', 'default' => 'Draft:Approved']);
 		$parser->addOption('erase', ['short' => 'e', 'default' => false, 'help' => 'Erase workflow files before creation (you lost everything!)']);
 
 		return $parser;
@@ -103,13 +103,13 @@ class CreateCommand extends Command
 		$entity = $args->getArgument('entity');
 		$namespace = $args->getOption('namespace');
 		$states = $args->getOption('states');
-		$routes = $args->getOption('routes');
+		$transitions = $args->getOption('transitions');
 
 		$erase = $args->getOption('erase');
 		$args = [
 			$entity,
 			'--states', $states,
-			'--routes', $routes
+			'--transitions', $transitions
 		];
 		if ($erase) {
 			$args[] = '--erase';

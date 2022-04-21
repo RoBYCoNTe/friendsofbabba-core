@@ -14,7 +14,7 @@ use Cake\Utility\Hash;
  * @property string $label
  * @property StatePermission[] $permissions
  * @property Field[] $fields
- * @property Transition[] $routes
+ * @property Transition[] $transitions
  */
 abstract class State
 {
@@ -172,9 +172,9 @@ abstract class State
     public function addTransitionTo(State $state): Transition
     {
         $code = $state->code;
-        $route = new Transition($code);
-        $this->routes[$code] = $route;
-        return $route;
+        $transition = new Transition($code);
+        $this->transitions[$code] = $transition;
+        return $transition;
     }
 
     /**
@@ -221,12 +221,12 @@ abstract class State
      *
      * @param String $state
      *  Code of the next state.
-     * @return Route
-     *  Route to the next state.
+     * @return Transition
+     *  Transition to the next state.
      */
     public function getTransitionTo(string $state): Transition
     {
-        return $this->routes[$state];
+        return $this->transitions[$state];
     }
 
     /**

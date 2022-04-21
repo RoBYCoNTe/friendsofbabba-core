@@ -4,6 +4,10 @@ namespace FriendsOfBabba\Core\Model\Crud;
 
 class Form extends Component
 {
+	const REDIRECT_LIST = "list";
+	const REDIRECT_EDIT = "edit";
+	const REDIRECT_SHOW = "show";
+	const REDIRECT_FALSE = false;
 	/**
 	 * @see https://marmelab.com/react-admin/doc/3.19/CreateEdit.html#default-values
 	 * @var \stdClass
@@ -56,5 +60,11 @@ class Form extends Component
 			}
 		}
 		throw new \Exception("Input with source '$source' not found.");
+	}
+
+	public function setRedirect(string $redirect): Form
+	{
+		$this->redirect = $redirect;
+		return $this;
 	}
 }

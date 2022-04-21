@@ -47,6 +47,10 @@ class User extends BaseEntity
 		'profile' => true
 	];
 
+	protected $_virtual = [
+		'name'
+	];
+
 	/**
 	 * Fields that are excluded from JSON versions of the entity.
 	 *
@@ -55,6 +59,17 @@ class User extends BaseEntity
 	protected $_hidden = [
 		'password',
 	];
+
+	protected function _getName(): string
+	{
+		if (isset($this->profile)) {
+			return implode(" ", [
+				$this->profile->name,
+				$this->profile->surname
+			]);
+		}
+		return $this->username;
+	}
 
 	// Automatically hash passwords when they are changed.
 	protected function _setPassword(string $password)

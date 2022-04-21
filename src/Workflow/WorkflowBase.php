@@ -199,6 +199,20 @@ abstract class WorkflowBase
         $query->where(["$transactionEntity.state in" => $states]);
     }
 
+    public function beforeDelete(string $entityName, User $user, Event $event): void
+    {
+        if ($entityName === WorkflowBase::TRANSACTIONS_ENTITY_NAME) {
+            return;
+        }
+        $transactionEntity = Inflector::singularize($entityName) . "Transactions";
+        $table = TableRegistry::getTableLocator()->get($entityName);
+        $table->hasMany($transactionEntity, [
+            'foreignKey' => 'record_id',
+            'propertyName' => 'transaction',
+            'dependent' => true
+        ]);
+    }
+
     /**
      * Process beforeSave event applying workflow rules if necessary.
      *

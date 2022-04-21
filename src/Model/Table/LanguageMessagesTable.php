@@ -88,7 +88,7 @@ class LanguageMessagesTable extends BaseTable
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['language_id'], PluginManager::instance()->getModelFQN('Languages')), ['errorField' => 'language_id']);
+        $rules->add($rules->existsIn(['language_id'], 'Languages'), ['errorField' => 'language_id']);
 
         return $rules;
     }

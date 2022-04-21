@@ -5,7 +5,7 @@ namespace FriendsOfBabba\Core\Model\Crud;
 /**
  * Represents basic column information to display in CRUD.
  */
-class GridColumn extends Component
+class GridField extends Component
 {
 
 	/**
@@ -48,21 +48,32 @@ class GridColumn extends Component
 		$this->sortable = $sortable;
 	}
 
+	public function setSource(string $source): GridField
+	{
+		$this->source = $source;
+		return $this;
+	}
 
-	public function setSortable(bool $sortable): GridColumn
+	public function setLabel(string $label): GridField
+	{
+		$this->label = $label;
+		return $this;
+	}
+
+	public function setSortable(bool $sortable): GridField
 	{
 		$this->sortable = $sortable;
 		return $this;
 	}
 
-	public function setComponent(string $component): GridColumn
+	public function setComponent(string $component): GridField
 	{
 		parent::setComponent($component);
 		return $this;
 	}
 
-	public static function create(string $source, string $label = NULL, string $component = "TextField", bool $sortable = TRUE): GridColumn
+	public static function create(string $source, string $label = NULL, string $component = "TextField", bool $sortable = TRUE): GridField
 	{
-		return new GridColumn($source, $label, $component, $sortable);
+		return new GridField($source, $label, $component, $sortable);
 	}
 }

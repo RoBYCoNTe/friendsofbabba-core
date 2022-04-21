@@ -75,13 +75,13 @@ class Grid extends Component
 	}
 
 
-	public function addColumn(GridColumn $column): Grid
+	public function addField(GridField $column): Grid
 	{
 		$this->columns[] = $column;
 		return $this;
 	}
 
-	public function getColumn(string $source): ?GridColumn
+	public function getField(string $source): ?GridField
 	{
 		foreach ($this->columns as $column) {
 			if ($column->source === $source) {
@@ -91,10 +91,10 @@ class Grid extends Component
 		return NULL;
 	}
 
-	public function removeColumn(string $source): Grid
+	public function removeField(string $source): Grid
 	{
 		$this->columns = (new Collection($this->columns))
-			->filter(function (GridColumn $column) use ($source) {
+			->filter(function (GridField $column) use ($source) {
 				return $column->source !== $source;
 			})
 			->toList();

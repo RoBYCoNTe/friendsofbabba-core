@@ -89,7 +89,7 @@ class CommandLogRowsTable extends BaseTable
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['command_log_id'], PluginManager::instance()->getModelFQN('CommandLogs')), ['errorField' => 'command_log_id']);
+        $rules->add($rules->existsIn(['command_log_id'], 'CommandLogs'), ['errorField' => 'command_log_id']);
 
         return $rules;
     }
