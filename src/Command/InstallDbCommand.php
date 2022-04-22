@@ -8,10 +8,6 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use Cake\Database\Schema\TableSchema;
-use Cake\Datasource\ConnectionManager;
-use Cake\Utility\Inflector;
-use FriendsOfBabba\Core\Model\Entity\Role;
 
 /**
  * InstallDatabase command.
