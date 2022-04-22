@@ -75,9 +75,28 @@ class Grid extends Component
 	}
 
 
-	public function addField(GridField $column): Grid
+	public function addField(GridField $column, ?string $beforeOrAfter = NULL, ?string $source = NULL): Grid
 	{
-		$this->columns[] = $column;
+		if (!is_null($beforeOrAfter)) {
+			if (empty($source)) {
+				throw new \InvalidArgumentException("You must provide a source for the column.");
+			}
+			$indexOf = array_search($source, array_column($this->columns, 'source'));
+			if ($indexOf !== false) {
+				switch ($beforeOrAfter) {
+					case "before":
+						array_splice($this->columns, $indexOf, 0, [$column]);
+						break;
+					case "after":
+						array_splice($this->columns, $indexOf + 1, 0, [$column]);
+						break;
+				}
+			} else {
+				$this->columns[] = $column;
+			}
+		} else {
+			$this->columns[] = $column;
+		}
 		return $this;
 	}
 
@@ -90,6 +109,7 @@ class Grid extends Component
 		}
 		return NULL;
 	}
+
 
 	public function removeField(string $source): Grid
 	{

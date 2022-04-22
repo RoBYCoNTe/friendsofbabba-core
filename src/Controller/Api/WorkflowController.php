@@ -80,9 +80,9 @@ class WorkflowController extends AppController
 		$workflow = WorkflowRegistry::getInstance()->resolve($entityName);
 		$states = $workflow->getReadableStates($this->getUser());
 
+		$baseQuery = $baseQuery->whereInList('state', $states);
 		$count = $baseQuery->count();
 		$data = $baseQuery
-			->whereInList('state', $states)
 			->contain(["Users" => "UserProfiles"])
 			->order([$sort => $direction])
 			->skip(($page - 1) * $limit)

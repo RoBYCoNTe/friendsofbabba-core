@@ -19,14 +19,14 @@ class GridField extends Component
 	 *
 	 * @var string
 	 */
-	public string $label;
+	public ?string $label;
 
 	/**
 	 * Indicates if the column is sortable.
 	 *
 	 * @var boolean
 	 */
-	public bool $sortable = TRUE;
+	public ?bool $sortable = NULL;
 
 	/**
 	 * Creates a new instance of Column.
@@ -40,11 +40,11 @@ class GridField extends Component
 	 * @param bool $sortable
 	 * 	Indicates if the column is sortable.
 	 */
-	public function __construct(string $source, string $label,  string $component = "TextField", bool $sortable = TRUE)
+	public function __construct(string $source, ?string $label = NULL,  string $component = "TextField", ?bool $sortable = NULL)
 	{
 		parent::__construct($component, []);
 		$this->source = $source;
-		$this->label = empty($label) ? $source : $label;
+		$this->label = $label;
 		$this->sortable = $sortable;
 	}
 
@@ -72,7 +72,7 @@ class GridField extends Component
 		return $this;
 	}
 
-	public static function create(string $source, string $label = NULL, string $component = "TextField", bool $sortable = TRUE): GridField
+	public static function create(string $source, ?string $label = NULL, string $component = "TextField", ?bool $sortable = NULL): GridField
 	{
 		return new GridField($source, $label, $component, $sortable);
 	}

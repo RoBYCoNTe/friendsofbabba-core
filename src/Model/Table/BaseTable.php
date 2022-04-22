@@ -60,7 +60,8 @@ class BaseTable extends \Cake\ORM\Table
 		$workflow = WorkflowRegistry::getInstance()->resolve($this->getAlias());
 		if (!is_null($workflow)) {
 			$grid->addField(GridField::create("state", "State", "StateCollectionInput"));
-			$grid->addField(GridField::create("EditButton", "ra.action.edit", "EditButton"));
+			$grid->addField(GridField::create("EditButton", "ra.action.edit")
+				->setComponent("EditButton"));
 		} else {
 			$grid->addField(GridField::create("EditButton", "ra.action.edit", "RaEditButton"));
 			$grid->addField(GridField::create("DeleteButton", "ra.action.delete", "RaDeleteButton"));

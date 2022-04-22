@@ -135,9 +135,13 @@ class UsersTable extends BaseTable
         $grid = parent::getGrid($user);
         $grid->getField("status")->setComponent("ChipField");
         $grid
-            ->addField(GridField::create("roles", "Roles")
-                ->setComponent("ArrayOfChipField")
-                ->setComponentProp("chipSource", "name"))
+            ->addField(
+                GridField::create("roles", "Roles")
+                    ->setComponent("ChipArrayField")
+                    ->setComponentProp("chipSource", "name"),
+                "before",
+                "status"
+            )
             ->removeField("created")
             ->setMobilePrimaryText("username")
             ->setMobileSecondaryText("email")
