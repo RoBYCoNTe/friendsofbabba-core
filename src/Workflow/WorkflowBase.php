@@ -255,16 +255,8 @@ abstract class WorkflowBase
             throw new ForbiddenException(__d("workflow", "Forbidden"));
         }
 
-        $table = TableRegistry::getTableLocator()->get($entityName);
-        $transactionEntity = Inflector::singularize($entityName) . "Transactions";
-        $table->hasOne($transactionEntity, [
-            'foreignKey' => 'record_id',
-            'propertyName' => 'transaction',
-            'dependent' => true,
-            'conditions' => ["$transactionEntity.is_current" => true]
-        ]);
         $query = $event->getSubject()->query;
-        $query->contain([$transactionEntity]);
+        $query->contain('Transactions');
     }
 
     /**

@@ -19,9 +19,9 @@ class Filter extends Component
 	public string $label;
 
 
-	public function __construct(string $source, ?string $label = NULL)
+	public function __construct(string $source, ?string $label = NULL, ?string $component = "SearchInput")
 	{
-		parent::__construct('SearchInput', []);
+		parent::__construct($component, []);
 		$this->source = $source;
 		if (!is_null($label)) {
 			$this->label = $label;
@@ -32,5 +32,10 @@ class Filter extends Component
 	{
 		$this->setComponentProp('alwaysOn', true);
 		return $this;
+	}
+
+	public static function create(string $source, ?string $label = NULL, ?string $component = NULL): Filter
+	{
+		return new Filter($source, $label, $component);
 	}
 }

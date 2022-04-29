@@ -64,6 +64,23 @@ class {{ name }}Table extends BaseTable
 		$this->addBehavior('Search.Search', ['collectionClass' => \App\Model\Filter\{{ name|singularize }}Collection::class]);
 {%- if associations.belongsTo or associations.hasMany or associations.belongsToMany %}
 
+        // Worflow relationships
+        // Relationship with current (last) transaction for {{ name }}
+        $this->hasOne('Transactions', [
+            'foreignKey' => 'record_id',
+            'className' => '{{ name|singularize }}Transactions',
+            'propertyName' => 'transaction',
+            'dependent' => true,
+            'conditions' => ['Transactions.is_current' => true]
+        ]);
+
+        // Relationship with all transaction for {{ name }}
+        $this->hasMany('AllTransactions', [
+            'foreignKey' => 'record_id',
+            'propertyName' => '{{ name }}Transactions',
+            'dependent' => true
+        ]);
+
 {% endif %}
 
 {%- for type, assocs in associations %}

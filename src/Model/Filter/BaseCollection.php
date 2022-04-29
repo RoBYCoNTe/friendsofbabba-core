@@ -3,6 +3,7 @@
 namespace FriendsOfBabba\Core\Model\Filter;
 
 use Cake\ORM\Query;
+use Cake\Utility\Inflector;
 use Search\Model\Filter\Callback;
 use Search\Model\Filter\FilterCollection;
 
@@ -38,6 +39,13 @@ class BaseCollection extends FilterCollection
             'callback' => function (Query $query, array $args, Callback $type) {
                 $ids = explode(",", $args["_ids"]);
                 $query->whereNotInList("$this->table.id", $ids);
+            }
+        ]);
+        $this->add("state", "Search.Callback", [
+            'callback' => function (Query $query, array $args) {
+                $query
+                    ->innerJoinWith("Transactions")
+                    ->where(['Transactions.state' => $args['state']]);
             }
         ]);
     }

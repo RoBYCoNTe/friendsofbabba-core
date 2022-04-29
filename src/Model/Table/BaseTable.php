@@ -59,6 +59,7 @@ class BaseTable extends \Cake\ORM\Table
 		}
 		$workflow = WorkflowRegistry::getInstance()->resolve($this->getAlias());
 		if (!is_null($workflow)) {
+			$grid->addFilter(Filter::create("state", "State", "StateInput")->alwaysOn());
 			$grid->addField(GridField::create("state", "State", "StateCollectionInput"));
 			$grid->addField(GridField::create("EditButton", "ra.action.edit")
 				->setComponent("EditButton"));
@@ -99,6 +100,7 @@ class BaseTable extends \Cake\ORM\Table
 		}
 
 		$workflow = WorkflowRegistry::getInstance()->resolve($this->getAlias());
+		$form->setHasWorkflow(!is_null($workflow));
 		if (!is_null($workflow)) {
 			$form->addInput(FormInput::create("is_private", "Is Private")
 				->setComponent("TransactionNotesIsPrivateInput")

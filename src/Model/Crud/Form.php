@@ -39,6 +39,13 @@ class Form extends Component
 	 */
 	public bool $sanitizeEmptyValues = TRUE;
 
+	/**
+	 * Indicates if current form is subjected to workflow or not.
+	 *
+	 * @var boolean
+	 */
+	public bool $hasWorkflow = FALSE;
+
 	public array $inputs = [];
 
 	public function __construct()
@@ -65,6 +72,12 @@ class Form extends Component
 	public function setRedirect(string $redirect): Form
 	{
 		$this->redirect = $redirect;
+		return $this;
+	}
+
+	public function setHasWorkflow(bool $hasWorkflow): Form
+	{
+		$this->hasWorkflow = $hasWorkflow;
 		return $this;
 	}
 }
