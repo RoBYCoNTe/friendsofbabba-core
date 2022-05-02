@@ -53,9 +53,28 @@ class Form extends Component
 		parent::__construct("SimpleForm", []);
 	}
 
-	public function addInput(FormInput $input): Form
+	public function addInput(FormInput $input, ?string $beforeOrAfter = NULL, ?string $source = NULL): Form
 	{
-		$this->inputs[] = $input;
+		if (!is_null($beforeOrAfter)) {
+			if (empty($source)) {
+				throw new \InvalidArgumentException("You must provide a source for the column.");
+			}
+			$indexOf = array_search($source, array_column($this->inputs, 'source'));
+			if ($indexOf !== false) {
+				switch ($beforeOrAfter) {
+					case "before":
+						array_splice($this->inputs, $indexOf, 0, [$input]);
+						break;
+					case "after":
+						array_splice($this->inputs, $indexOf + 1, 0, [$input]);
+						break;
+				}
+			} else {
+				$this->inputs[] = $input;
+			}
+		} else {
+			$this->inputs[] = $input;
+		}
 		return $this;
 	}
 

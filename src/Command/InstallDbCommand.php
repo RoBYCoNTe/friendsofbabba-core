@@ -52,14 +52,12 @@ class InstallDbCommand extends Command
 			'commands' => \FriendsOfBabba\Core\Command\Install\Db\CommandInstaller::class,
 			'language' => \FriendsOfBabba\Core\Command\Install\Db\LanguageInstaller::class,
 			'user' => \FriendsOfBabba\Core\Command\Install\Db\UserInstaller::class,
+			'media' => \FriendsOfBabba\Core\Command\Install\Db\MediaInstaller::class,
 			'data' => \FriendsOfBabba\Core\Command\Install\Db\DataInstaller::class,
 			'ticket' => \FriendsOfBabba\Core\Command\Install\Db\TicketInstaller::class
 		];
 
-		$io->info('Installing basic tables...', 0);
-
-
-
+		$io->info('Installing basic tables...');
 		$filter = $args->getOption('filter');
 		if ($filter) {
 			$filter = explode(',', $filter);
@@ -67,7 +65,7 @@ class InstallDbCommand extends Command
 		}
 
 		foreach ($packages as $package => $installerClass) {
-			$io->out('Installing ' . $package . '...');
+			$io->info('Installing ' . $package . '...');
 			$installer = new $installerClass();
 			$installer->install($io);
 		}

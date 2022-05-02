@@ -68,7 +68,7 @@ class {{ name }}Table extends BaseTable
         // Relationship with current (last) transaction for {{ name }}
         $this->hasOne('Transactions', [
             'foreignKey' => 'record_id',
-            'className' => '{{ name|singularize }}Transactions',
+            'className' => 'transaction',
             'propertyName' => 'transaction',
             'dependent' => true,
             'conditions' => ['Transactions.is_current' => true]
@@ -77,7 +77,7 @@ class {{ name }}Table extends BaseTable
         // Relationship with all transaction for {{ name }}
         $this->hasMany('AllTransactions', [
             'foreignKey' => 'record_id',
-            'propertyName' => '{{ name }}Transactions',
+            'propertyName' => 'all_transactions',
             'dependent' => true
         ]);
 

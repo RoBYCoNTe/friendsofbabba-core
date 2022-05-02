@@ -102,13 +102,14 @@ class BaseTable extends \Cake\ORM\Table
 		$workflow = WorkflowRegistry::getInstance()->resolve($this->getAlias());
 		$form->setHasWorkflow(!is_null($workflow));
 		if (!is_null($workflow)) {
-			$form->addInput(FormInput::create("is_private", "Is Private")
-				->setComponent("TransactionNotesIsPrivateInput")
-				->setComponentProp("admin", $user->hasRole(Role::ADMIN))
-				->fullWidth());
+
 			$form->addInput(FormInput::create("notes", "Notes")
 				->setComponent("TransactionNotesInput")
 				->setComponentProp("helperText", "Notes for this transaction")
+				->setComponentProp("admin", $user->hasRole(Role::ADMIN))
+				->fullWidth());
+			$form->addInput(FormInput::create("is_private", "Is Private")
+				->setComponent("TransactionNotesIsPrivateInput")
 				->setComponentProp("admin", $user->hasRole(Role::ADMIN))
 				->fullWidth());
 			$form->addInput(FormInput::create("logs", "Logs")

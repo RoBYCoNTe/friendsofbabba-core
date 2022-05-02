@@ -50,14 +50,7 @@ bin/cake install
 that will contains every table and columns that you will need. Nexts updateds
 will be more easy to manage.
 
-## API
-
-### Hooks
-
-You can customize specific application behaviors using `hooks`.
-This documentation will be updated when new hooks will be added to the library.
-
-### Language
+## Language
 
 The plugin provides a set of language files useful to work with react-admin.
 The base language file is installed when `bin/cake install` command is executed.
@@ -71,7 +64,7 @@ You can do many things with cli:
 - `bin/cake language clear_cache`: clear cached language files to recreate it, this
   command is useful when you change localized messages inside the database.
 
-### Permission
+## Permission
 
 The permission modules allow you to define list of permissions necessary to work
 inside the application. Permissions are controller's action dependent and are always
@@ -85,7 +78,7 @@ bin/cake permission scan
 
 Regenerate list of role's permissions.
 
-### Workflow(s)
+## Workflow(s)
 
 Before execute any action you need to create your table. Table must follow
 this rules:
@@ -120,8 +113,117 @@ as resources following the standard path: `api/<EntityName>` using `dasherized` 
 (suppose you've created a workflow for an entity called `ResearchProjects`, you will
 access the resource using `api/research-projects`).
 
-### CRUD
+## CRUD
 
 Every created entity is subjected to create, read, update and delete actions.
 
 You can override, for your custom table, the crud descriptors.
+
+## Media
+
+You can use `MediaBehavior` to instruct your entities to have media field(s).
+To use this behavior your have to install `media` table executing this command:
+
+```sh
+bin/cake install db --filter media`
+```
+
+After you have to implement `Media` in your entity. You can use two different type:
+
+- `belongsTo` to set a single media file.
+- `belongsToMany` to set multiple media files.
+
+### Configure `belongsTo`
+
+Add column referencing media using this code:
+
+```sql
+alter table table_name add column media_id integer unsigned not null;
+alter table table_name add constraint fk_table_name_media_id foreign key (media_id) references media(id);
+```
+
+Open your entity `Table` file and add the following code to map the media:
+
+```php
+use FriendsOfBabba\Core\PluginManager;
+
+class TableNameTables extends BaseTable {
+
+...other code...
+
+  public function initialize(array $config) {
+    $this->addBehavior(PluginManager::instance()->getFQN('Media'), ['media']));
+    $this->belongsTo('Media', [
+        'className' => PluginManager::instance()->getFQN('Media'),
+        'foreignKey' => 'media_id',
+        'joinType' => 'LEFT',
+        'propertyName' => 'media'
+    ]);
+  }
+
+  ...other code...
+
+}
+```
+
+Open your entity's `Entity` file and add a new accessible field:
+
+```php
+protected $_accessible = [
+  // ...
+  'media' => true,
+];
+```
+
+### Configure `belongsToMany`
+
+Create many-to-many relationship table:
+
+```sql
+create table table_name_media (
+  table_name_id integer unsigned not null,
+  media_id integer unsigned not null,
+  primary key (table_name_id, media_id),
+  foreign key (table_name_id) references table_name(id),
+  foreign key (media_id) references media(id)
+);
+```
+
+Open your entity `Table` file and add the following code to map the media:
+
+```php
+use FriendsOfBabba\Core\PluginManager;
+
+class TableNameTables extends BaseTable {
+
+...other code...
+
+  public function initialize(array $config) {
+    $this->addBehavior(PluginManager::instance()->getFQN('Media'), ['media']));
+    $this->belongsToMany('MediaCollection', [
+        'className' => PluginManager::instance()->getFQN('Media'),
+        'foreignKey' => 'media_id',
+        'joinType' => 'LEFT',
+        'propertyName' => 'media_collection'
+    ]);
+  }
+
+  ...other code...
+
+}
+```
+
+Open your entity's `Entity` file and add a new accessible field:
+
+```php
+protected $_accessible = [
+  // ...
+  'media' => true,
+];
+```
+
+---
+
+Done, you can now upload/delete/update media in your restful api.
+**In any case**: if you are using `friendsofbabba-ra` remember to add `fileFields` into `useDataProvider`
+during initialization of the client.
