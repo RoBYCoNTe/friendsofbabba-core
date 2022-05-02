@@ -33,11 +33,19 @@ class UserCollection extends BaseCollection
 
 
         $this->value("status");
-        $this->add("role_id", "Search.Callback", ['callback' => function (Query $query, array $args) {
-            return $query->innerJoinWith("Roles")->where(["Roles.id" => $args['role_id']]);
-        }]);
-        $this->add("role_ids", "Search.Callback", ['callback' => function (Query $query, array $args) {
-            return $query->innerJoinWith("Roles")->whereInList("Roles.id", explode(",", $args['role_ids']));
-        }]);
+        $this->add("role_id", "Search.Callback", [
+            'callback' => function (Query $query, array $args) {
+                $query
+                    ->innerJoinWith("Roles")
+                    ->where(["Roles.id" => $args['role_id']]);
+            }
+        ]);
+        $this->add("role_ids", "Search.Callback", [
+            'callback' => function (Query $query, array $args) {
+                $query
+                    ->innerJoinWith("Roles")
+                    ->whereInList("Roles.id", explode(",", $args['role_ids']));
+            }
+        ]);
     }
 }

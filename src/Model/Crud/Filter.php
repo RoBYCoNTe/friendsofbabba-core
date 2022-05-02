@@ -34,6 +34,12 @@ class Filter extends Component
 		return $this;
 	}
 
+	public function setComponentProp(string $name, mixed $value = NULL): Filter
+	{
+		parent::setComponentProp($name, $value);
+		return $this;
+	}
+
 	public static function create(string $source, ?string $label = NULL, ?string $component = NULL): Filter
 	{
 		return new Filter($source, $label, $component);

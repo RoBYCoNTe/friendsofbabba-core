@@ -218,12 +218,13 @@ Open your entity's `Entity` file and add a new accessible field:
 ```php
 protected $_accessible = [
   // ...
-  'media' => true,
+  'media_collection' => true,
 ];
 ```
 
 ---
 
 Done, you can now upload/delete/update media in your restful api.
-**In any case**: if you are using `friendsofbabba-ra` remember to add `fileFields` into `useDataProvider`
+**In any case**: if you are using `friendsofbabba-ra` remember to
+add `fileFields` into `useDataProvider`
 during initialization of the client.

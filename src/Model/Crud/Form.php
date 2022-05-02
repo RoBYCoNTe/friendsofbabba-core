@@ -2,6 +2,8 @@
 
 namespace FriendsOfBabba\Core\Model\Crud;
 
+use Cake\Collection\Collection;
+
 class Form extends Component
 {
 	const REDIRECT_LIST = "list";
@@ -86,6 +88,17 @@ class Form extends Component
 			}
 		}
 		throw new \Exception("Input with source '$source' not found.");
+	}
+
+
+	public function removeInput(string $source): Form
+	{
+		$this->inputs = (new Collection($this->inputs))
+			->filter(function (FormInput $input) use ($source) {
+				return $input->source !== $source;
+			})
+			->toList();
+		return $this;
 	}
 
 	public function setRedirect(string $redirect): Form

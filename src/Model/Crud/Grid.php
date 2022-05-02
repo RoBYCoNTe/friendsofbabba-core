@@ -61,7 +61,12 @@ class Grid extends Component
 	public string $mobilePrimaryText = "name";
 	public ?string $mobileSecondaryText = NULL;
 	public ?string $mobileTertiaryText = NULL;
+
 	public ?string $mobileLinkType = "edit";
+
+	public ?Component $mobilePrimaryComponent = NULL;
+	public ?Component $mobileSecondaryComponent = NULL;
+	public ?Component $mobileTertiaryComponent = NULL;
 
 	/**
 	 * @see https://marmelab.com/react-admin/doc/3.19/List.html#the-list-component
@@ -236,5 +241,44 @@ class Grid extends Component
 	{
 		$this->mobileLinkType = $mobileLinkType;
 		return $this;
+	}
+
+	public function setMobilePrimaryComponent(string $component): Component
+	{
+		return $this->getMobilePrimaryComponent()->setComponent($component);
+	}
+
+	public function getMobilePrimaryComponent(bool $init = TRUE): Component
+	{
+		if ($init && is_null($this->mobilePrimaryComponent)) {
+			$this->mobilePrimaryComponent = new Component("TextField");
+		}
+		return $this->mobilePrimaryComponent;
+	}
+
+	public function setMobileSecondaryComponent(string $component): Component
+	{
+		return $this->getMobileSecondaryComponent()->setComponent($component);
+	}
+
+	public function getMobileSecondaryComponent(bool $init = TRUE): Component
+	{
+		if ($init && is_null($this->mobileSecondaryComponent)) {
+			$this->mobileSecondaryComponent = new Component("TextField");
+		}
+		return $this->mobileSecondaryComponent;
+	}
+
+	public function setMobileTertiaryComponent(string $component): Component
+	{
+		return $this->getMobileTertiaryComponent()->setComponent($component);
+	}
+
+	public function getMobileTertiaryComponent(bool $init = TRUE): Component
+	{
+		if ($init && is_null($this->mobileTertiaryComponent)) {
+			$this->mobileTertiaryComponent = new Component("TextField");
+		}
+		return $this->mobileTertiaryComponent;
 	}
 }

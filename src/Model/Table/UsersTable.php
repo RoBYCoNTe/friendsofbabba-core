@@ -6,6 +6,7 @@ namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
+use FriendsOfBabba\Core\Model\Crud\Filter;
 use FriendsOfBabba\Core\Model\Crud\Form;
 use FriendsOfBabba\Core\Model\Crud\FormInput;
 use FriendsOfBabba\Core\Model\Entity\User;
@@ -146,6 +147,24 @@ class UsersTable extends BaseTable
             ->setMobilePrimaryText("username")
             ->setMobileSecondaryText("email")
             ->setMobileTertiaryText("status");
+
+        $grid->addFilter(Filter::create("status", "Status", "SelectInput")
+            ->setComponentProp("choices", array_map(function ($state) {
+                return [
+                    "id" => $state,
+                    "name" => $state
+                ];
+            }, ['active', 'pending']))
+            ->alwaysOn());
+
+        $grid->addFilter(Filter::create("email", "E-mail", "TextInput")->alwaysOn());
+        $grid->addFilter(
+            Filter::create("role_ids", "Roles", "ReferenceSelectInput")
+                ->setComponentProp("reference", "roles")
+                ->setComponentProp("optionText", "name")
+                ->alwaysOn()
+        );
+
 
         return $grid;
     }
