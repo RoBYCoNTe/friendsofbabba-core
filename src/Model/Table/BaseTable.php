@@ -41,6 +41,7 @@ class BaseTable extends \Cake\ORM\Table
 				continue;
 			}
 			$column = GridField::create($columnName, Inflector::humanize($columnName));
+			$column->setExportable(TRUE);
 
 			$type = $this->getSchema()->getColumnType($columnName);
 			switch ($type) {

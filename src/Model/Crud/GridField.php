@@ -27,6 +27,7 @@ class GridField extends Component
 	 * @var boolean
 	 */
 	public ?bool $sortable = NULL;
+	public ?bool $exportable = FALSE;
 
 	/**
 	 * Creates a new instance of Column.
@@ -63,6 +64,12 @@ class GridField extends Component
 	public function setSortable(bool $sortable): GridField
 	{
 		$this->sortable = $sortable;
+		return $this;
+	}
+
+	public function setExportable(bool $exportable): GridField
+	{
+		$this->exportable = $exportable;
 		return $this;
 	}
 
