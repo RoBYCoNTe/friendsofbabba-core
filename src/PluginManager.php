@@ -12,6 +12,11 @@ class PluginManager
 {
 	private static $_instance = null;
 
+	public function getName(): string
+	{
+		return 'FriendsOfBabba/Core';
+	}
+
 	/**
 	 * Get instance.
 	 *
@@ -49,7 +54,7 @@ class PluginManager
 	 */
 	public function getModelFQN(string $model)
 	{
-		return 'FriendsOfBabba/Core.' . $model;
+		return $this->getName() . "." . $model;
 	}
 
 	/**
@@ -62,6 +67,6 @@ class PluginManager
 	 */
 	public function getFQN(string $resource)
 	{
-		return 'FriendsOfBabba/Core.' . $resource;
+		return $this->getName() . "." . $resource;
 	}
 }

@@ -93,6 +93,12 @@ $routes->plugin(
 				'action' => 'load',
 				'prefix' => 'api'
 			], ['pass' => ['resource']]);
+
+			$builder->connect('/crud/:resource/export.:extension', [
+				'controller' => 'Crud',
+				'action' => 'export',
+				'prefix' => 'api'
+			], ['pass' => ['resource', 'extension']]);
 		});
 
 		$routes->setRouteClass(DashedRoute::class);

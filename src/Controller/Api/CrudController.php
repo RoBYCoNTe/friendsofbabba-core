@@ -2,8 +2,12 @@
 
 namespace FriendsOfBabba\Core\Controller\Api;
 
+use Cake\Http\Exception\NotFoundException;
+use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
+use FriendsOfBabba\Core\Export\Crud\CrudDocument;
 use FriendsOfBabba\Core\Model\CrudManager;
+use FriendsOfBabba\Core\PluginManager;
 
 class CrudController extends AppController
 {
@@ -27,5 +31,33 @@ class CrudController extends AppController
 				'_serialize' => ['data', 'success']
 			]);
 		}
+	}
+
+	public function export(string $resource, string $extension)
+	{
+		$user = $this->getUser();
+		$entity = Inflector::humanize($resource);
+		$viewConfig = CrudManager::getInstance()->getViewConfig($entity, $user);
+		if (empty($viewConfig) || empty($viewConfig->grid)) {
+			throw new NotFoundException(sprintf('No view config found for %s', $resource));
+		}
+		$exporter = $viewConfig->grid->getExporter($extension);
+		if (empty($exporter)) {
+			throw new NotFoundException(sprintf('No exporter found for extension %s', $extension));
+		}
+
+		$model = Inflector::humanize($resource);
+		$table = CrudManager::getInstance()->getTable($model);
+
+		$sort = $this->request->getQuery('sort');
+		$direction = $this->request->getQuery('direction');
+		$query = $table
+			->find('search', ['search' => $this->request->getQuery()])
+			->order([$sort => $direction]);
+		$exporter->generate($query);
+		return $this->response->withFile($exporter->export(), [
+			'filename' => "{$model}.xlsx",
+			'download' => true
+		]);
 	}
 }

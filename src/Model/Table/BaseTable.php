@@ -3,11 +3,11 @@
 namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\Utility\Inflector;
+use FriendsOfBabba\Core\Export\Crud\CrudExcelDocument;
 use FriendsOfBabba\Core\Model\Crud\Filter;
 use FriendsOfBabba\Core\Model\Crud\Form;
 use FriendsOfBabba\Core\Model\Crud\FormInput;
 use FriendsOfBabba\Core\Model\Crud\Grid;
-use FriendsOfBabba\Core\Model\Crud\GridColumn;
 use FriendsOfBabba\Core\Model\Crud\GridField;
 use FriendsOfBabba\Core\Model\Entity\Role;
 use FriendsOfBabba\Core\Model\Entity\User;
@@ -35,6 +35,8 @@ class BaseTable extends \Cake\ORM\Table
 		$grid = new Grid();
 		$grid->setTitle(Inflector::humanize($this->getAlias()));
 		$grid->addFilter((new Filter("q"))->alwaysOn());
+		$grid->addExporter("xlsx", new CrudExcelDocument($grid));
+		$grid->setSort($this->getAlias() . ".id", Grid::ORDER_ASC);
 		$columns = $this->getSchema()->columns();
 		foreach ($columns as $columnName) {
 			if (in_array($columnName, ['deleted', 'password'])) {
@@ -42,6 +44,7 @@ class BaseTable extends \Cake\ORM\Table
 			}
 			$column = GridField::create($columnName, Inflector::humanize($columnName));
 			$column->setExportable(TRUE);
+			$column->setSortBy($this->getAlias() . "." . $columnName);
 
 			$type = $this->getSchema()->getColumnType($columnName);
 			switch ($type) {

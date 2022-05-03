@@ -20,6 +20,12 @@ class GridField extends Component
 	 * @var string
 	 */
 	public ?string $label;
+	/**
+	 * Name of the column for sorting.
+	 *
+	 * @var string
+	 */
+	public ?string $sortBy;
 
 	/**
 	 * Indicates if the column is sortable.
@@ -76,6 +82,12 @@ class GridField extends Component
 	public function setComponent(string $component): GridField
 	{
 		parent::setComponent($component);
+		return $this;
+	}
+
+	public function setSortBy(string $sortBy): GridField
+	{
+		$this->sortBy = $sortBy;
 		return $this;
 	}
 

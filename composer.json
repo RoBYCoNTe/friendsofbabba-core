@@ -11,7 +11,8 @@
         "friendsofcake/crud": "^6.0",
         "friendsofcake/search": "^6.2",
         "firebase/php-jwt": "^5.4",
-        "salines/cakephp4-soft-delete": "~1.0"
+        "salines/cakephp4-soft-delete": "~1.0",
+        "phpoffice/phpspreadsheet": "^1.23"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5 || ^9.3"

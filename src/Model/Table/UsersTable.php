@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Model\Table;
 
+use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
+use FriendsOfBabba\Core\Export\Crud\CrudExcelDocument;
+use FriendsOfBabba\Core\Export\Crud\CrudExcelSheet;
 use FriendsOfBabba\Core\Model\Crud\Filter;
 use FriendsOfBabba\Core\Model\Crud\Form;
 use FriendsOfBabba\Core\Model\Crud\FormInput;
@@ -135,6 +138,14 @@ class UsersTable extends BaseTable
     {
         $grid = parent::getGrid($user);
         $grid->getField("status")->setComponent("ChipField");
+        /** @var CrudExcelDocument */
+        $excelExporter = $grid->getExporter('xlsx');
+        /** @var CrudExcelSheet */
+        $excelSheet = $excelExporter->getSheet(0);
+        $excelSheet->setPrepareQueryCallback(function (Query $query) {
+            return $query->contain(['UserProfiles']);
+        });
+
         $grid
             ->addField(
                 GridField::create("roles", "Roles")

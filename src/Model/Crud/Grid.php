@@ -3,6 +3,7 @@
 namespace FriendsOfBabba\Core\Model\Crud;
 
 use Cake\Collection\Collection;
+use FriendsOfBabba\Core\Export\BaseExportable;
 
 /**
  * Provide an easy way to describe a grid.
@@ -50,6 +51,12 @@ class Grid extends Component
 	 * @var array
 	 */
 	public array $sort = ['field' => 'id', 'order' => self::ORDER_ASC];
+	/**
+	 * List of available export.
+	 *
+	 * @var array
+	 */
+	public array $exportTo = [];
 
 	/**
 	 * Indicates from which dimensions the grid should be displayed as simple list.
@@ -74,11 +81,37 @@ class Grid extends Component
 	 */
 	public array $columns = [];
 
+	private array $_exportable = [];
+
 	public function __construct()
 	{
 		parent::__construct("Datagrid");
 	}
 
+	/**
+	 * Add new exporter to list of available export.
+	 * The exporter will be automatically visible in list of exporter into UI.
+	 *
+	 * @param string $ext
+	 * 	Extension associated.
+	 * @param BaseExportable $exportable
+	 * 	Exportable object.
+	 * @return Grid
+	 */
+	public function addExporter(string $ext, BaseExportable $exportable): Grid
+	{
+		$this->exportTo[] = $ext;
+		$this->_exportable[$ext] = $exportable;
+		return $this;
+	}
+
+	public function getExporter(string $ext): ?BaseExportable
+	{
+		if (!isset($this->_exportable[$ext])) {
+			throw new \Exception(sprintf("Exporter for extension %s is not defined.", $ext));
+		}
+		return $this->_exportable[$ext];
+	}
 
 	public function addField(GridField $column, ?string $beforeOrAfter = NULL, ?string $source = NULL): Grid
 	{
