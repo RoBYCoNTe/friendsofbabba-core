@@ -56,7 +56,7 @@ class CrudController extends AppController
 			->order([$sort => $direction]);
 		$exporter->generate($query);
 		return $this->response->withFile($exporter->export(), [
-			'filename' => "{$model}.xlsx",
+			'name' => "{$model}.xlsx",
 			'download' => true
 		]);
 	}
