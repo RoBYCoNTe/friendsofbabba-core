@@ -11,6 +11,7 @@ use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Utility\Inflector;
+use FriendsOfBabba\Core\Model\CrudManager;
 use FriendsOfBabba\Core\PluginManager;
 use FriendsOfBabba\Core\Workflow\WorkflowRegistry;
 
@@ -37,9 +38,10 @@ class CreateFilesCommand extends Command
 		$parser->addArgument('entity', ['required' => true]);
 		$parser->addOption('namespace', ['short' => 'n', 'default' => "App\Workflow"]);
 		$parser->addOption('states', ['short' => 's', 'required' => true, 'help' => 'List of states separated by comma', 'default' => 'Draft,Approved']);
-		$parser->addOption('transitions', ['short' => 'r', 'required' => true, 'help' => 'List of transitions separated by comma: state1:state2']);
+		$parser->addOption('transitions', ['short' => 't', 'required' => true, 'help' => 'List of transitions separated by comma: state1:state2']);
 		$parser->addOption('erase', ['short' => 'e', 'required' => false, 'help' => 'Erase workflow files before creation (you lost everything!)']);
 		$parser->addOption('theme', ['short' => 't', 'required' => false, 'help' => 'Theme to use for generating files', 'default' => 'FriendsOfBabba/Core']);
+		$parser->addOption('roles', ['short' => 'r', 'required' => false, 'help' => 'Roles to use for generating files', 'default' => 'admin,user']);
 
 		return $parser;
 	}
@@ -86,8 +88,13 @@ class CreateFilesCommand extends Command
 	{
 		$entity = $args->getArgument('entity');
 		$theme = $args->getOption('theme');
+		$roles = $args->getOption('roles');
+		$roles = explode(',', $roles);
 		$namespace = $args->getOption('namespace');
+
 		$io->out(sprintf("\nBaking state class for %s...\n", $state));
+
+		$viewConfig = CrudManager::getInstance()->getViewConfig($entity, NULL);
 
 		$renderer = new TemplateRenderer($theme);
 		$renderer->set([
@@ -98,6 +105,8 @@ class CreateFilesCommand extends Command
 				'label' => Inflector::humanize($state),
 			],
 			'namespace' => $namespace,
+			'inputs' => $viewConfig->form->inputs,
+			'roles' => $roles,
 		]);
 		$out = $renderer->generate('Workflow/state');
 		$filepath = sprintf("%s/Workflow/%s/States/%s.php", APP, Inflector::pluralize($entity), Inflector::camelize($state));

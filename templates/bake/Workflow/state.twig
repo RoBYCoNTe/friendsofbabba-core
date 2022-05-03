@@ -21,15 +21,20 @@ class {{ state.name }} extends State
 			->withDescription(__d("workflow", "{{ state.description }} "))
 			->setIsInitial(TRUE)
 			->setPermissions([
-				// Example:
-				Role::ADMIN => ['create' => true, 'read' => true, 'edit' => true, 'move' => true]
+{% for role in roles %}
+				"{{ role }}" => ['create' => true, 'read' => true, 'edit' => true, 'move' => true],
+{% endfor %}
 			])
 			->setFieldsPermissions([
-				// Example:
-				// 'user_id' => [
-				// 	Role::ADMIN => ['edit' => true],
-				// 	Role::USER => ['edit' => false, 'read' => true]
-				// ],
-			]);
+{% for input in inputs %}
+	{%- if input.useWorkflow %}
+		"{{ input.source }}" => [
+		{% for role in roles %}
+			"{{ role }}" => ['read' => true, 'edit' => true],
+		{% endfor %}
+		],
+	{% endif %}
+{% endfor %}
+	]);
 	}
 }

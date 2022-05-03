@@ -15,6 +15,14 @@ class FormInput extends Component
 	 */
 	public string $label;
 
+	/**
+	 * Indicates if the input must be wrapped inside a Workflow Input
+	 * with automatic permissions handling based on workflow specs.
+	 *
+	 * @var boolean|null
+	 */
+	public ?bool $useWorkflow;
+
 
 	public function __construct(string $source, string $label, string $component = "TextInput", array $componentProps = [])
 	{
@@ -51,6 +59,12 @@ class FormInput extends Component
 	public function setComponentProp(string $name, mixed $value = NULL): FormInput
 	{
 		parent::setComponentProp($name, $value);
+		return $this;
+	}
+
+	public function setUseWorkflow(?bool $useWorkflow = TRUE): FormInput
+	{
+		$this->useWorkflow = $useWorkflow;
 		return $this;
 	}
 

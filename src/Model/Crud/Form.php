@@ -46,7 +46,7 @@ class Form extends Component
 	 *
 	 * @var boolean
 	 */
-	public bool $hasWorkflow = FALSE;
+	public bool $useWorkflow = FALSE;
 
 	public array $inputs = [];
 
@@ -107,9 +107,9 @@ class Form extends Component
 		return $this;
 	}
 
-	public function setHasWorkflow(bool $hasWorkflow): Form
+	public function setUseWorkflow(?bool $useWorkflow): Form
 	{
-		$this->hasWorkflow = $hasWorkflow;
+		$this->useWorkflow = $useWorkflow;
 		return $this;
 	}
 }

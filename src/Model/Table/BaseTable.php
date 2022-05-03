@@ -78,11 +78,14 @@ class BaseTable extends \Cake\ORM\Table
 		$form = new Form();
 		$form->setRedirect(Form::REDIRECT_LIST);
 		$columns = $this->getSchema()->columns();
+		$workflow = WorkflowRegistry::getInstance()->resolve($this->getAlias());
+		$form->setUseWorkflow(!is_null($workflow));
 		foreach ($columns as $columnName) {
 			if (in_array($columnName, ['id', 'created', 'modified', 'deleted'])) {
 				continue;
 			}
 			$formInput = FormInput::create($columnName, Inflector::humanize($columnName));
+			$formInput->setUseWorkflow($form->useWorkflow);
 
 			$type = $this->getSchema()->getColumnType($columnName);
 			switch ($type) {
@@ -100,22 +103,21 @@ class BaseTable extends \Cake\ORM\Table
 			$form->addInput($formInput);
 		}
 
-		$workflow = WorkflowRegistry::getInstance()->resolve($this->getAlias());
-		$form->setHasWorkflow(!is_null($workflow));
+
 		if (!is_null($workflow)) {
 
 			$form->addInput(FormInput::create("notes", "Notes")
 				->setComponent("TransactionNotesInput")
 				->setComponentProp("helperText", "Notes for this transaction")
-				->setComponentProp("admin", $user->hasRole(Role::ADMIN))
+				->setComponentProp("admin", !is_null($user) ? $user->hasRole(Role::ADMIN) : FALSE)
 				->fullWidth());
 			$form->addInput(FormInput::create("is_private", "Is Private")
 				->setComponent("TransactionNotesIsPrivateInput")
-				->setComponentProp("admin", $user->hasRole(Role::ADMIN))
+				->setComponentProp("admin", !is_null($user) ? $user->hasRole(Role::ADMIN) : FALSE)
 				->fullWidth());
 			$form->addInput(FormInput::create("logs", "Logs")
 				->setComponent("TransactionLogsField")
-				->setComponentProp("admin", $user->hasRole(Role::ADMIN)));
+				->setComponentProp("admin", !is_null($user) ? $user->hasRole(Role::ADMIN) : FALSE));
 		}
 		return $form;
 	}
