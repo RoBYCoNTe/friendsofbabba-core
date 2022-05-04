@@ -48,10 +48,10 @@ class InstallDbCommand extends Command
 
 		// Execution order is important, please do not change it without good reason.
 		$packages = [
+			'user' => \FriendsOfBabba\Core\Command\Install\Db\UserInstaller::class,
 			'versions' => \FriendsOfBabba\Core\Command\Install\Db\VersionInstaller::class,
 			'commands' => \FriendsOfBabba\Core\Command\Install\Db\CommandInstaller::class,
 			'language' => \FriendsOfBabba\Core\Command\Install\Db\LanguageInstaller::class,
-			'user' => \FriendsOfBabba\Core\Command\Install\Db\UserInstaller::class,
 			'media' => \FriendsOfBabba\Core\Command\Install\Db\MediaInstaller::class,
 			'data' => \FriendsOfBabba\Core\Command\Install\Db\DataInstaller::class,
 			'ticket' => \FriendsOfBabba\Core\Command\Install\Db\TicketInstaller::class

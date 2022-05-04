@@ -89,6 +89,18 @@ class Grid extends Component
 	}
 
 	/**
+	 * Disable bottom pagination component for the grid.
+	 * This is useful when the grid is used in custom ways.
+	 *
+	 * @return Grid
+	 */
+	public function disablePagination(): Grid
+	{
+		$this->pagination = NULL;
+		return $this;
+	}
+
+	/**
 	 * Add new exporter to list of available export.
 	 * The exporter will be automatically visible in list of exporter into UI.
 	 *
