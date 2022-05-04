@@ -62,13 +62,13 @@ class {{ name }}Table extends BaseTable
         $this->addBehavior('{{ behavior }}'{{ (behaviorData ? (", " ~ Bake.exportArray(behaviorData, 2)|raw ~ '') : '')|raw }});
 {% endfor %}
 		$this->addBehavior('Search.Search', ['collectionClass' => \App\Model\Filter\{{ name|singularize }}Collection::class]);
-{%- if associations.belongsTo or associations.hasMany or associations.belongsToMany %}
+
 
         // Worflow relationships
         // Relationship with current (last) transaction for {{ name }}
         $this->hasOne('Transactions', [
             'foreignKey' => 'record_id',
-            'className' => 'transaction',
+            'className' => '{{ name|singularize|camelize }}Transactions',
             'propertyName' => 'transaction',
             'dependent' => true,
             'conditions' => ['Transactions.is_current' => true]
@@ -77,11 +77,10 @@ class {{ name }}Table extends BaseTable
         // Relationship with all transaction for {{ name }}
         $this->hasMany('AllTransactions', [
             'foreignKey' => 'record_id',
+            'className' => '{{ name|singularize|camelize }}Transactions',
             'propertyName' => 'all_transactions',
             'dependent' => true
         ]);
-
-{% endif %}
 
 {%- for type, assocs in associations %}
     {%- for assoc in assocs %}

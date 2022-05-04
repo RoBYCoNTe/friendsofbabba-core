@@ -9,4 +9,5 @@ class ViewConfig
 {
 	public ?Grid $grid;
 	public ?Form $form;
+	public ?Badge $badge;
 }

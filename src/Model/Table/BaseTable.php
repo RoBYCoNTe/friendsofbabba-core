@@ -4,6 +4,7 @@ namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\Utility\Inflector;
 use FriendsOfBabba\Core\Export\Crud\CrudExcelDocument;
+use FriendsOfBabba\Core\Model\Crud\Badge;
 use FriendsOfBabba\Core\Model\Crud\Filter;
 use FriendsOfBabba\Core\Model\Crud\Form;
 use FriendsOfBabba\Core\Model\Crud\FormInput;
@@ -94,7 +95,6 @@ class BaseTable extends \Cake\ORM\Table
 			switch ($type) {
 				case 'datetime':
 					$formInput->component = 'DateTimeInput';
-					$formInput->componentProps = ['showTime' => true];
 					break;
 				case 'boolean':
 					$formInput->component = 'BooleanInput';
@@ -123,5 +123,12 @@ class BaseTable extends \Cake\ORM\Table
 				->setComponentProp("admin", !is_null($user) ? $user->hasRole(Role::ADMIN) : FALSE));
 		}
 		return $form;
+	}
+
+	public function getBadge(?User $user): Badge
+	{
+		$count = $this->find()->count();
+
+		return Badge::primary($count)->hide($count <= 0);
 	}
 }

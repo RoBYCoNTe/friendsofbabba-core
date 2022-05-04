@@ -74,10 +74,13 @@ class CrudManager
 
 		$grid = $table->getGrid($user);
 		$form = $table->getForm($user);
+		$badge = $table->getBadge($user);
 
 		$viewConfig = new ViewConfig();
 		$viewConfig->grid = $grid;
 		$viewConfig->form = $form;
+		$viewConfig->badge = $badge;
+
 		return $viewConfig;
 	}
 

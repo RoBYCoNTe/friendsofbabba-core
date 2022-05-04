@@ -19,7 +19,7 @@ class {{ state.name }} extends State
 		$this
 			->withLabel(__d("workflow", "{{ state.label }}"))
 			->withDescription(__d("workflow", "{{ state.description }} "))
-			->setIsInitial(TRUE)
+			->setIsInitial({{ state.isInitial ? 'true' : 'false' }})
 			->setPermissions([
 {% for role in roles %}
 				"{{ role }}" => ['create' => true, 'read' => true, 'edit' => true, 'move' => true],
@@ -27,13 +27,11 @@ class {{ state.name }} extends State
 			])
 			->setFieldsPermissions([
 {% for input in inputs %}
-	{%- if input.useWorkflow %}
-		"{{ input.source }}" => [
-		{% for role in roles %}
-			"{{ role }}" => ['read' => true, 'edit' => true],
-		{% endfor %}
-		],
-	{% endif %}
+				"{{ input.source }}" => [
+	{% for role in roles %}
+				"{{ role }}" => ['read' => true, 'edit' => true],
+	{% endfor %}
+			],
 {% endfor %}
 	]);
 	}

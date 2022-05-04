@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FriendsOfBabba\Core\Command\Entity;
 
 use Bake\Command\ModelCommand;
+use Cake\Command\CacheClearallCommand;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
@@ -58,5 +59,6 @@ class CreateCommand extends Command
 
 		$this->executeCommand(CreateFilterCollectionCommand::class, [$entity]);
 		$this->executeCommand(ModelCommand::class, $argv, $io);
+		$this->executeCommand(CacheClearallCommand::class);
 	}
 }

@@ -65,7 +65,7 @@ class Grid extends Component
 	 * @var string
 	 */
 	public string $mobileBreakpoint = self::MOBILE_BREAKPOINT_SM;
-	public string $mobilePrimaryText = "name";
+	public ?string $mobilePrimaryText = NULL;
 	public ?string $mobileSecondaryText = NULL;
 	public ?string $mobileTertiaryText = NULL;
 

@@ -140,6 +140,7 @@ class UsersTable extends BaseTable
         $grid->getField("status")->setComponent("ChipField");
         /** @var CrudExcelDocument */
         $excelExporter = $grid->getExporter('xlsx');
+
         /** @var CrudExcelSheet */
         $excelSheet = $excelExporter->getSheet(0);
         $excelSheet->setPrepareQueryCallback(function (Query $query) {

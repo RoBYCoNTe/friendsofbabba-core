@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FriendsOfBabba\Core\Command\Workflow;
 
 use Bake\Utility\TemplateRenderer;
+use Cake\Command\CacheClearallCommand;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
@@ -40,7 +41,7 @@ class CreateFilesCommand extends Command
 		$parser->addOption('states', ['short' => 's', 'required' => true, 'help' => 'List of states separated by comma', 'default' => 'Draft,Approved']);
 		$parser->addOption('transitions', ['short' => 't', 'required' => true, 'help' => 'List of transitions separated by comma: state1:state2']);
 		$parser->addOption('erase', ['short' => 'e', 'required' => false, 'help' => 'Erase workflow files before creation (you lost everything!)']);
-		$parser->addOption('theme', ['short' => 't', 'required' => false, 'help' => 'Theme to use for generating files', 'default' => 'FriendsOfBabba/Core']);
+		$parser->addOption('theme', ['short' => 'h', 'required' => false, 'help' => 'Theme to use for generating files', 'default' => 'FriendsOfBabba/Core']);
 		$parser->addOption('roles', ['short' => 'r', 'required' => false, 'help' => 'Roles to use for generating files', 'default' => 'admin,user']);
 
 		return $parser;
@@ -76,16 +77,19 @@ class CreateFilesCommand extends Command
 
 	private function createStateFiles(Arguments $args, ConsoleIo $io): void
 	{
+		$this->executeCommand(CacheClearallCommand::class);
+
 		$states = $args->getOption('states');
 		$states = explode(',', $states);
 
-		foreach ($states as $state) {
-			$this->createStateFile($args, $io, $state);
+		foreach ($states as $index => $state) {
+			$this->createStateFile($args, $io, $state, $index === 0);
 		}
 	}
 
-	private function createStateFile(Arguments $args, ConsoleIo $io, string $state): void
+	private function createStateFile(Arguments $args, ConsoleIo $io, string $state, bool $isInitial = FALSE): void
 	{
+
 		$entity = $args->getArgument('entity');
 		$theme = $args->getOption('theme');
 		$roles = $args->getOption('roles');
@@ -103,6 +107,7 @@ class CreateFilesCommand extends Command
 				'code' => Inflector::underscore($state),
 				'name' => $state,
 				'label' => Inflector::humanize($state),
+				'isInitial' => $isInitial,
 			],
 			'namespace' => $namespace,
 			'inputs' => $viewConfig->form->inputs,

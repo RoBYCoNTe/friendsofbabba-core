@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Command\Workflow;
 
+use Cake\Command\CacheClearallCommand;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
@@ -11,6 +12,7 @@ use Cake\Console\ConsoleOptionParser;
 use Cake\Utility\Inflector;
 use FriendsOfBabba\Core\Command\Api\CreateCommand as ApiCreateCommand;
 use FriendsOfBabba\Core\Command\Entity\CreateCommand as EntityCreateCommand;
+use FriendsOfBabba\Core\Command\PermissionCommand;
 
 /**
  * Create Workflow.
@@ -67,6 +69,9 @@ class CreateCommand extends Command
 				break;
 			}
 		}
+
+		$this->executeCommand(CacheClearallCommand::class);
+		$this->executeCommand(PermissionCommand::class, ["scan"]);
 	}
 
 	/**

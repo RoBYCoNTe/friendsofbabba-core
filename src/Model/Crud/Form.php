@@ -112,4 +112,16 @@ class Form extends Component
 		$this->useWorkflow = $useWorkflow;
 		return $this;
 	}
+
+	public function setComponent(string $component): Form
+	{
+		parent::setComponent($component);
+		return $this;
+	}
+
+	public function setComponentProp(string $prop, mixed $value = NULL): Form
+	{
+		parent::setComponentProp($prop, $value);
+		return $this;
+	}
 }
