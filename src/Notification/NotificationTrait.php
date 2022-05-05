@@ -15,8 +15,8 @@ trait NotificationTrait
     {
         /** @var NotificationsTable $notifications */
         $notifications = TableRegistry::getTableLocator()
-            ->get(PluginManager::instance()
-                ->getModelFQN('Notifications'));
+            ->get(PluginManager::getInstance()
+                ->getFQN('Notifications'));
 
         $notifications->save($notification instanceof NotificationBuilder ? $notification->get() : $notification);
     }

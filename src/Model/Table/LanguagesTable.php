@@ -47,7 +47,7 @@ class LanguagesTable extends BaseTable
 
         $this->hasMany('LanguageMessages', [
             'foreignKey' => 'language_id',
-            'className' => PluginManager::instance()->getModelFQN('LanguageMessages'),
+            'className' => PluginManager::getInstance()->getFQN('LanguageMessages'),
             'propertyName' => 'messages',
             'saveStrategy' => 'append',
             'dependent' => true,

@@ -28,15 +28,13 @@ class UsersController extends AppController
 	 */
 	public function initialize(): void
 	{
-		$modelName = PluginManager::instance()->getModelFQN('Users');
-
 		parent::initialize();
 
-		$this->loadModel($modelName);
-		$this->loadModel(PluginManager::instance()->getModelFQN('UserProfiles'));
+		$this->loadModel(PluginManager::getInstance()->getFQN('Users'));
+		$this->loadModel(PluginManager::getInstance()->getFQN('UserProfiles'));
 
-		$this->Authentication->allowUnauthenticated(['login']);
-		$this->Crud->useModel($modelName);
+		$this->Authentication->allowUnauthenticated(['login', 'add']);
+		$this->Crud->useModel(PluginManager::getInstance()->getFQN('Users'));
 	}
 
 	public function login()
@@ -63,15 +61,6 @@ class UsersController extends AppController
 					'full_name' => $user->profile->full_name
 				]
 			];
-
-			$loginData = new LoginData($user, $json);
-			$hookName = 'Controller/Api/Users.login(success)';
-			$response = HookManager::instance()->fire($hookName, $loginData);
-			if (!is_null($response)) {
-				$json = $response;
-			} else {
-				$json = $loginData->getJson();
-			}
 		} else {
 			$this->response = $this->response->withStatus(401);
 			$json = [
@@ -80,11 +69,6 @@ class UsersController extends AppController
 					'message' => __d('babba', 'Invalid username or password')
 				]
 			];
-			$hookName = 'Controller/Api/Users.login(failed)';
-			$response = HookManager::instance()->fire($hookName, $json);
-			if (!is_null($response)) {
-				$json = $response;
-			}
 		}
 		$this->set(compact('json'));
 		$this->viewBuilder()->setOption('serialize', 'json');

@@ -24,7 +24,7 @@ class WorkflowController extends AppController
 	public function initialize(): void
 	{
 		parent::initialize();
-		$this->loadModel(PluginManager::instance()->getModelFQN("Transactions"));
+		$this->loadModel(PluginManager::getInstance()->getFQN("Transactions"));
 		$this->Authentication->addUnauthenticatedActions(['resolve', 'load']);
 	}
 

@@ -99,6 +99,18 @@ $routes->plugin(
 				'action' => 'export',
 				'prefix' => 'api'
 			], ['pass' => ['resource', 'extension']]);
+
+			$builder->connect('/spid/:action', [
+				'controller' => 'Spid',
+				'prefix' => 'api'
+			], ['pass' => ['action']]);
+			$builder->connect('/spid', [
+				'controller' => 'Spid',
+				'action' => 'add',
+				'prefix' => 'api'
+			], [
+				'_method' => 'POST'
+			]);
 		});
 
 		$routes->setRouteClass(DashedRoute::class);

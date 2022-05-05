@@ -92,8 +92,8 @@ class Plugin extends BasePlugin implements AuthenticationServiceProviderInterfac
      */
     public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
     {
-        $hookName = PluginManager::instance()->getHookFQN('Plugin.getAuthenticationService');
-        $serviceOverride = HookManager::instance()->fire($hookName, $request);
+        $hookName = PluginManager::getInstance()->getFQN('Plugin.getAuthenticationService');
+        $serviceOverride = HookManager::getInstance()->fire($hookName, NULL, $request);
         if (!is_null($serviceOverride)) {
             if ($serviceOverride instanceof AuthenticationServiceInterface) {
                 return $serviceOverride;
@@ -131,7 +131,7 @@ class Plugin extends BasePlugin implements AuthenticationServiceProviderInterfac
         $service->loadIdentifier('Authentication.JwtSubject', [
             'resolver' => [
                 'className' => 'Authentication.Orm',
-                'userModel' => PluginManager::instance()->getModelFQN('Users')
+                'userModel' => PluginManager::getInstance()->getFQN('Users')
             ]
         ]);
         $service->loadIdentifier('Authentication.Password', [
@@ -139,7 +139,7 @@ class Plugin extends BasePlugin implements AuthenticationServiceProviderInterfac
             'fields' => $fields,
             'resolver' => [
                 'className' => 'Authentication.Orm',
-                'userModel' => PluginManager::instance()->getModelFQN('Users')
+                'userModel' => PluginManager::getInstance()->getFQN('Users')
             ]
         ]);
 

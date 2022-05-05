@@ -35,8 +35,8 @@ abstract class WorkflowBase
     public function __construct()
     {
         $this->Transactions = TableRegistry::getTableLocator()
-            ->get(PluginManager::instance()
-                ->getModelFQN('Transactions'));
+            ->get(PluginManager::getInstance()
+                ->getFQN('Transactions'));
     }
 
     /**

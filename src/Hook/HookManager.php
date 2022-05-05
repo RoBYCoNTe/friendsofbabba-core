@@ -11,7 +11,7 @@ class HookManager
 	 *
 	 * @return \FriendsOfBabba\Core\Hook\HookManager
 	 */
-	public static function instance()
+	public static function getInstance()
 	{
 		if (is_null(self::$_instance)) {
 			self::$_instance = new HookManager();
@@ -46,11 +46,16 @@ class HookManager
 	 *
 	 * @return \FriendsOfBabba\Core\Hook\HookManager
 	 */
-	public function add(string $hookName, callable $event)
+	public function add(string $hookName, callable $event): HookManager
 	{
-		$this->_list->add($this->name($hookName), $event);
+		$this->_list->add($hookName, $event);
 
 		return $this;
+	}
+
+	public function on(string $hookName, callable $event): HookManager
+	{
+		return $this->add($hookName, $event);
 	}
 
 	/**
@@ -58,26 +63,15 @@ class HookManager
 	 *
 	 * @param string $hookName
 	 * 	Name of the hook for which fire events.
+	 * @param mixed $defaultResult
+	 * 	Default result to return if no events are registered.
 	 * @param mixed ...$params
 	 * 	List of dynamic parameters for the event.
 	 * @return mixed|null
 	 * 	Null or result of the last called event.
 	 */
-	public function fire(string $hookName, mixed ...$params)
+	public function fire(string $hookName, mixed $defaultResult, mixed ...$params): mixed
 	{
-		return $this->_list->fire($this->name($hookName), ...$params);
-	}
-
-	/**
-	 * Generate FQHN (Fully Qualified Hook Name) for specific event.
-	 *
-	 * @param string $hookName
-	 * 	Name of the hook for which generate the FQHN
-	 * @return string
-	 * 	Returns FQHN.
-	 */
-	public function name(string $hookName)
-	{
-		return "FriendsOfBabba/Core/$hookName";
+		return $this->_list->fire($hookName, $defaultResult, ...$params);
 	}
 }

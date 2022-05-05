@@ -50,7 +50,7 @@ class RolePermissionsTable extends BaseTable
         $this->belongsTo('Roles', [
             'foreignKey' => 'role_id',
             'joinType' => 'INNER',
-            'className' => PluginManager::instance()->getModelFQN('Roles'),
+            'className' => PluginManager::getInstance()->getFQN('Roles'),
         ]);
     }
 

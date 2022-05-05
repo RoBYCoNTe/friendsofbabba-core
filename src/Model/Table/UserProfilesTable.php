@@ -50,7 +50,7 @@ class UserProfilesTable extends BaseTable
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
-            'className' => PluginManager::instance()->getModelFQN('Users'),
+            'className' => PluginManager::getInstance()->getFQN('Users'),
         ]);
     }
 

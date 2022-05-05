@@ -95,7 +95,7 @@ class CrudManager
 	public function getTable(string $entity): ?BaseTable
 	{
 		$aliases = [
-			PluginManager::instance()->getModelFQN($entity),
+			PluginManager::getInstance()->getFQN($entity),
 			$entity
 		];
 		foreach ($aliases as $alias) {

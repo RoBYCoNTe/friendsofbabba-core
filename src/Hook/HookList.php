@@ -47,15 +47,17 @@ class HookList
 	 *
 	 * @param string $hookName
 	 * 	Name of the hook for which retrieve and execute events.
+	 * @param mixed $defaultResult
+	 *  Default result to return if no events are registered.
 	 * @param mixed ...$params
 	 * 	Dynamic list of parameter for the event.
 	 * @return mixed
 	 * 	Can be null or the last processed event result.
 	 */
-	public function fire(string $hookName, mixed ...$params)
+	public function fire(string $hookName, mixed $defaultResult,  mixed ...$params)
 	{
 		$hookEvents = $this->getEvents($hookName);
-		$result = NULL;
+		$result = $defaultResult;
 		foreach ($hookEvents as $hookEvent) {
 			$result = call_user_func($hookEvent, ...$params);
 		}

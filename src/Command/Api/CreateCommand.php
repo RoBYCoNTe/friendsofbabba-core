@@ -55,7 +55,7 @@ class CreateCommand extends Command
 
 		$renderer = new TemplateRenderer('');
 		$renderer->set(['name' => Inflector::pluralize($entity)]);
-		$out = $renderer->generate(PluginManager::instance()->getFQN('Controller/Api/controller'));
+		$out = $renderer->generate(PluginManager::getInstance()->getFQN('Controller/Api/controller'));
 		$filename = sprintf('%s/Controller/Api/%sController.php', APP, Inflector::pluralize($entity));
 
 		$io->createFile($filename, $out);

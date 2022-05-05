@@ -54,7 +54,7 @@ class RolesTable extends BaseTable
 
         $this->hasMany('RolePermissions', [
             'foreignKey' => 'role_id',
-            'className' => PluginManager::instance()->getModelFQN('RolePermissions'),
+            'className' => PluginManager::getInstance()->getFQN('RolePermissions'),
             'propertyName' => 'permissions',
             'saveStrategy' => 'replace',
             'dependent' => true
@@ -63,7 +63,7 @@ class RolesTable extends BaseTable
             'foreignKey' => 'role_id',
             'targetForeignKey' => 'user_id',
             'joinTable' => 'users_roles',
-            'className' => PluginManager::instance()->getModelFQN('Users'),
+            'className' => PluginManager::getInstance()->getFQN('Users'),
         ]);
     }
 

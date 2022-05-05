@@ -21,7 +21,7 @@ class LanguageMessagesController extends AppController
 	{
 		parent::initialize();
 
-		$this->Crud->useModel(PluginManager::instance()->getModelFQN('LanguageMessages'));
+		$this->Crud->useModel(PluginManager::getInstance()->getFQN('LanguageMessages'));
 	}
 
 	public function index()

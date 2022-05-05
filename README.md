@@ -152,9 +152,9 @@ class TableNameTables extends BaseTable {
 ...other code...
 
   public function initialize(array $config) {
-    $this->addBehavior(PluginManager::instance()->getFQN('Media'), ['media']));
+    $this->addBehavior(PluginManager::getInstance()->getFQN('Media'), ['media']));
     $this->belongsTo('Media', [
-        'className' => PluginManager::instance()->getFQN('Media'),
+        'className' => PluginManager::getInstance()->getFQN('Media'),
         'foreignKey' => 'media_id',
         'joinType' => 'LEFT',
         'propertyName' => 'media'
@@ -199,9 +199,9 @@ class TableNameTables extends BaseTable {
 ...other code...
 
   public function initialize(array $config) {
-    $this->addBehavior(PluginManager::instance()->getFQN('Media'), ['media']));
+    $this->addBehavior(PluginManager::getInstance()->getFQN('Media'), ['media']));
     $this->belongsToMany('MediaCollection', [
-        'className' => PluginManager::instance()->getFQN('Media'),
+        'className' => PluginManager::getInstance()->getFQN('Media'),
         'foreignKey' => 'media_id',
         'joinType' => 'LEFT',
         'propertyName' => 'media_collection'

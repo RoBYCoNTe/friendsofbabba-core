@@ -16,7 +16,7 @@ class NotificationComponent extends Component
 {
 	public function initialize(array $config): void
 	{
-		$modelName = PluginManager::instance()->getFQN('Notifications');
+		$modelName = PluginManager::getInstance()->getFQN('Notifications');
 		$this->Notifications = TableRegistry::getTableLocator()->get($modelName);
 	}
 

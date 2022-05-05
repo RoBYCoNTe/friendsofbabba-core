@@ -28,7 +28,7 @@ class TransactionsTable extends BaseTable
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
             'propertyName' => 'user',
-            'className' => PluginManager::instance()->getModelFQN('Users')
+            'className' => PluginManager::getInstance()->getFQN('Users')
         ]);
 
         $this->addBehavior('Timestamp');

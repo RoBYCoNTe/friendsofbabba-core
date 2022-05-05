@@ -10,13 +10,11 @@ use Cake\Controller\Component\RequestHandlerComponent;
 use Cake\Controller\Controller;
 use Cake\Event\EventInterface;
 use Cake\Http\Exception\UnauthorizedException;
-use Cake\ORM\Query;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
 use Crud\Controller\Component\CrudComponent;
 use Crud\Controller\ControllerTrait;
 use FriendsOfBabba\Core\Controller\Component\NotificationComponent;
-use FriendsOfBabba\Core\Hook\HookManager;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Table\UsersTable;
 use FriendsOfBabba\Core\PluginManager;
@@ -63,12 +61,6 @@ class AppController extends Controller
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
-
-        $hookName = PluginManager::instance()->getHookFQN('Controller/Api/App.beforeFilter');
-        $return = HookManager::instance()->fire($hookName, $event);
-        if ($return === true) {
-            return;
-        }
 
         $subject = $event->getSubject();
         $action = $subject->request->getParam("action");
@@ -118,7 +110,7 @@ class AppController extends Controller
 
         $user = $result->getData();
 
-        $modelName = PluginManager::instance()->getModelFQN('Users');
+        $modelName = PluginManager::getInstance()->getFQN('Users');
 
         /** @var UsersTable */
         $repository = TableRegistry::getTableLocator()->get($modelName);
@@ -130,15 +122,14 @@ class AppController extends Controller
             ])
             ->where(['Users.id' => $user->id]);
 
-        $hookName = 'Controller/Api/App.getUser';
-        $queryOverride = HookManager::instance()->fire($hookName, $query, $user);
-
-        if (!is_null($queryOverride) && $queryOverride instanceof Query) {
-            $query = $queryOverride;
-        }
-
         $user = $query->first();
         return $user;
+    }
+
+    public function useModel(string $model): void
+    {
+        $this->Crud->useModel($model);
+        $this->modelClass = $model;
     }
 
     public function implementedEvents(): array

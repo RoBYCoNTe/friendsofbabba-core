@@ -25,9 +25,9 @@ class AddCommand extends Command
     public function initialize(): void
     {
         parent::initialize();
-        $this->loadModel(PluginManager::instance()->getModelFQN('Users'));
-        $this->loadModel(PluginManager::instance()->getModelFQN('Roles'));
-        $this->loadModel(PluginManager::instance()->getModelFQN('UserProfiles'));
+        $this->loadModel(PluginManager::getInstance()->getFQN('Users'));
+        $this->loadModel(PluginManager::getInstance()->getFQN('Roles'));
+        $this->loadModel(PluginManager::getInstance()->getFQN('UserProfiles'));
     }
     /**
      * Hook method for defining this command's option parser.

@@ -67,14 +67,14 @@ class UsersTable extends BaseTable
             'targetForeignKey' => 'role_id',
             'joinTable' => 'users_roles',
             'saveStrategy' => 'replace',
-            'className' => PluginManager::instance()->getModelFQN('Roles')
+            'className' => PluginManager::getInstance()->getFQN('Roles')
         ]);
 
         $this->hasOne('UserProfiles', [
             'foreignKey' => 'user_id',
             'propertyName' => 'profile',
             'dependent' => true,
-            'className' => PluginManager::instance()->getModelFQN('UserProfiles')
+            'className' => PluginManager::getInstance()->getFQN('UserProfiles')
         ]);
     }
 

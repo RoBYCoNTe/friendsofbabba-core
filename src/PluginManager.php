@@ -12,17 +12,12 @@ class PluginManager
 {
 	private static $_instance = null;
 
-	public function getName(): string
-	{
-		return 'FriendsOfBabba/Core';
-	}
-
 	/**
 	 * Get instance.
 	 *
 	 * @return \FriendsOfBabba\Core\PluginManager
 	 */
-	public static function instance()
+	public static function getInstance()
 	{
 		if (is_null(self::$_instance)) {
 			self::$_instance = new PluginManager();
@@ -30,31 +25,10 @@ class PluginManager
 		return self::$_instance;
 	}
 
-	/**
-	 * Returns fully qualified name for specific hook.
-	 * This method is an alias for \FriendsOfBabba\Core\Hook\HookManager::instance()->name('hookName');
-	 *
-	 * @param string $hookName
-	 * 	Partial Name of the hook.
-	 * @return string
-	 * 	Returns FQN.
-	 */
-	public function getHookFQN(string $hookName)
-	{
-		return HookManager::instance()->name($hookName);
-	}
 
-	/**
-	 * Returns fully qualified name for plugin's models.
-	 *
-	 * @param string $model
-	 * 	Name of the model.
-	 * @return string
-	 * 	Returns FQN.
-	 */
-	public function getModelFQN(string $model)
+	public function getName(): string
 	{
-		return $this->getName() . "." . $model;
+		return 'FriendsOfBabba/Core';
 	}
 
 	/**

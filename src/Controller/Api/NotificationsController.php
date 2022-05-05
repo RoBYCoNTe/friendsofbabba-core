@@ -17,7 +17,7 @@ class NotificationsController extends AppController
 	{
 		parent::initialize();
 
-		$this->Crud->useModel(PluginManager::instance()->getFQN('Notifications'));
+		$this->Crud->useModel(PluginManager::getInstance()->getFQN('Notifications'));
 	}
 
 	public function index()

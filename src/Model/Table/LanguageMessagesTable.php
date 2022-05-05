@@ -47,7 +47,7 @@ class LanguageMessagesTable extends BaseTable
         $this->belongsTo('Languages', [
             'foreignKey' => 'language_id',
             'joinType' => 'INNER',
-            'className' => PluginManager::instance()->getModelFQN('Languages'),
+            'className' => PluginManager::getInstance()->getFQN('Languages'),
         ]);
 
         $this->addBehavior('Search.Search', ['collectionClass' => LanguageMessageCollection::class]);

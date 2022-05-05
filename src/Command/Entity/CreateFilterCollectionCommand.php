@@ -49,7 +49,7 @@ class CreateFilterCollectionCommand extends Command
 			'nameSingular' => Inflector::singularize($entity),
 			'name' => Inflector::pluralize($entity)
 		]);
-		$out = $renderer->generate(PluginManager::instance()->getFQN('Model/filter'));
+		$out = $renderer->generate(PluginManager::getInstance()->getFQN('Model/filter'));
 		$filename = sprintf('%s/Model/Filter/%sCollection.php', APP, Inflector::singularize($entity));
 		$io->createFile($filename, $out);
 	}

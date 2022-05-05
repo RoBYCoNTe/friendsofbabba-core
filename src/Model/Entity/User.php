@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace FriendsOfBabba\Core\Model\Entity;
 
 use Authentication\PasswordHasher\DefaultPasswordHasher;
+use FriendsOfBabba\Core\Hook\Hook;
+use FriendsOfBabba\Core\Hook\Hookable;
+use FriendsOfBabba\Core\Hook\HookManager;
+use FriendsOfBabba\Core\PluginManager;
 
 /**
  * User Entity
@@ -24,6 +28,7 @@ use Authentication\PasswordHasher\DefaultPasswordHasher;
  */
 class User extends BaseEntity
 {
+
 	/**
 	 * Fields that can be mass assigned using newEntity() or patchEntity().
 	 *

@@ -52,7 +52,7 @@ class CommandLogRowsTable extends BaseTable
         $this->belongsTo('CommandLogs', [
             'foreignKey' => 'command_log_id',
             'joinType' => 'INNER',
-            'className' => PluginManager::instance()->getModelFQN('CommandLogs'),
+            'className' => PluginManager::getInstance()->getFQN('CommandLogs'),
         ]);
     }
 

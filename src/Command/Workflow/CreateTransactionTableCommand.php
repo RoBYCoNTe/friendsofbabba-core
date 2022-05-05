@@ -25,7 +25,7 @@ class CreateTransactionTableCommand extends Command
     public function initialize(): void
     {
         parent::initialize();
-        $this->loadModel(PluginManager::instance()->getModelFQN('Transactions'));
+        $this->loadModel(PluginManager::getInstance()->getFQN('Transactions'));
     }
     /**
      * Hook method for defining this command's option parser.

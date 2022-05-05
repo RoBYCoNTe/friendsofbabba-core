@@ -30,8 +30,8 @@ class LanguageCommand extends Command
     {
         parent::initialize();
 
-        $this->loadModel(PluginManager::instance()->getModelFQN('Languages'));
-        $this->loadModel(PluginManager::instance()->getModelFQN('LanguageMessages'));
+        $this->loadModel(PluginManager::getInstance()->getFQN('Languages'));
+        $this->loadModel(PluginManager::getInstance()->getFQN('LanguageMessages'));
     }
 
     /**

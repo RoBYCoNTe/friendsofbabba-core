@@ -52,7 +52,7 @@ class NotificationsTable extends BaseTable
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
-            'className' => PluginManager::instance()->getModelFQN('FriendsOfBabba/Core.Users'),
+            'className' => PluginManager::getInstance()->getFQN('FriendsOfBabba/Core.Users'),
         ]);
     }
 

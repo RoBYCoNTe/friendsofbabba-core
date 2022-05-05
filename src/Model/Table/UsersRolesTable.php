@@ -49,12 +49,12 @@ class UsersRolesTable extends BaseTable
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
-            'className' => PluginManager::instance()->getModelFQN('Users'),
+            'className' => PluginManager::getInstance()->getFQN('Users'),
         ]);
         $this->belongsTo('Roles', [
             'foreignKey' => 'role_id',
             'joinType' => 'INNER',
-            'className' => PluginManager::instance()->getModelFQN('Roles'),
+            'className' => PluginManager::getInstance()->getFQN('Roles'),
         ]);
     }
 

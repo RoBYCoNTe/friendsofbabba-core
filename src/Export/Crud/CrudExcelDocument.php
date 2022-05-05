@@ -16,7 +16,7 @@ class CrudExcelDocument extends BaseExcelDocument
 	{
 		$this->_grid = $grid;
 
-		$path = App::path('templates', PluginManager::instance()->getName());
+		$path = App::path('templates', PluginManager::getInstance()->getName());
 		$path = count($path) > 0 ? $path[0] : NULL;
 
 		parent::__construct($path . DS . "excel" . DS . "crud-export.xlsx");

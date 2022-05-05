@@ -9,7 +9,6 @@ use Cake\Console\ConsoleOptionParser;
 use Cake\Core\Configure;
 use Cake\Datasource\ConnectionManager;
 use Cake\Utility\Inflector;
-use FriendsOfBabba\Core\Hook\HookManager;
 
 class MigrationCommand extends Command
 {
@@ -91,8 +90,6 @@ class MigrationCommand extends Command
 		$this->Io->hr();
 
 		$connection = ConnectionManager::get('default');
-
-		HookManager::instance()->fire('Command/MigrationCommand.init', [$connection]);
 
 		$this->Io->hr();
 	}

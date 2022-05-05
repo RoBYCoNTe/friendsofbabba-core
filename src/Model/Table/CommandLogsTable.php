@@ -50,7 +50,7 @@ class CommandLogsTable extends BaseTable
 
         $this->hasMany('CommandLogRows', [
             'foreignKey' => 'command_log_id',
-            'className' => PluginManager::instance()->getModelFQN('CommandLogRows'),
+            'className' => PluginManager::getInstance()->getFQN('CommandLogRows'),
         ]);
     }
 

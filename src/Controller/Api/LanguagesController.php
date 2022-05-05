@@ -20,8 +20,8 @@ class LanguagesController extends AppController
 	public function initialize(): void
 	{
 		parent::initialize();
-		$this->loadModel(PluginManager::instance()->getModelFQN("Languages"));
-		$this->loadModel(PluginManager::instance()->getModelFQN("LanguageMessages"));
+		$this->loadModel(PluginManager::getInstance()->getFQN("Languages"));
+		$this->loadModel(PluginManager::getInstance()->getFQN("LanguageMessages"));
 		$this->Authentication->addUnauthenticatedActions(['load']);
 		$debug = Configure::read("debug");
 		if ($debug === true) {

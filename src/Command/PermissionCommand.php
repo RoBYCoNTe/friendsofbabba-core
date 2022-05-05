@@ -25,7 +25,7 @@ class PermissionCommand extends Command
     public function initialize(): void
     {
         parent::initialize();
-        $this->loadModel(PluginManager::instance()->getModelFQN('Roles'));
+        $this->loadModel(PluginManager::getInstance()->getFQN('Roles'));
     }
 
     /**
@@ -82,16 +82,6 @@ class PermissionCommand extends Command
         $userRole->addPermissions($commonPermissionList->toArray());
         $this->Roles->save($userRole);
 
-        $hookName = 'Command/PermissionCommand';
-        HookManager::instance()->fire(
-            $hookName,
-            $io,
-            $commonPermissionList,
-            $fullPermissionList,
-            $this->Roles,
-            $adminRole,
-            $userRole
-        );
         $io->overwrite("<success>Permissions scan completed!</success>");
     }
 

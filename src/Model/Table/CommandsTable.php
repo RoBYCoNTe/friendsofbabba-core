@@ -51,7 +51,7 @@ class CommandsTable extends BaseTable
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
-            'className' => PluginManager::instance()->getModelFQN('Users'),
+            'className' => PluginManager::getInstance()->getFQN('Users'),
         ]);
     }
 
