@@ -4,8 +4,6 @@ namespace FriendsOfBabba\Core\Security;
 
 class SpidClient
 {
-	const ENDPOINT = "https://spid.arti.puglia.it";
-
 	private array $_config = [];
 	private ?string $_endpoint = NULL;
 	private ?string $_service = NULL;
