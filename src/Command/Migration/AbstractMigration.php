@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command\Migration;
+namespace FriendsOfBabba\Core\Command\Migration;
 
 use Cake\Console\ConsoleIo;
 use Cake\Datasource\ConnectionManager;
