@@ -59,14 +59,11 @@ class SpidAuthComponent extends Component
 		}
 
 		$this->_session->write(self::PARAM_SESSION_DATA, $r);
-		// Add temporary token to be used for postbacks.
-		$this->assignTemporaryToken(Configure::read('Spid.expires', 300));
 		return $b;
 	}
 
 	public function logout(): bool
 	{
-		$this->destroyTemporaryToken();
 		if ($this->isAuthenticated()) {
 			$this->_session->delete(self::PARAM_SESSION_DATA);
 			return TRUE;

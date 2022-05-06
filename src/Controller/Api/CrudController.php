@@ -3,15 +3,13 @@
 namespace FriendsOfBabba\Core\Controller\Api;
 
 use Cake\Http\Exception\NotFoundException;
-use Cake\ORM\TableRegistry;
+use Cake\Http\Response;
 use Cake\Utility\Inflector;
-use FriendsOfBabba\Core\Export\Crud\CrudDocument;
 use FriendsOfBabba\Core\Model\CrudManager;
-use FriendsOfBabba\Core\PluginManager;
 
 class CrudController extends AppController
 {
-	public function load(string $resource = NULL)
+	public function load(string $resource = NULL): void
 	{
 		$user = $this->getUser();
 		if (!is_null($resource)) {
@@ -33,7 +31,7 @@ class CrudController extends AppController
 		}
 	}
 
-	public function export(string $resource, string $extension)
+	public function export(string $resource, string $extension): Response
 	{
 		$user = $this->getUser();
 		$entity = Inflector::humanize($resource);

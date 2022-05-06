@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Command;
 
+use Cake\Command\CacheClearallCommand;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
@@ -11,6 +12,9 @@ use Cake\Console\ConsoleOptionParser;
 use Cake\Utility\Text;
 use FriendsOfBabba\Core\Command\User\AddCommand as AddUserCommand;
 use FriendsOfBabba\Core\Model\Entity\Role;
+use FriendsOfBabba\Core\PluginManager;
+use Migrations\Command\MigrationsCommand;
+use Migrations\Command\MigrationsMigrateCommand;
 
 /**
  * Install command.
@@ -51,7 +55,19 @@ class InstallCommand extends Command
         $io->info(" An easy to use RESTFul Service implementation");
         $io->info(" for your SPA applications using CakePHP 4.x Framework.");
         $io->info(" ");
-        $this->executeCommand(InstallDbCommand::class);
+        $argv = ["--plugin", PluginManager::getInstance()->getName()];
+        $this->executeCommand(MigrationsMigrateCommand::class, $argv, $io);
+        if ($io->askChoice('Do you want to install SPID login?', ['yes', 'no'], 'no') === "yes") {
+            $argv[] = "--source";
+            $argv[] = "Migrations/Spid";
+            $this->executeCommand(MigrationsMigrateCommand::class, $argv, $io);
+            $io->hr();
+            $io->warning(implode(" ", [
+                "Remember to register \FriendsOfBabba\Core\Model\Entity\Extender\SpidExtender",
+                "in app.php to make SPID login work."
+            ]));
+            $io->hr();
+        }
         $this->executeCommand(PermissionCommand::class);
         $this->executeCommand(LanguageCommand::class, ['import']);
         $io->hr();
@@ -77,5 +93,7 @@ class InstallCommand extends Command
         $io->info(sprintf("Username: %s", $username));
         $io->info(sprintf("Password: %s", $password));
         $io->hr();
+
+        $this->executeCommand(CacheClearallCommand::class);
     }
 }

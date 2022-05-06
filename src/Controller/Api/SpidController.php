@@ -9,12 +9,19 @@ use Cake\Http\Exception\UnauthorizedException;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use Cake\Utility\Security;
-use Firebase\JWT\JWT;
+use FriendsOfBabba\Core\Controller\Component\JwtTokenProviderComponent;
+use FriendsOfBabba\Core\Controller\Component\RecaptchaComponent;
 use FriendsOfBabba\Core\Controller\Component\SpidAuthComponent;
 use FriendsOfBabba\Core\PluginManager;
 
 /**
+ * Implements required SPID apis for the plugin.
+ * Remember to add 'finder' prop to your model and set it as accessible
+ * before execute the finder.
+ *
  * @property SpidAuthComponent $SpidAuth
+ * @property JwtTokenProviderComponent $JwtTokenProvider
+ * @property RecaptchaComponent $Recaptcha
  */
 class SpidController extends AppController
 {
@@ -23,6 +30,8 @@ class SpidController extends AppController
 	{
 		parent::initialize();
 		$this->loadComponent(PluginManager::getInstance()->getFQN("SpidAuth"));
+		$this->loadComponent(PluginManager::getInstance()->getFQN("JwtTokenProvider"));
+		$this->loadComponent(PluginManager::getInstance()->getFQN("Recaptcha"));
 		$this->Authentication->addUnauthenticatedActions([
 			"add",
 			"load",
@@ -98,6 +107,11 @@ class SpidController extends AppController
 	{
 		$this->useModel(Configure::read('Spid.table'));
 		$this->Crud->on('beforeSave', function (Event $event) {
+			$recaptchaToken = $this->request->getData('token');
+			$valid = $this->Recaptcha->validate($recaptchaToken);
+			if (!$valid) {
+				throw new UnauthorizedException(__('Recaptcha validation failed.'));
+			}
 			$user = $event->getSubject()->entity;
 			$user->set('username', $user->get('email'));
 			$user->set('password', Security::randomBytes(32));
@@ -145,20 +159,12 @@ class SpidController extends AppController
 		}
 
 		$table->save($user, ['associated' => $contain]);
-		$token = JWT::encode(
-			[
-				'sub' => $user->id,
-				'exp' =>  time() + 604800
-			],
-			Security::getSalt()
-		);
-
 		$this->set([
 			'success' => true,
 			'data' => [
 				'username' => $user->username,
 				'profile' => $user->profile,
-				'token' => $token,
+				'token' => $this->JwtTokenProvider->getToken($user->id),
 				'roles' => $user->roles
 			],
 			'_serialize' => ['success', 'data']

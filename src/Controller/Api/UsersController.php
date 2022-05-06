@@ -9,6 +9,7 @@ use Cake\Event\Event;
 use Cake\ORM\Query;
 use Crud\Action\AddAction;
 use Firebase\JWT\JWT;
+use FriendsOfBabba\Core\Controller\Component\JwtTokenProviderComponent;
 use FriendsOfBabba\Core\Hook\HookManager;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\PluginManager;
@@ -20,6 +21,8 @@ use Seld\JsonLint\Undefined;
  *
  * @property \FriendsOfBabba\Core\Model\Table\UsersTable $Users
  * @property \FriendsOfBabba\Core\Model\Table\UserProfilesTable $UserProfiles
+ *
+ * @property JwtTokenProviderComponent $JwtTokenProvider
  */
 class UsersController extends AppController
 {
@@ -32,6 +35,7 @@ class UsersController extends AppController
 
 		$this->loadModel(PluginManager::getInstance()->getFQN('Users'));
 		$this->loadModel(PluginManager::getInstance()->getFQN('UserProfiles'));
+		$this->loadComponent(PluginManager::getInstance()->getFQN('JwtTokenProvider'));
 
 		$this->Authentication->allowUnauthenticated(['login', 'add']);
 		$this->Crud->useModel(PluginManager::getInstance()->getFQN('Users'));
@@ -41,21 +45,16 @@ class UsersController extends AppController
 	{
 		$result = $this->Authentication->getResult();
 		if ($result->isValid()) {
-			$privateKey = file_get_contents(CONFIG . 'jwt.key');
+
 			/** @var User */
 			$user = $result->getData();
 			$user = $this->Users->get($user->id, [
 				'contain' => ['UserProfiles', 'Roles'],
 			]);
-			$payload = [
-				'iss' => Configure::read('App.name', 'App'),
-				'sub' => $user->id,
-				'exp' => time() + (3600 * 24 * 7),
-			];
 			$json = [
 				'success' => true,
 				'data' => [
-					'token' => JWT::encode($payload, $privateKey, 'RS256'),
+					'token' => $this->JwtTokenProvider->getToken($user->id),
 					'roles' => $user->roles,
 					'profile' => $user->profile,
 					'full_name' => $user->profile->full_name

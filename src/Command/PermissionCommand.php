@@ -71,7 +71,6 @@ class PermissionCommand extends Command
             ->contain(["RolePermissions"])
             ->first();
         $userRole->permissions = $fullPermissionList->filter(function (RolePermission $rolePermission) {
-            // TODO: To be reviewed.
             // $can = strpos($rolePermission->action, "/user-notifications/index") !== false;
             // $can = $can || strpos($rolePermission->action, "/users/change-status") !== false;
             // $can = $can || strpos($rolePermission->action, "/users/impersonate") !== false;
@@ -98,7 +97,8 @@ class PermissionCommand extends Command
             "GET /api/notifications/index",
             "GET /api/notifications/view",
             "GET /api/export/generate",
-            "GET /api/crud/export"
+            "GET /api/crud/export",
+            "GET /api/crud/load"
         ];
         return new Collection($list);
     }

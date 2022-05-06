@@ -55,8 +55,6 @@ class Plugin extends BasePlugin implements AuthenticationServiceProviderInterfac
         $commands->add('permission scan', \FriendsOfBabba\Core\Command\PermissionCommand::class);
         $commands->add('language', \FriendsOfBabba\Core\Command\LanguageCommand::class);
         $commands->add('install', \FriendsOfBabba\Core\Command\InstallCommand::class);
-        $commands->add('install db', \FriendsOfBabba\Core\Command\InstallDbCommand::class);
-
         $commands->add('migration', \FriendsOfBabba\Core\Command\MigrationCommand::class);
 
         $commands->add('workflow create', \FriendsOfBabba\Core\Command\Workflow\CreateCommand::class);
