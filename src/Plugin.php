@@ -20,6 +20,10 @@ use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Plugin for FriendsOfBabba\Core
+ *
+ * How to install the plugin:
+ *
+ *
  */
 class Plugin extends BasePlugin implements AuthenticationServiceProviderInterface
 {

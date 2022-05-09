@@ -80,6 +80,9 @@ class SpidAuthComponent extends Component
 	{
 		if (is_null($this->_client)) {
 			$config = Configure::read('Spid');
+			if (empty($config)) {
+				throw new \Exception("SPID configuration not found.");
+			}
 			$this->_client = new SpidClient($config);
 		}
 		return $this->_client;

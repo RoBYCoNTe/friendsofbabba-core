@@ -6,5 +6,8 @@
 /config/Migrations/schema-dump-default.lock
 /vendor/
 /.idea/
-/docs/*
 .phpdoc/*
+docs/*
+!docs/config
+!docs/build.sh
+!docs/README.md

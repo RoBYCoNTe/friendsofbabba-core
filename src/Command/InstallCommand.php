@@ -13,7 +13,6 @@ use Cake\Utility\Text;
 use FriendsOfBabba\Core\Command\User\AddCommand as AddUserCommand;
 use FriendsOfBabba\Core\Model\Entity\Role;
 use FriendsOfBabba\Core\PluginManager;
-use Migrations\Command\MigrationsCommand;
 use Migrations\Command\MigrationsMigrateCommand;
 
 /**
@@ -55,6 +54,11 @@ class InstallCommand extends Command
         $io->info(" An easy to use RESTFul Service implementation");
         $io->info(" for your SPA applications using CakePHP 4.x Framework.");
         $io->info(" ");
+        $io->warning(" This command will install everything required to start working with FOB.");
+
+        $io->ask(" Please press any key to continue...");
+
+
         $argv = ["--plugin", PluginManager::getInstance()->getName()];
         $this->executeCommand(MigrationsMigrateCommand::class, $argv, $io);
         if ($io->askChoice('Do you want to install SPID login?', ['yes', 'no'], 'no') === "yes") {
@@ -72,27 +76,36 @@ class InstallCommand extends Command
         $this->executeCommand(LanguageCommand::class, ['import']);
         $io->hr();
 
-        $io->info("Configure Administrator account, fill required informations.");
-
         $username = 'Administrator';
-        $password = substr(Text::uuid(), 0, 6);
-        $email = $io->ask('Insert valid email address:');
-        $name = $io->ask('Insert your name:');
-        $surname = $io->ask('Insert your surname:');
-        $this->executeCommand(AddUserCommand::class, [
-            $username,
-            $password,
-            $email,
-            $name,
-            $surname,
-            Role::ADMIN
-        ]);
+        $users = $this->loadModel(PluginManager::getInstance()->getFQN('Users'))
+            ->find()
+            ->where(['username' => $username])
+            ->count();
+        if ($users === 0) {
+            $io->info("Configure Administrator account, fill required informations.");
 
+
+            $password = substr(Text::uuid(), 0, 6);
+            $email = $io->ask('Insert valid email address:');
+            $name = $io->ask('Insert your name:');
+            $surname = $io->ask('Insert your surname:');
+            $this->executeCommand(AddUserCommand::class, [
+                $username,
+                $password,
+                $email,
+                $name,
+                $surname,
+                Role::ADMIN
+            ]);
+
+            $io->hr();
+            $io->info(sprintf("Username: %s", $username));
+            $io->info(sprintf("Password: %s", $password));
+            $io->hr();
+        }
         $io->hr();
         $io->success('Installation completed, please use this data to execute login:');
-        $io->info(sprintf("Username: %s", $username));
-        $io->info(sprintf("Password: %s", $password));
-        $io->hr();
+
 
         $this->executeCommand(CacheClearallCommand::class);
     }
