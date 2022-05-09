@@ -67,6 +67,9 @@ class WorkflowRegistry
                 unset($workflows[$entity]);
             }
         }
+        if (empty($config['workflow'])) {
+            $config['workflow'] = [];
+        }
         $phpConfig->dump('workflow', $config);
     }
 

@@ -7,7 +7,7 @@ the great work with their library that I've used as a base for this plugin.
 
 ## Table of Contents
 
-- [Installation](docs/Installation.md)
+- [Install](docs/Install.md)
 - [Language](docs/Language.md)
 - [Permission](docs/Permission.md)
 - [Workflow](docs/Workflow.md)

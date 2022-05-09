@@ -25,6 +25,7 @@ class Language extends BaseEntity
      * @var array
      */
     protected $_accessible = [
+        'id' => true,
         'code' => true,
         'name' => true,
         'language_messages' => true,

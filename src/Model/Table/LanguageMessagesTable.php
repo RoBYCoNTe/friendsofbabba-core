@@ -6,6 +6,11 @@ namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
+use FriendsOfBabba\Core\Model\Crud\Badge;
+use FriendsOfBabba\Core\Model\Crud\Filter;
+use FriendsOfBabba\Core\Model\Crud\Form;
+use FriendsOfBabba\Core\Model\Entity\User;
+use FriendsOfBabba\Core\Model\Crud\Grid;
 use FriendsOfBabba\Core\Model\Filter\LanguageMessageCollection;
 use FriendsOfBabba\Core\PluginManager;
 
@@ -91,5 +96,46 @@ class LanguageMessagesTable extends BaseTable
         $rules->add($rules->existsIn(['language_id'], 'Languages'), ['errorField' => 'language_id']);
 
         return $rules;
+    }
+
+    public function getGrid(?User $user): ?Grid
+    {
+        $grid = parent::getGrid($user);
+        $grid->setMobileBreakpoint("sm");
+        $grid->setMobilePrimaryText("text");
+        $grid->setMobileSecondaryText("code");
+
+        $grid->getField('code')
+            ->setComponent('LongTextField')
+            ->setComponentProp("maxRows", 1)
+            ->setComponentProp("component", "pre");
+        $grid->getField('text')->setComponent("RecordInput");
+
+        $grid->getField('language_id')->setSource("language.name");
+        $grid->addFilterDefaultValue('translated', FALSE);
+        $grid->addFilter(Filter::create("translated", "Translated", "BooleanInput")->alwaysOn());
+        return $grid;
+    }
+
+    public function getForm(?User $user): ?Form
+    {
+        $form = parent::getForm($user);
+        $form->getInput("language_id")
+            ->setComponent("ReferenceSelectInput")
+            ->setComponentProp("reference", "languages")
+            ->setComponentProp("optionText", "name");
+        $form->getInput("code")
+            ->setComponentProp("disabled", TRUE);
+        $form->getInput("text")->fullWidth();
+        return $form;
+    }
+
+    public function getBadge(?User $user): Badge
+    {
+        $count = $this->find()
+            ->where(["LanguageMessages.text = LanguageMessages.code"])
+            ->count();
+
+        return Badge::error($count)->hide($count === 0);
     }
 }

@@ -3,6 +3,7 @@
 namespace FriendsOfBabba\Core\Model\Filter;
 
 use Cake\ORM\Query;
+use Cake\Utility\Hash;
 
 class LanguageMessageCollection extends BaseCollection
 {
@@ -25,7 +26,18 @@ class LanguageMessageCollection extends BaseCollection
 							"Languages.name LIKE" => "%{$q}%",
 						]
 					]);
-				return $query;
+			}
+		]);
+		$this->add("translated", "Search.Callback", [
+			"callback" => function (Query $query, array $args) {
+				$translated = Hash::get($args, "translated", null);
+				$translated = filter_var($translated, FILTER_VALIDATE_BOOLEAN);
+				$query->where([
+					implode(($translated ? "<>" : "="), [
+						"LanguageMessages.code",
+						"LanguageMessages.text"
+					])
+				]);
 			}
 		]);
 		$this->value("language_id");
