@@ -96,6 +96,21 @@ class WorkflowEvent
 	}
 
 	/**
+	 * Returns entity associated to currenct workflow instance.
+	 *
+	 * @return \Cake\Datasource\EntityInterface|null
+	 *  Entity associated to current workflow instance.
+	 */
+	public function getEntity(): ?\Cake\Datasource\EntityInterface
+	{
+		$subject = $this->cakeEvent->getSubject();
+		if (property_exists($subject, 'entity')) {
+			return $subject->entity;
+		}
+		return null;
+	}
+
+	/**
 	 * Flag this event has with errors.
 	 *
 	 * @param string $message

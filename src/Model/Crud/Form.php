@@ -124,4 +124,13 @@ class Form extends Component
 		parent::setComponentProp($prop, $value);
 		return $this;
 	}
+
+	public function addInitialValue(string $source, mixed $value): Form
+	{
+		if (!isset($this->initialValues)) {
+			$this->initialValues = new \stdClass();
+		}
+		$this->initialValues->$source = $value;
+		return $this;
+	}
 }

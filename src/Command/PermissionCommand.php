@@ -9,6 +9,7 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
+use Cake\Core\Configure;
 use FriendsOfBabba\Core\Hook\HookManager;
 use FriendsOfBabba\Core\Model\Entity\Role;
 use FriendsOfBabba\Core\Model\Entity\RolePermission;
@@ -51,7 +52,7 @@ class PermissionCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
-        $io->info("Scanning for permissions, please wait...", 0);
+        $io->info("Scanning for permissions, please wait...");
 
         $commonPermissionList = $this->getCommonPermissionList();
         $fullPermissionList = Role::scan();
@@ -65,22 +66,32 @@ class PermissionCommand extends Command
         $adminRole->addPermissions($commonPermissionList->toArray());
         $this->Roles->save($adminRole);
 
-        /** @var Role */
-        $userRole = $this->Roles
-            ->findByCode(Role::USER)
-            ->contain(["RolePermissions"])
-            ->first();
-        $userRole->permissions = $fullPermissionList->filter(function (RolePermission $rolePermission) {
-            // $can = strpos($rolePermission->action, "/user-notifications/index") !== false;
-            // $can = $can || strpos($rolePermission->action, "/users/change-status") !== false;
-            // $can = $can || strpos($rolePermission->action, "/users/impersonate") !== false;
-            // $can = $can || strpos($rolePermission->action, "/tickets") !== false;
-            // return $can;
-            return TRUE;
-        })->toArray();
-        $userRole->addPermissions($commonPermissionList->toArray());
-        $this->Roles->save($userRole);
+        $roles = Configure::read('Permissions', []);
+        if (empty($roles)) {
+            $io->warning("No permissions found, to add new permissions, add them to the `Permissions` config.");
+        }
+        foreach ($roles as $role => $permissions) {
+            /** @var Role */
+            $role = $this->Roles->findByCode($role)->first();
+            if (empty($role)) {
+                $io->error(sprintf("Role %s not found", $role));
+                continue;
+            }
+            if (is_array($permissions)) {
+                foreach ($permissions as $permission) {
+                    $io->verbose(sprintf("Adding permission %s to role %s", $permission, $role->code));
+                    $role->addPermission($permission);
+                }
+            } else if ($permissions === "*") {
+                $io->verbose(sprintf("Adding all permissions to role %s", $role->code));
+                $role->permissions = $fullPermissionList->toArray();
+            }
+            $role->addPermissions($commonPermissionList->toArray());
 
+            $this->Roles->save($role);
+
+            $io->success(sprintf("Role %s updated", $role->code));
+        }
         $io->overwrite("<success>Permissions scan completed!</success>");
     }
 

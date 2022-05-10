@@ -107,8 +107,7 @@ class LanguageMessagesTable extends BaseTable
 
         $grid->getField('code')
             ->setComponent('LongTextField')
-            ->setComponentProp("maxRows", 1)
-            ->setComponentProp("component", "pre");
+            ->setComponentProp("maxRows", 3);
         $grid->getField('text')->setComponent("RecordInput");
 
         $grid->getField('language_id')->setSource("language.name");
@@ -124,8 +123,6 @@ class LanguageMessagesTable extends BaseTable
             ->setComponent("ReferenceSelectInput")
             ->setComponentProp("reference", "languages")
             ->setComponentProp("optionText", "name");
-        $form->getInput("code")
-            ->setComponentProp("disabled", TRUE);
         $form->getInput("text")->fullWidth();
         return $form;
     }

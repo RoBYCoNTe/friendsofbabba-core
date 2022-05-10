@@ -49,7 +49,7 @@ class Badge
 		return $this;
 	}
 
-	public function visible(bool $visible): Badge
+	public function visible(bool $visible = TRUE): Badge
 	{
 		$this->show = $visible;
 		return $this;

@@ -32,7 +32,7 @@ class CreateCommand extends Command
 	{
 		$parser = parent::buildOptionParser($parser);
 		$parser->addArgument('entity', ['required' => true, 'help' => 'The entity for which generate the model and tables.']);
-		$parser->addOption('theme', ['help' => 'The theme to use when baking code.', 'short' => 't']);
+		$parser->addOption('theme', ['help' => 'The theme to use when baking code.', 'short' => 't', 'default' => 'FriendsOfBabba/Core']);
 		return $parser;
 	}
 
