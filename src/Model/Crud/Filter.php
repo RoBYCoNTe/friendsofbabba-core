@@ -11,12 +11,7 @@ class Filter extends Component
 	 * @var string
 	 */
 	public string $source;
-	/**
-	 * Label associated to the filter.
-	 *
-	 * @var string
-	 */
-	public string $label;
+
 
 
 	public function __construct(string $source, ?string $label = NULL, ?string $component = "SearchInput")
@@ -31,6 +26,12 @@ class Filter extends Component
 	public function alwaysOn(): Filter
 	{
 		$this->setComponentProp('alwaysOn', true);
+		return $this;
+	}
+
+	public function setLabel(string $label): Filter
+	{
+		$this->label = $label;
 		return $this;
 	}
 

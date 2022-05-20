@@ -11,8 +11,8 @@ use FriendsOfBabba\Core\Export\BaseExportable;
  */
 class Grid extends Component
 {
-	const ORDER_ASC = 'asc';
-	const ORDER_DESC = 'desc';
+	const ORDER_ASC = 'ASC';
+	const ORDER_DESC = 'DESC';
 
 	const MOBILE_BREAKPOINT_SM = "sm";
 	const MOBILE_BREAKPOINT_MD = "md";
@@ -23,7 +23,7 @@ class Grid extends Component
 	 * @see https://marmelab.com/react-admin/doc/3.19/List.html#title
 	 * @var string
 	 */
-	public string $title = "";
+	public ?string $title = NULL;
 	/**
 	 * @see https://marmelab.com/react-admin/doc/3.19/List.html#filters-filter-inputs
 	 * @var array
@@ -241,7 +241,7 @@ class Grid extends Component
 		return $this;
 	}
 
-	public function setTitle(string $title): Grid
+	public function setTitle(?string $title): Grid
 	{
 		$this->title = $title;
 		return $this;

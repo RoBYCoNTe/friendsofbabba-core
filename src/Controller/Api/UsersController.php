@@ -65,7 +65,7 @@ class UsersController extends AppController
 			$json = [
 				'success' => false,
 				'data' => [
-					'message' => __d('babba', 'Invalid username or password')
+					'message' => __d('friendsofbabba_core', 'Invalid username or password')
 				]
 			];
 		}

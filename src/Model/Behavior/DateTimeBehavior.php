@@ -22,19 +22,10 @@ class DateTimeBehavior extends Behavior
         foreach ($fields as $field) {
             if (isset($data[$field])) {
                 $value = $data[$field];
-                if (strpos($data[$field], "T") !== -1) {
-                    $data[$field] = new \DateTime($value);
+                if (strpos($value, "T") !== -1) {
+                    $data[$field] = new \Cake\I18n\FrozenTime($value);
                     continue;
                 }
-                // switch ($type) {
-                //     case 'date':
-                //         $format = "Y-m-d";
-                //         break;
-                //     case 'datetime':
-                //         $format = "Y-m-d H:i";
-                //         break;
-                // }
-                // $data[$field] = DateTime::createFromFormat($format, $data[$field]);
             }
         }
     }

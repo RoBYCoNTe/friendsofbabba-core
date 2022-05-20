@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use Migrations\AbstractMigration;
@@ -511,6 +512,9 @@ class InstallDatabase extends AbstractMigration
                 [
                     'update' => 'RESTRICT',
                     'delete' => 'RESTRICT',
+                ],
+                [
+                    'constraint' => 'fk_commands_users',
                 ]
             )
             ->update();
@@ -523,6 +527,9 @@ class InstallDatabase extends AbstractMigration
                 [
                     'update' => 'RESTRICT',
                     'delete' => 'RESTRICT',
+                ],
+                [
+                    'constraint' => 'fk_language_messages_languages',
                 ]
             )
             ->update();
@@ -535,6 +542,9 @@ class InstallDatabase extends AbstractMigration
                 [
                     'update' => 'RESTRICT',
                     'delete' => 'RESTRICT',
+                ],
+                [
+                    'constraint' => 'fk_media_users',
                 ]
             )
             ->update();
@@ -547,6 +557,9 @@ class InstallDatabase extends AbstractMigration
                 [
                     'update' => 'RESTRICT',
                     'delete' => 'RESTRICT',
+                ],
+                [
+                    'constraint' => 'fk_notifications_users',
                 ]
             )
             ->update();
@@ -559,6 +572,9 @@ class InstallDatabase extends AbstractMigration
                 [
                     'update' => 'RESTRICT',
                     'delete' => 'RESTRICT',
+                ],
+                [
+                    'constraint' => 'fk_role_permissions_roles',
                 ]
             )
             ->update();
@@ -571,6 +587,9 @@ class InstallDatabase extends AbstractMigration
                 [
                     'update' => 'RESTRICT',
                     'delete' => 'RESTRICT',
+                ],
+                [
+                    'constraint' => 'fk_user_profiles_users',
                 ]
             )
             ->update();
@@ -583,6 +602,9 @@ class InstallDatabase extends AbstractMigration
                 [
                     'update' => 'RESTRICT',
                     'delete' => 'RESTRICT',
+                ],
+                [
+                    'constraint' => 'fk_users_roles_users',
                 ]
             )
             ->addForeignKey(
@@ -592,6 +614,9 @@ class InstallDatabase extends AbstractMigration
                 [
                     'update' => 'RESTRICT',
                     'delete' => 'RESTRICT',
+                ],
+                [
+                    'constraint' => 'fk_users_roles_roles',
                 ]
             )
             ->update();

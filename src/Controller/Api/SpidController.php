@@ -29,9 +29,9 @@ class SpidController extends AppController
 	public function initialize(): void
 	{
 		parent::initialize();
-		$this->loadComponent(PluginManager::getInstance()->getFQN("SpidAuth"));
-		$this->loadComponent(PluginManager::getInstance()->getFQN("JwtTokenProvider"));
-		$this->loadComponent(PluginManager::getInstance()->getFQN("Recaptcha"));
+		$this->loadComponent("FriendsOfBabba/Core.SpidAuth");
+		$this->loadComponent("FriendsOfBabba/Core.JwtTokenProvider");
+		$this->loadComponent("FriendsOfBabba/Core.Recaptcha");
 		$this->Authentication->addUnauthenticatedActions([
 			"add",
 			"load",
@@ -73,10 +73,10 @@ class SpidController extends AppController
 		$this->SpidAuth->login();
 
 		if (!$this->request->is('post')) {
-			throw new BadRequestException(__('Invalid request.'));
+			throw new BadRequestException(__d('friendsofbabba_core', 'Invalid request.'));
 		}
 		if (!$this->SpidAuth->isAuthenticated()) {
-			throw new BadRequestException(__('SPID authentication failed.'));
+			throw new BadRequestException(__d('friendsofbabba_core', 'SPID authentication failed.'));
 		}
 		$profile = $this->SpidAuth->getProfile();
 		$fiscalCode = Hash::get($profile, 'fiscalNumber');
@@ -110,7 +110,7 @@ class SpidController extends AppController
 			$recaptchaToken = $this->request->getData('token');
 			$valid = $this->Recaptcha->validate($recaptchaToken);
 			if (!$valid) {
-				throw new UnauthorizedException(__('Recaptcha validation failed.'));
+				throw new UnauthorizedException(__d('friendsofbabba_core', 'Recaptcha validation failed.'));
 			}
 			$user = $event->getSubject()->entity;
 			$user->set('username', $user->get('email'));
@@ -127,10 +127,10 @@ class SpidController extends AppController
 		$this->SpidAuth->login();
 
 		if (!$this->request->is('post')) {
-			throw new BadRequestException(__('Invalid request.'));
+			throw new BadRequestException(__d('friendsofbabba_core', 'Invalid request.'));
 		}
 		if (!$this->SpidAuth->isAuthenticated()) {
-			throw new BadRequestException(__('SPID authentication failed.'));
+			throw new BadRequestException(__d('friendsofbabba_core', 'SPID authentication failed.'));
 		}
 
 		$profile = $this->SpidAuth->getProfile();
@@ -151,7 +151,7 @@ class SpidController extends AppController
 		$user = $query->first();
 
 		if (!$user) {
-			throw new UnauthorizedException(__('User not recognized: {0}', $profile['fiscalNumber']));
+			throw new UnauthorizedException(__d('friendsofbabba_core', 'User not recognized: {0}', $profile['fiscalNumber']));
 		}
 		if ($user->has('last_login')) {
 			$user->set('last_login', new \DateTime());

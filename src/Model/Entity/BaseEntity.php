@@ -43,4 +43,24 @@ class BaseEntity extends Entity
 		}
 		return $this->_extenders;
 	}
+
+	/**
+	 * Remove errors from entity (useful in certain cases).
+	 *
+	 * @param array $exceptOf
+	 * 	List of fields to exclude from clearing.
+	 * @return void
+	 *
+	 */
+	public function popErrors(array $exceptOf = []): void
+	{
+		$errors = $this->getErrors();
+		$keys = array_keys($errors);
+
+		$cleanErrors = array_reduce($keys, function ($carry, $key) use ($errors, $exceptOf) {
+			$carry[$key] = in_array($key, $exceptOf) ? $errors[$key] : [];
+			return $carry;
+		}, []);
+		$this->setErrors($cleanErrors, TRUE);
+	}
 }

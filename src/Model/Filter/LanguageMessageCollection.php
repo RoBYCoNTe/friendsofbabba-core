@@ -28,6 +28,14 @@ class LanguageMessageCollection extends BaseCollection
 					]);
 			}
 		]);
+		$this->add("resource", "Search.Callback", [
+			"callback" => function (Query $query, array $args) {
+				$resource = (string) $args['resource'];
+				$query->where([
+					"LanguageMessages.code LIKE" => "%" . $resource . "%"
+				]);
+			}
+		]);
 		$this->add("translated", "Search.Callback", [
 			"callback" => function (Query $query, array $args) {
 				$translated = Hash::get($args, "translated", null);

@@ -21,6 +21,7 @@ class BaseTable extends \Cake\ORM\Table
 		parent::initialize($config);
 	}
 
+
 	/**
 	 * Generate a grid for this entity.
 	 *

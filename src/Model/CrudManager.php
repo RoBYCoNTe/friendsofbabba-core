@@ -10,7 +10,6 @@ use Cake\Utility\Inflector;
 use FriendsOfBabba\Core\Model\Crud\ViewConfig;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Table\BaseTable;
-use FriendsOfBabba\Core\PluginManager;
 
 class CrudManager
 {
@@ -25,6 +24,11 @@ class CrudManager
 		return self::$_instance;
 	}
 
+	public function getListOfTables(): array
+	{
+		return ConnectionManager::get('default')->getSchemaCollection()->listTables();
+	}
+
 	/**
 	 * Returns list of views allowed to be used in CRUD
 	 *
@@ -35,7 +39,7 @@ class CrudManager
 	 */
 	public function getViewConfigList(?User $user = NULL): array
 	{
-		$tables = ConnectionManager::get('default')->getSchemaCollection()->listTables();
+		$tables = $this->getListOfTables();
 		$viewConfigList = (new Collection($tables))
 			->map(function (string $tableName) {
 				$s = Inflector::camelize($tableName);
@@ -95,7 +99,7 @@ class CrudManager
 	public function getTable(string $entity): ?BaseTable
 	{
 		$aliases = [
-			PluginManager::getInstance()->getFQN($entity),
+			"FriendsOfBabba/Core.$entity",
 			$entity
 		];
 		foreach ($aliases as $alias) {

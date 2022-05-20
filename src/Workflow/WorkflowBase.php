@@ -247,12 +247,12 @@ abstract class WorkflowBase
         $id = $event->getSubject()->id;
         $last = $this->Transactions->getLast($id, $entityName);
         if (empty($last)) {
-            throw new UnauthorizedException(__d("workflow", 'You are not authorized to view this record because it\'s state is corrupted.'));
+            throw new UnauthorizedException(__d('friendsofbabba_core', 'You are not authorized to view this record because it\'s state is corrupted.'));
         }
 
         $canRead = $this->canRead($user, $last->state);
         if (!$canRead) {
-            throw new ForbiddenException(__d("workflow", "Forbidden"));
+            throw new ForbiddenException(__d('friendsofbabba_core', "Forbidden"));
         }
 
         $query = $event->getSubject()->query;
@@ -284,7 +284,7 @@ abstract class WorkflowBase
         if (empty($lastTransaction)) {
             $canCreate = $this->canCreate($user);
             if (!$canCreate) {
-                throw new ForbiddenException(__d("workflow", "Forbidden"));
+                throw new ForbiddenException(__d('friendsofbabba_core', "Forbidden"));
             }
             $moved = TRUE;
         } else {
@@ -296,20 +296,20 @@ abstract class WorkflowBase
         if (!empty($last) && (is_null($next) || (!is_null($last) && $last->state === $next))) {
             $canEdit = $this->canEdit($user, $last->state);
             if (!$canEdit) {
-                throw new ForbiddenException(__d("workflow", "Forbidden"));
+                throw new ForbiddenException(__d('friendsofbabba_core', "Forbidden"));
             }
             $next = $last->state;
         } else {
             $canMove = $this->canMove($user, $next);
             if (!$canMove) {
-                throw new ForbiddenException(__d("workflow", "Forbidden"));
+                throw new ForbiddenException(__d('friendsofbabba_core', "Forbidden"));
             }
         }
 
         if ($lastState->hasTransitionTo($next)) {
             $route = $lastState->getTransitionTo($next);
             if ($route->notesRequired && (is_null($entity->notes) || empty($entity->notes))) {
-                $entity->setError('notes', __('Required.'));
+                $entity->setError('notes', __d('friendsofbabba_core', 'Required.'));
                 throw new ValidationException($entity);
             }
         }
@@ -376,11 +376,7 @@ abstract class WorkflowBase
             'transaction' => NULL
         ]));
         if (!$this->Transactions->forEntity($entityName)->save($transaction)) {
-            throw new BadRequestException(__d(
-                "workflow",
-                "Error saving transaction: {0}",
-                json_encode($transaction->getErrors())
-            ));
+            throw new BadRequestException(__d('friendsofbabba_core', "Error saving transaction: {0}", json_encode($transaction->getErrors())));
         }
 
         $workflowEvent = WorkflowEvent::create($event, $user, $event->getSubject()->moved);

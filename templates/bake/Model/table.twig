@@ -82,6 +82,7 @@ class {{ name }}Table extends BaseTable
             'dependent' => true
         ]);
 
+
 {%- for type, assocs in associations %}
     {%- for assoc in assocs %}
         {%- set assocData = [] %}

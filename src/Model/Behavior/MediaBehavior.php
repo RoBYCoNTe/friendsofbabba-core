@@ -20,6 +20,7 @@ class MediaBehavior extends Behavior
 
 		foreach ($fields as $field => $config) {
 			$field = is_string($config) ? $config : $field;
+			$field = Inflector::underscore($field);
 			$media = Hash::get($data, $field);
 
 			if (!isset($media['data']) && !isset($media['id']) && is_array($media)) {

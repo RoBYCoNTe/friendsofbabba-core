@@ -4,6 +4,7 @@ namespace FriendsOfBabba\Core\Controller\Api;
 
 use Cake\Event\Event;
 use Cake\ORM\Locator\TableLocator;
+use Cake\ORM\Query;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
 use FriendsOfBabba\Core\Command\LanguageCommand;
@@ -16,9 +17,20 @@ class LanguageMessagesController extends AppController
 		'maxLimit' => 200
 	];
 
+	public function initialize(): void
+	{
+		parent::initialize();
+		$this->Crud->on('afterSave', function () {
+			// Every time a language message is saved, we need
+			// to generate the language CSV files.
+			$this->export();
+		});
+	}
+
 	public function index()
 	{
 		$this->Crud->on("beforePaginate", function (Event $event) {
+			/** @var Query */
 			$query = $event->getSubject()->query;
 			$event->getSubject()->query = $query->contain([
 				"Languages"
@@ -36,9 +48,6 @@ class LanguageMessagesController extends AppController
 		$this->Crud->on('beforeSave', function (Event $event) {
 			$entity = $event->getSubject()->entity;
 			unset($entity->language);
-		});
-		$this->Crud->on('afterSave', function (Event $event) {
-			$this->export();
 		});
 		return $this->Crud->execute();
 	}
@@ -66,7 +75,16 @@ class LanguageMessagesController extends AppController
 		return $this->Crud->execute();
 	}
 
-	public function generate($resource, $selectedLanguage = null)
+	/**
+	 * Generate localized strings for specified resource and language.
+	 *
+	 * @param string $resource
+	 * 		The resource to generate localized strings for.
+	 * @param integer|null $selectedLanguage
+	 * 		The language to generate localized strings for.
+	 * @return void
+	 */
+	public function generate(string $resource, ?int $selectedLanguage = null): void
 	{
 		$humanResource = Inflector::humanize($resource, '-');
 		$repository = (new TableLocator())->get(Inflector::camelize($resource, '-'));
@@ -80,6 +98,7 @@ class LanguageMessagesController extends AppController
 
 		foreach ($columns as $column) {
 			$data[$fieldsKey][$column] = Inflector::humanize($column);
+			$data[$fieldsKey][$column . ".help"] = "$key.fields.$column.help";
 		}
 
 		$data = Hash::flatten($data);

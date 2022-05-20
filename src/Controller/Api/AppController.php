@@ -86,10 +86,10 @@ class AppController extends Controller
 
         $user = $this->getUser();
         if (is_null($user)) {
-            throw new UnauthorizedException(__d("fob", "User not authenticated or session expired!"));
+            throw new UnauthorizedException(__d('friendsofbabba_core', "User not authenticated or session expired!"));
         }
         if (!$user->hasPermission($action)) {
-            throw new UnauthorizedException(__d("fob", "Unauthorized: {0}", $action));
+            throw new UnauthorizedException(__d('friendsofbabba_core', "Unauthorized: {0}", $action));
         }
     }
 

@@ -1,0 +1,97 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2022-05-20 16:02+0000\n"
+"PO-Revision-Date: 2022-05-20 18:11+0200\n"
+"Last-Translator: \n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: Controller/Api/AppController.php:89
+msgid "User not authenticated or session expired!"
+msgstr "Utente non autenticato o sessione scaduta!"
+
+#: Controller/Api/AppController.php:92
+msgid "Unauthorized: {0}"
+msgstr "Non autorizzato: {0}"
+
+#: Controller/Api/SpidController.php:76 Controller/Api/SpidController.php:130
+msgid "Invalid request."
+msgstr "Richiesta non valida."
+
+#: Controller/Api/SpidController.php:79 Controller/Api/SpidController.php:133
+msgid "SPID authentication failed."
+msgstr "Autenticazione SPID fallita."
+
+#: Controller/Api/SpidController.php:113
+msgid "Recaptcha validation failed."
+msgstr "Validazione RECAPTCHA fallita."
+
+#: Controller/Api/SpidController.php:154
+msgid "User not recognized: {0}"
+msgstr "Utente non riconosciuto: {0}"
+
+#: Controller/Api/UsersController.php:68
+msgid "Invalid username or password"
+msgstr "Username o password errati"
+
+#: Model/Table/LanguageMessagesTable.php:115
+msgid "Language Messages"
+msgstr "Stringhe (i18n)"
+
+#: Model/Table/LanguageMessagesTable.php:122
+msgid "Code"
+msgstr "Codice"
+
+#: Model/Table/LanguageMessagesTable.php:126
+msgid "Text"
+msgstr "Testo"
+
+#: Model/Table/LanguageMessagesTable.php:129
+msgid "Language"
+msgstr "Lingua"
+
+#: Model/Table/LanguageMessagesTable.php:132
+msgid "Resource"
+msgstr "Risorsa"
+
+#: Model/Table/LanguageMessagesTable.php:135
+msgid "Translated"
+msgstr "Tradotto"
+
+#: Model/Table/LanguageMessagesTable.php:161
+msgid "The resource to which this message belongs."
+msgstr "La risorsa su cui attestare il messaggio."
+
+#: Workflow/WorkflowBase.php:250
+msgid "You are not authorized to view this record because it's state is corrupted."
+msgstr "Non sei autorizzato a visualizzare questo record poiché il suo stato è corrotto."
+
+#: Workflow/WorkflowBase.php:255 Workflow/WorkflowBase.php:287
+#: Workflow/WorkflowBase.php:299 Workflow/WorkflowBase.php:305
+msgid "Forbidden"
+msgstr "Accesso negato"
+
+#: Workflow/WorkflowBase.php:312
+msgid "Required."
+msgstr "Campo obbligatorio."
+
+#: Workflow/WorkflowBase.php:379
+msgid "Error saving transaction: {0}"
+msgstr "Errore durante il salvataggio della transazione: {0}"
+
+#: api/spid/auth.php:16
+msgid "SPID"
+msgstr ""
+
+#: api/spid/auth.php:17
+msgid "Redirecting to the login page {0}"
+msgstr "Reindirizzamento alla pagina di login {0}"

@@ -20,6 +20,9 @@ class Form extends Component
 	 * @var string
 	 */
 	public string $redirect;
+
+	public ?bool $refresh = NULL;
+
 	/**
 	 * @see https://marmelab.com/react-admin/doc/3.19/CreateEdit.html#variant
 	 * @var string
@@ -49,6 +52,8 @@ class Form extends Component
 	public bool $useWorkflow = FALSE;
 
 	public array $inputs = [];
+
+	public ?string $title = NULL;
 
 	public function __construct()
 	{
@@ -80,6 +85,12 @@ class Form extends Component
 		return $this;
 	}
 
+	public function setTitle(string $title): Form
+	{
+		$this->title = $title;
+		return $this;
+	}
+
 	public function getInput(string $source): FormInput
 	{
 		foreach ($this->inputs as $input) {
@@ -104,6 +115,12 @@ class Form extends Component
 	public function setRedirect(string $redirect): Form
 	{
 		$this->redirect = $redirect;
+		return $this;
+	}
+
+	public function setRefresh(?bool $refresh): Form
+	{
+		$this->refresh = $refresh;
 		return $this;
 	}
 
@@ -132,5 +149,12 @@ class Form extends Component
 		}
 		$this->initialValues->$source = $value;
 		return $this;
+	}
+
+	public static function create(string $component): Form
+	{
+		$form = new Form();
+		$form->setComponent($component);
+		return $form;
 	}
 }

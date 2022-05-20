@@ -1,0 +1,97 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2022-05-20 16:06+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Controller/Api/AppController.php:89
+msgid "User not authenticated or session expired!"
+msgstr ""
+
+#: Controller/Api/AppController.php:92
+msgid "Unauthorized: {0}"
+msgstr ""
+
+#: Controller/Api/SpidController.php:76
+#: Controller/Api/SpidController.php:130
+msgid "Invalid request."
+msgstr ""
+
+#: Controller/Api/SpidController.php:79
+#: Controller/Api/SpidController.php:133
+msgid "SPID authentication failed."
+msgstr ""
+
+#: Controller/Api/SpidController.php:113
+msgid "Recaptcha validation failed."
+msgstr ""
+
+#: Controller/Api/SpidController.php:154
+msgid "User not recognized: {0}"
+msgstr ""
+
+#: Controller/Api/UsersController.php:68
+msgid "Invalid username or password"
+msgstr ""
+
+#: Model/Table/LanguageMessagesTable.php:115
+msgid "Language Messages"
+msgstr ""
+
+#: Model/Table/LanguageMessagesTable.php:122
+msgid "Code"
+msgstr ""
+
+#: Model/Table/LanguageMessagesTable.php:126
+msgid "Text"
+msgstr ""
+
+#: Model/Table/LanguageMessagesTable.php:129
+msgid "Language"
+msgstr ""
+
+#: Model/Table/LanguageMessagesTable.php:132
+msgid "Resource"
+msgstr ""
+
+#: Model/Table/LanguageMessagesTable.php:135
+msgid "Translated"
+msgstr ""
+
+#: Model/Table/LanguageMessagesTable.php:161
+msgid "The resource to which this message belongs."
+msgstr ""
+
+#: Workflow/WorkflowBase.php:250
+msgid "You are not authorized to view this record because it's state is corrupted."
+msgstr ""
+
+#: Workflow/WorkflowBase.php:255
+#: Workflow/WorkflowBase.php:287
+#: Workflow/WorkflowBase.php:299
+#: Workflow/WorkflowBase.php:305
+msgid "Forbidden"
+msgstr ""
+
+#: Workflow/WorkflowBase.php:312
+msgid "Required."
+msgstr ""
+
+#: api/spid/auth.php:16
+msgid "SPID"
+msgstr ""
+
+#: api/spid/auth.php:17
+msgid "Redirecting to the login page {0}"
+msgstr ""
+

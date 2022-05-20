@@ -7,6 +7,8 @@ use FriendsOfBabba\Core\Hook\HookManager;
 /**
  * Expose basic utilities necessary to work inside the plugin (or outside)
  * with core api or customizations.
+ *
+ * @deprecated Do not use this class anymore.
  */
 class PluginManager
 {

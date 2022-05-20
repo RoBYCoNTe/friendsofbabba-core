@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Model\Table;
 
+use Cake\Collection\Collection;
 use Cake\ORM\RulesChecker;
+use Cake\Utility\Hash;
+use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\Model\Crud\Badge;
 use FriendsOfBabba\Core\Model\Crud\Filter;
 use FriendsOfBabba\Core\Model\Crud\Form;
+use FriendsOfBabba\Core\Model\Crud\FormInput;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Crud\Grid;
+use FriendsOfBabba\Core\Model\CrudManager;
 use FriendsOfBabba\Core\Model\Filter\LanguageMessageCollection;
 use FriendsOfBabba\Core\PluginManager;
 
@@ -100,30 +105,66 @@ class LanguageMessagesTable extends BaseTable
 
     public function getGrid(?User $user): ?Grid
     {
+        $tables = CrudManager::getInstance()->getListOfTables();
+        $tables = (new Collection($tables))->map(function ($table) {
+            $name = $id = Inflector::dasherize($table);
+            return compact("name", "id");
+        });
+
         $grid = parent::getGrid($user);
+        $grid->setTitle(__d('friendsofbabba_core', 'Language Messages'));
+        $grid->setSort("LanguageMessages.id", Grid::ORDER_DESC);
         $grid->setMobileBreakpoint("sm");
         $grid->setMobilePrimaryText("text");
         $grid->setMobileSecondaryText("code");
 
-        $grid->getField('code')
-            ->setComponent('LongTextField')
-            ->setComponentProp("maxRows", 3);
-        $grid->getField('text')->setComponent("RecordInput");
+        $grid->removeField("id");
+        $grid->removeField("code");
+        $grid->getField('text')
+            ->setLabel(__d('friendsofbabba_core', 'Text'))
+            ->setComponent("LanguageMessageInput");
+        $grid->getField('language_id')
+            ->setLabel(__d('friendsofbabba_core', 'Language'))
+            ->setSource("language.name");
 
-        $grid->getField('language_id')->setSource("language.name");
+
         $grid->addFilterDefaultValue('translated', FALSE);
-        $grid->addFilter(Filter::create("translated", "Translated", "BooleanInput")->alwaysOn());
+        $grid->addFilter(Filter::create("resource", __d('friendsofbabba_core', 'Resource'), "SelectInput")
+            ->alwaysOn()
+            ->setComponentProp("choices", $tables));
+        $grid->addFilter(Filter::create("translated", __d('friendsofbabba_core', 'Translated'), "NullableBooleanInput")
+            ->alwaysOn());
+
         return $grid;
     }
 
     public function getForm(?User $user): ?Form
     {
         $form = parent::getForm($user);
+        $form->setRedirect("list");
+        $form->setRefresh(FALSE);
         $form->getInput("language_id")
+            ->setLabel(__d('friendsofbabba_core', 'Language'))
             ->setComponent("ReferenceSelectInput")
             ->setComponentProp("reference", "languages")
             ->setComponentProp("optionText", "name");
-        $form->getInput("text")->fullWidth();
+
+        $tables = CrudManager::getInstance()->getListOfTables();
+        $tables = (new Collection($tables))->map(function ($table) {
+            $name = $id = Inflector::dasherize($table);
+            return compact("name", "id");
+        });
+
+        $form->addInput(
+            FormInput::create("resource", __d('friendsofbabba_core', 'Resource'))
+                ->setComponent("SelectInput")
+                ->setComponentProp("choices", $tables)
+                ->setComponentProp("helperText", __d('friendsofbabba_core', "The resource to which this message belongs.")),
+            "after",
+            "language_id"
+        );
+        $form->getInput('code')->setLabel(__d('friendsofbabba_core', 'Code'))->fullWidth();
+        $form->getInput("text")->setLabel(__d('friendsofbabba_core', 'Text'))->fullWidth();
         return $form;
     }
 
