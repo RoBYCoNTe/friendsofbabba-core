@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2022-05-20 16:06+0000\n"
+"POT-Creation-Date: 2022-05-23 10:33+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -48,19 +48,18 @@ msgstr ""
 msgid "Language Messages"
 msgstr ""
 
-#: Model/Table/LanguageMessagesTable.php:122
-msgid "Code"
-msgstr ""
-
-#: Model/Table/LanguageMessagesTable.php:126
+#: Model/Table/LanguageMessagesTable.php:124
+#: Model/Table/LanguageMessagesTable.php:167
 msgid "Text"
 msgstr ""
 
-#: Model/Table/LanguageMessagesTable.php:129
+#: Model/Table/LanguageMessagesTable.php:127
+#: Model/Table/LanguageMessagesTable.php:147
 msgid "Language"
 msgstr ""
 
 #: Model/Table/LanguageMessagesTable.php:132
+#: Model/Table/LanguageMessagesTable.php:159
 msgid "Resource"
 msgstr ""
 
@@ -68,8 +67,57 @@ msgstr ""
 msgid "Translated"
 msgstr ""
 
-#: Model/Table/LanguageMessagesTable.php:161
+#: Model/Table/LanguageMessagesTable.php:162
 msgid "The resource to which this message belongs."
+msgstr ""
+
+#: Model/Table/LanguageMessagesTable.php:166
+msgid "Code"
+msgstr ""
+
+#: Model/Table/NotificationsTable.php:127
+msgid "Notifications"
+msgstr ""
+
+#: Model/Table/NotificationsTable.php:140
+msgid "Readed"
+msgstr ""
+
+#: Model/Table/UsersTable.php:152
+#: Model/Table/UsersTable.php:174
+#: Model/Table/UsersTable.php:202
+msgid "Roles"
+msgstr ""
+
+#: Model/Table/UsersTable.php:163
+#: Model/Table/UsersTable.php:193
+msgid "Status"
+msgstr ""
+
+#: Model/Table/UsersTable.php:166
+#: Model/Table/UsersTable.php:197
+msgid "Active"
+msgstr ""
+
+#: Model/Table/UsersTable.php:169
+#: Model/Table/UsersTable.php:200
+msgid "Pending"
+msgstr ""
+
+#: Model/Table/UsersTable.php:179
+msgid "Modified"
+msgstr ""
+
+#: Model/Table/UsersTable.php:189
+msgid "E-mail"
+msgstr ""
+
+#: Model/Table/UsersTable.php:190
+msgid "Name"
+msgstr ""
+
+#: Model/Table/UsersTable.php:191
+msgid "Surname"
 msgstr ""
 
 #: Workflow/WorkflowBase.php:250
@@ -85,6 +133,10 @@ msgstr ""
 
 #: Workflow/WorkflowBase.php:312
 msgid "Required."
+msgstr ""
+
+#: Workflow/WorkflowBase.php:379
+msgid "Error saving transaction: {0}"
 msgstr ""
 
 #: api/spid/auth.php:16

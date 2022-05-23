@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2022-05-20 16:02+0000\n"
-"PO-Revision-Date: 2022-05-20 18:11+0200\n"
+"POT-Creation-Date: 2022-05-23 10:33+0000\n"
+"PO-Revision-Date: 2022-05-23 12:34+0200\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "Language: it_IT\n"
@@ -47,19 +47,18 @@ msgstr "Username o password errati"
 msgid "Language Messages"
 msgstr "Stringhe (i18n)"
 
-#: Model/Table/LanguageMessagesTable.php:122
-msgid "Code"
-msgstr "Codice"
-
-#: Model/Table/LanguageMessagesTable.php:126
+#: Model/Table/LanguageMessagesTable.php:124
+#: Model/Table/LanguageMessagesTable.php:167
 msgid "Text"
 msgstr "Testo"
 
-#: Model/Table/LanguageMessagesTable.php:129
+#: Model/Table/LanguageMessagesTable.php:127
+#: Model/Table/LanguageMessagesTable.php:147
 msgid "Language"
 msgstr "Lingua"
 
 #: Model/Table/LanguageMessagesTable.php:132
+#: Model/Table/LanguageMessagesTable.php:159
 msgid "Resource"
 msgstr "Risorsa"
 
@@ -67,13 +66,61 @@ msgstr "Risorsa"
 msgid "Translated"
 msgstr "Tradotto"
 
-#: Model/Table/LanguageMessagesTable.php:161
+#: Model/Table/LanguageMessagesTable.php:162
 msgid "The resource to which this message belongs."
 msgstr "La risorsa su cui attestare il messaggio."
 
+#: Model/Table/LanguageMessagesTable.php:166
+msgid "Code"
+msgstr "Codice"
+
+#: Model/Table/NotificationsTable.php:127
+msgid "Notifications"
+msgstr "Notifiche"
+
+#: Model/Table/NotificationsTable.php:140
+msgid "Readed"
+msgstr "Letta"
+
+#: Model/Table/UsersTable.php:152 Model/Table/UsersTable.php:174
+#: Model/Table/UsersTable.php:202
+msgid "Roles"
+msgstr "Ruoli"
+
+#: Model/Table/UsersTable.php:163 Model/Table/UsersTable.php:193
+msgid "Status"
+msgstr "Stato"
+
+#: Model/Table/UsersTable.php:166 Model/Table/UsersTable.php:197
+msgid "Active"
+msgstr "Attivo"
+
+#: Model/Table/UsersTable.php:169 Model/Table/UsersTable.php:200
+msgid "Pending"
+msgstr "In Attesa/Sospeso"
+
+#: Model/Table/UsersTable.php:179
+msgid "Modified"
+msgstr "Ultima Modifica"
+
+#: Model/Table/UsersTable.php:189
+msgid "E-mail"
+msgstr "E-mail"
+
+#: Model/Table/UsersTable.php:190
+msgid "Name"
+msgstr "Nome"
+
+#: Model/Table/UsersTable.php:191
+msgid "Surname"
+msgstr "Cognome"
+
 #: Workflow/WorkflowBase.php:250
-msgid "You are not authorized to view this record because it's state is corrupted."
-msgstr "Non sei autorizzato a visualizzare questo record poiché il suo stato è corrotto."
+msgid ""
+"You are not authorized to view this record because it's state is corrupted."
+msgstr ""
+"Non sei autorizzato a visualizzare questo record poiché il suo stato è "
+"corrotto."
 
 #: Workflow/WorkflowBase.php:255 Workflow/WorkflowBase.php:287
 #: Workflow/WorkflowBase.php:299 Workflow/WorkflowBase.php:305
@@ -95,3 +142,6 @@ msgstr ""
 #: api/spid/auth.php:17
 msgid "Redirecting to the login page {0}"
 msgstr "Reindirizzamento alla pagina di login {0}"
+
+#~ msgid "Received At"
+#~ msgstr "Ricevuta"

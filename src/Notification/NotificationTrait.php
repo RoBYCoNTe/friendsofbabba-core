@@ -3,7 +3,6 @@
 namespace FriendsOfBabba\Core\Notification;
 
 use Cake\ORM\TableRegistry;
-use FriendsOfBabba\Core\PluginManager;
 
 trait NotificationTrait
 {
@@ -14,10 +13,7 @@ trait NotificationTrait
     public function notify($notification): void
     {
         /** @var NotificationsTable $notifications */
-        $notifications = TableRegistry::getTableLocator()
-            ->get(PluginManager::getInstance()
-                ->getFQN('Notifications'));
-
+        $notifications = TableRegistry::getTableLocator()->get("FriendsOfBabba/Core.Notifications");
         $notifications->save($notification instanceof NotificationBuilder ? $notification->get() : $notification);
     }
 }

@@ -6,8 +6,14 @@ namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
+use FriendsOfBabba\Core\Model\Crud\Badge;
+use FriendsOfBabba\Core\Model\Crud\BulkAction;
+use FriendsOfBabba\Core\Model\Crud\Filter;
+use FriendsOfBabba\Core\Model\Entity\User;
+use FriendsOfBabba\Core\Model\Crud\Form;
+use FriendsOfBabba\Core\Model\Crud\Grid;
+use FriendsOfBabba\Core\Model\Crud\GridField;
 use FriendsOfBabba\Core\Model\Filter\NotificationCollection;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * Notifications Model
@@ -48,11 +54,12 @@ class NotificationsTable extends BaseTable
 
         $this->addBehavior('Timestamp');
         $this->addBehavior('Search.Search', ['collectionClass' => NotificationCollection::class]);
+        $this->addBehavior('FriendsOfBabba/Core.DateTime', ['readed']);
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
-            'className' => PluginManager::getInstance()->getFQN('FriendsOfBabba/Core.Users'),
+            'className' => 'FriendsOfBabba/Core.Users',
         ]);
     }
 
@@ -107,5 +114,43 @@ class NotificationsTable extends BaseTable
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
 
         return $rules;
+    }
+
+    public function getForm(?User $user): ?Form
+    {
+        return NULL;
+    }
+
+    public function getGrid(?User $user): ?Grid
+    {
+        $grid = new Grid("NotificationList");
+        $grid->setTitle(__d("friendsofbabba_core", "Notifications"));
+        $grid->disableDelete();
+        $grid->disableCreate();
+        $grid->disableExporter();
+        $grid->addFilterDefaultValue("readed", false);
+        $grid->addBulkActionButton(BulkAction::create("MarkAsReadedButton"));
+        $grid->addBulkActionButton(BulkAction::create("MarkAsUnreadedButton"));
+        $grid->setSort('created', Grid::ORDER_DESC);
+        // Name of labels are retrieved in language-messages because this grid use
+        // the custom component NotificationList that needs javascript localized strings.
+        $grid->addField(GridField::create("notification", NULL, "NotificationField", FALSE));
+        $grid->addField(GridField::create("created", NULL, "DateAgoField"));
+        $grid->addFilter(Filter::create("q", NULL, "SearchInput")->alwaysOn());
+        $grid->addFilter(Filter::create("readed", __d("friendsofbabba_core", "Readed"), "NullableBooleanInput")->alwaysOn());
+
+        return $grid;
+    }
+
+    public function getBadge(?User $user): Badge
+    {
+        $count = $this->find()
+            ->where([
+                'Notifications.user_id' => $user->id,
+                'Notifications.readed IS' => NULL,
+            ])
+            ->count();
+
+        return Badge::create('error', $count);
     }
 }

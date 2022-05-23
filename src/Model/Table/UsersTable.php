@@ -146,9 +146,10 @@ class UsersTable extends BaseTable
             return $query->contain(['UserProfiles']);
         });
 
+        $grid->setRowClick("edit");
         $grid
             ->addField(
-                GridField::create("roles", "Roles")
+                GridField::create("roles", __d("friendsofbabba_core", "Roles"))
                     ->setComponent("ChipArrayField")
                     ->setComponentProp("chipSource", "name"),
                 "before",
@@ -159,22 +160,23 @@ class UsersTable extends BaseTable
             ->setMobileSecondaryText("email")
             ->setMobileTertiaryText("status");
 
-        $grid->addFilter(Filter::create("status", "Status", "SelectInput")
-            ->setComponentProp("choices", array_map(function ($state) {
-                return [
-                    "id" => $state,
-                    "name" => $state
-                ];
-            }, ['active', 'pending']))
+        $grid->addFilter(Filter::create("status", __d("friendsofbabba_core", "Status"), "SelectInput")
+            ->setComponentProp("choices", [[
+                'id' => 'active',
+                'name' => __d('friendsofbabba_core', 'Active')
+            ], [
+                'id' => 'pending',
+                'name' => __d('friendsofbabba_core', 'Pending')
+            ]])
             ->alwaysOn());
 
-        $grid->addFilter(Filter::create("email", "E-mail", "TextInput")->alwaysOn());
         $grid->addFilter(
-            Filter::create("role_ids", "Roles", "ReferenceSelectInput")
+            Filter::create("role_ids", __d("friendsofbabba_core", "Roles"), "ReferenceSelectInput")
                 ->setComponentProp("reference", "roles")
                 ->setComponentProp("optionText", "name")
                 ->alwaysOn()
         );
+        $grid->getField("modified")->setLabel(__d("friendsofbabba_core", "Modified"));
 
 
         return $grid;
@@ -184,18 +186,20 @@ class UsersTable extends BaseTable
     {
         $form = parent::getForm($user);
         $form->getInput("password")->setComponentProp("type", "password");
-        $form->addInput(FormInput::create("profile.name", "Name"));
-        $form->addInput(FormInput::create("profile.surname", "Surname"));
+        $form->getInput("email")->setLabel(__d("friendsofbabba_core", "E-mail"));
+        $form->addInput(FormInput::create("profile.name", __d("friendsofbabba_core", "Name")));
+        $form->addInput(FormInput::create("profile.surname", __d("friendsofbabba_core", "Surname")));
         $form->getInput("status")
+            ->setLabel(__d("friendsofbabba_core", "Status"))
             ->setComponent("SelectInput")
             ->setComponentProp('choices', [[
                 'id' => 'active',
-                'name' => 'Active'
+                'name' => __d('friendsofbabba_core', 'Active')
             ], [
                 'id' => 'pending',
-                'name' => 'Pending'
+                'name' => __d('friendsofbabba_core', 'Pending')
             ]]);
-        $form->addInput(FormInput::create("roles", "Roles")
+        $form->addInput(FormInput::create("roles", __d("friendsofbabba_core", "Roles"))
             ->setComponent("ReferenceCheckboxGroupInput")
             ->setComponentProp("reference", "roles")
             ->setComponentProp("optionText", "name")

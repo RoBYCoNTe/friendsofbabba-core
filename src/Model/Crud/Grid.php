@@ -59,6 +59,13 @@ class Grid extends Component
 	public array $exportTo = [];
 
 	/**
+	 * List of actions to expose on list.
+	 *
+	 * @var array
+	 */
+	public array $bulkActionButtons = [];
+
+	/**
 	 * Indicates from which dimensions the grid should be displayed as simple list.
 	 *
 	 * @see https://marmelab.com/react-admin/doc/3.19/List.html#the-simplelist-component
@@ -83,9 +90,9 @@ class Grid extends Component
 
 	private array $_exportable = [];
 
-	public function __construct()
+	public function __construct(string $component = "Datagrid")
 	{
-		parent::__construct("Datagrid");
+		parent::__construct($component);
 	}
 
 	/**
@@ -329,5 +336,41 @@ class Grid extends Component
 			$this->mobileTertiaryComponent = new Component("TextField");
 		}
 		return $this->mobileTertiaryComponent;
+	}
+
+	public function setRowClick(string $rowClick): Grid
+	{
+		$this->setComponentProp("rowClick", $rowClick);
+		return $this;
+	}
+
+	public function addBulkActionButton(BulkAction $bulkActionButton): Grid
+	{
+		$this->bulkActionButtons[] = $bulkActionButton;
+		return $this;
+	}
+
+	public function addAction(Action $action): Grid
+	{
+		$this->actions[] = $action;
+		return $this;
+	}
+
+	public function disableDelete(): Grid
+	{
+		$this->canDelete = FALSE;
+		return $this;
+	}
+
+	public function disableCreate(): Grid
+	{
+		$this->canCreate = FALSE;
+		return $this;
+	}
+
+	public function disableExporter(): Grid
+	{
+		$this->exporter = FALSE;
+		return $this;
 	}
 }
