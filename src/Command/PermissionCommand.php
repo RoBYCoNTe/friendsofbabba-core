@@ -10,11 +10,8 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Core\Configure;
-use FriendsOfBabba\Core\Hook\HookManager;
 use FriendsOfBabba\Core\Model\Entity\Role;
-use FriendsOfBabba\Core\Model\Entity\RolePermission;
 use FriendsOfBabba\Core\Model\Table\RolesTable;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * Permission command.
@@ -26,7 +23,7 @@ class PermissionCommand extends Command
     public function initialize(): void
     {
         parent::initialize();
-        $this->loadModel(PluginManager::getInstance()->getFQN('Roles'));
+        $this->loadModel('FriendsOfBabba/Core.Roles');
     }
 
     /**

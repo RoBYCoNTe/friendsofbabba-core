@@ -3,6 +3,7 @@
 namespace FriendsOfBabba\Core\Controller\Api;
 
 use Cake\Event\Event;
+use Cake\Http\Exception\ForbiddenException;
 use Cake\ORM\Locator\TableLocator;
 use Cake\ORM\Query;
 use Cake\Utility\Hash;
@@ -23,7 +24,7 @@ class LanguageMessagesController extends AppController
 		$this->Crud->on('afterSave', function () {
 			// Every time a language message is saved, we need
 			// to generate the language CSV files.
-			$this->export();
+			$this->_export();
 		});
 	}
 
@@ -32,9 +33,8 @@ class LanguageMessagesController extends AppController
 		$this->Crud->on("beforePaginate", function (Event $event) {
 			/** @var Query */
 			$query = $event->getSubject()->query;
-			$event->getSubject()->query = $query->contain([
-				"Languages"
-			]);
+			$query = $query->contain(["Languages"]);
+			$query = $this->Authorization->applyScope($query);
 		});
 		$this->Crud->execute();
 	}
@@ -42,11 +42,15 @@ class LanguageMessagesController extends AppController
 	public function add()
 	{
 		$resource = $this->request->getData('resource');
+
 		if ($resource) {
-			return $this->generate($resource, $this->request->getQuery('language_id', null));
+			return $this->_generate($resource, $this->request->getQuery('language_id', null));
 		}
 		$this->Crud->on('beforeSave', function (Event $event) {
 			$entity = $event->getSubject()->entity;
+			if (!$this->Authorization->can($entity)) {
+				throw new ForbiddenException();
+			}
 			unset($entity->language);
 		});
 		return $this->Crud->execute();
@@ -54,14 +58,21 @@ class LanguageMessagesController extends AppController
 
 	public function edit()
 	{
-		$this->Crud->on('afterSave', function (Event $event) {
-			$this->export();
+		$this->Crud->on('beforeSave', function (Event $event) {
 			$entity = $event->getSubject()->entity;
-			$this->set('data', $entity);
+			if (!$this->Authorization->can($entity)) {
+				throw new ForbiddenException();
+			}
+			unset($entity->language);
+		});
+		$this->Crud->on('afterSave', function (Event $event) {
+			$entity = $event->getSubject()->entity;
 			$entity->language = (new TableLocator())
 				->get('Languages')
 				->findById($entity->language_id)
 				->first();
+
+			$this->set('data', $entity);
 			$this->Crud->action()->setConfig('serialize.data', 'data');
 		});
 		return $this->Crud->execute();
@@ -69,8 +80,14 @@ class LanguageMessagesController extends AppController
 
 	public function delete()
 	{
+		$this->Crud->on('afterFind', function (Event $event) {
+			$entity = $event->getSubject()->entity;
+			if (!$this->Authorization->can($entity)) {
+				throw new ForbiddenException();
+			}
+		});
 		$this->Crud->on('afterDelete', function (Event $event) {
-			$this->export();
+			$this->_export();
 		});
 		return $this->Crud->execute();
 	}
@@ -84,7 +101,7 @@ class LanguageMessagesController extends AppController
 	 * 		The language to generate localized strings for.
 	 * @return void
 	 */
-	public function generate(string $resource, ?int $selectedLanguage = null): void
+	private function _generate(string $resource, ?int $selectedLanguage = null): void
 	{
 		$humanResource = Inflector::humanize($resource, '-');
 		$repository = (new TableLocator())->get(Inflector::camelize($resource, '-'));
@@ -127,6 +144,9 @@ class LanguageMessagesController extends AppController
 						'code' => $code,
 						'text' => $text,
 					]);
+					if (!$this->Authorization->can($languageMessage, 'add')) {
+						continue;
+					}
 					$this->LanguageMessages->save($languageMessage);
 				}
 			}
@@ -141,7 +161,7 @@ class LanguageMessagesController extends AppController
 		]);
 	}
 
-	private function export()
+	private function _export()
 	{
 		$command = new LanguageCommand;
 		return $command->executeCommand($command, ['export']);

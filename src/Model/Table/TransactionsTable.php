@@ -5,7 +5,6 @@ namespace FriendsOfBabba\Core\Model\Table;
 use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\Model\Entity\Transaction;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * An easy access to transactions necessary to work with the workflow.
@@ -28,7 +27,7 @@ class TransactionsTable extends BaseTable
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
             'propertyName' => 'user',
-            'className' => PluginManager::getInstance()->getFQN('Users')
+            'className' => 'FriendsOfBabba/Core.Users'
         ]);
 
         $this->addBehavior('Timestamp');

@@ -6,7 +6,6 @@ namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * RolePermissions Model
@@ -50,7 +49,7 @@ class RolePermissionsTable extends BaseTable
         $this->belongsTo('Roles', [
             'foreignKey' => 'role_id',
             'joinType' => 'INNER',
-            'className' => PluginManager::getInstance()->getFQN('Roles'),
+            'className' => 'FriendsOfBabba/Core.Roles',
         ]);
     }
 

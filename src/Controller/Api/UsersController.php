@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Controller\Api;
 
-use Cake\Core\Configure;
 use Cake\Event\Event;
+use Cake\Http\Exception\ForbiddenException;
 use Cake\ORM\Query;
 use Crud\Action\AddAction;
-use Firebase\JWT\JWT;
 use FriendsOfBabba\Core\Controller\Component\JwtTokenProviderComponent;
-use FriendsOfBabba\Core\Hook\HookManager;
 use FriendsOfBabba\Core\Model\Entity\User;
-use FriendsOfBabba\Core\PluginManager;
-use FriendsOfBabba\Core\Security\LoginData;
-use Seld\JsonLint\Undefined;
+
 
 /**
  * Users Controller
@@ -33,16 +29,17 @@ class UsersController extends AppController
 	{
 		parent::initialize();
 
-		$this->loadModel(PluginManager::getInstance()->getFQN('Users'));
-		$this->loadModel(PluginManager::getInstance()->getFQN('UserProfiles'));
-		$this->loadComponent(PluginManager::getInstance()->getFQN('JwtTokenProvider'));
+		$this->loadModel('FriendsOfBabba/Core.Users');
+		$this->loadModel('FriendsOfBabba/Core.UserProfiles');
+		$this->loadComponent('FriendsOfBabba/Core.JwtTokenProvider');
 
 		$this->Authentication->allowUnauthenticated(['login', 'add']);
-		$this->Crud->useModel(PluginManager::getInstance()->getFQN('Users'));
+		$this->Crud->useModel('FriendsOfBabba/Core.Users');
 	}
 
 	public function login()
 	{
+		$this->Authorization->skipAuthorization();
 		$result = $this->Authentication->getResult();
 		if ($result->isValid()) {
 
@@ -82,6 +79,7 @@ class UsersController extends AppController
 				'UserProfiles',
 				'Roles'
 			]);
+			$query = $this->Authorization->applyScope($query);
 		});
 		$this->Crud->execute();
 	}
@@ -95,6 +93,18 @@ class UsersController extends AppController
 				'UserProfiles',
 				'Roles'
 			]);
+			$query = $this->Authorization->applyScope($query);
+		});
+		$this->Crud->execute();
+	}
+
+	public function add()
+	{
+		$this->Crud->on('beforeSave', function (Event $event) {
+			$entity = $event->getSubject()->entity;
+			if (!$this->Authorization->can($entity)) {
+				throw new ForbiddenException();
+			}
 		});
 		$this->Crud->execute();
 	}
@@ -109,6 +119,24 @@ class UsersController extends AppController
 				'Roles'
 			]
 		]);
+		$this->Crud->on("beforeSave", function (Event $event) {
+			$entity = $event->getSubject()->entity;
+			if (!$this->Authorization->can($entity)) {
+				throw new ForbiddenException();
+			}
+		});
+		$this->Crud->execute();
+	}
+
+	public function delete()
+	{
+		$this->Crud->on('afterFind', function (Event $event) {
+			/** @var User */
+			$entity = $event->getSubject()->entity;
+			if (!$this->Authorization->can($entity)) {
+				throw new ForbiddenException();
+			}
+		});
 		$this->Crud->execute();
 	}
 }

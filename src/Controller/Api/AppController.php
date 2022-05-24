@@ -6,18 +6,16 @@ namespace FriendsOfBabba\Core\Controller\Api;
 
 use Authentication\Authenticator\UnauthenticatedException;
 use Authentication\Controller\Component\AuthenticationComponent;
+use Authorization\Controller\Component\AuthorizationComponent;
 use Cake\Controller\Component\RequestHandlerComponent;
 use Cake\Controller\Controller;
 use Cake\Event\EventInterface;
 use Cake\Http\Exception\UnauthorizedException;
-use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
 use Crud\Controller\Component\CrudComponent;
 use Crud\Controller\ControllerTrait;
 use FriendsOfBabba\Core\Controller\Component\NotificationComponent;
 use FriendsOfBabba\Core\Model\Entity\User;
-use FriendsOfBabba\Core\Model\Table\UsersTable;
-use FriendsOfBabba\Core\PluginManager;
 use FriendsOfBabba\Core\Workflow\WorkflowRegistry;
 
 /**
@@ -26,6 +24,7 @@ use FriendsOfBabba\Core\Workflow\WorkflowRegistry;
  * @property CrudComponent $Crud
  * @property RequestHandlerComponent $RequestHandler
  * @property AuthenticationComponent $Authentication
+ * @property AuthorizationComponent $Authorization
  * @property NotificationComponent $Notification
  */
 class AppController extends Controller
@@ -38,6 +37,7 @@ class AppController extends Controller
 
         $this->loadComponent('FriendsOfBabba/Core.Notification');
         $this->loadComponent('Authentication.Authentication');
+        $this->loadComponent('Authorization.Authorization');
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Crud.Crud', [
             'actions' => [
@@ -98,32 +98,9 @@ class AppController extends Controller
      *
      * @return ?User
      */
-    public function getUser(bool $throws = true): ?User
+    public function getUser(): ?User
     {
-        $result = $this->Authentication->getResult();
-        if (!$result->isValid()) {
-            if ($throws) {
-                throw new UnauthenticatedException("User not authenticated or session expired!");
-            }
-            return NULL;
-        }
-
-        $user = $result->getData();
-
-        $modelName = PluginManager::getInstance()->getFQN('Users');
-
-        /** @var UsersTable */
-        $repository = TableRegistry::getTableLocator()->get($modelName);
-
-        $query = $repository->find()
-            ->contain([
-                'Roles',
-                'Roles.RolePermissions'
-            ])
-            ->where(['Users.id' => $user->id]);
-
-        $user = $query->first();
-        return $user;
+        return $this->request->getAttribute('identity');
     }
 
     public function useModel(string $model): void

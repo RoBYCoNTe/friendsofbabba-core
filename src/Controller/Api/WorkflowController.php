@@ -6,7 +6,6 @@ namespace FriendsOfBabba\Core\Controller\Api;
 use Cake\Event\Event;
 use Cake\Utility\Inflector;
 use FriendsOfBabba\Core\Model\Table\TransactionsTable;
-use FriendsOfBabba\Core\PluginManager;
 use FriendsOfBabba\Core\Workflow\WorkflowBase;
 use FriendsOfBabba\Core\Workflow\WorkflowRegistry;
 
@@ -24,7 +23,7 @@ class WorkflowController extends AppController
 	public function initialize(): void
 	{
 		parent::initialize();
-		$this->loadModel(PluginManager::getInstance()->getFQN("Transactions"));
+		$this->loadModel("FriendsOfBabba/Core.Transactions");
 		$this->Authentication->addUnauthenticatedActions(['resolve', 'load']);
 	}
 

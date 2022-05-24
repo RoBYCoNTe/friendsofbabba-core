@@ -5,7 +5,6 @@ namespace FriendsOfBabba\Core\Export\Crud;
 use Cake\Core\App;
 use FriendsOfBabba\Core\Export\BaseExcelDocument;
 use FriendsOfBabba\Core\Model\Crud\Grid;
-use FriendsOfBabba\Core\PluginManager;
 
 class CrudExcelDocument extends BaseExcelDocument
 {
@@ -16,7 +15,7 @@ class CrudExcelDocument extends BaseExcelDocument
 	{
 		$this->_grid = $grid;
 
-		$path = App::path('templates', PluginManager::getInstance()->getName());
+		$path = App::path('templates', "FriendsOfBabba/Core");
 		$path = count($path) > 0 ? $path[0] : NULL;
 
 		parent::__construct($path . DS . "excel" . DS . "crud-export.xlsx");

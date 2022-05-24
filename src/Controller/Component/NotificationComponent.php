@@ -7,7 +7,6 @@ use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use FriendsOfBabba\Core\Model\Table\NotificationsTable;
 use FriendsOfBabba\Core\Notification\NotificationBuilder;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * @property NotificationsTable $Notifications
@@ -16,8 +15,7 @@ class NotificationComponent extends Component
 {
 	public function initialize(array $config): void
 	{
-		$modelName = PluginManager::getInstance()->getFQN('Notifications');
-		$this->Notifications = TableRegistry::getTableLocator()->get($modelName);
+		$this->Notifications = TableRegistry::getTableLocator()->get("FriendsOfBabba/Core.Notifications");
 	}
 
 	/**

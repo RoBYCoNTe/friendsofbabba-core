@@ -9,7 +9,6 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use FriendsOfBabba\Core\Model\Table\UsersTable;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * Users/Pwd command.
@@ -21,7 +20,7 @@ class PwdCommand extends Command
 	public function initialize(): void
 	{
 		parent::initialize();
-		$this->loadModel(PluginManager::getInstance()->getFQN('Users'));
+		$this->loadModel('FriendsOfBabba/Core.Users');
 	}
 	/**
 	 * Hook method for defining this command's option parser.

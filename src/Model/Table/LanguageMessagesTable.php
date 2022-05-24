@@ -6,7 +6,6 @@ namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\Collection\Collection;
 use Cake\ORM\RulesChecker;
-use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\Model\Crud\Badge;
@@ -17,7 +16,6 @@ use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Crud\Grid;
 use FriendsOfBabba\Core\Model\CrudManager;
 use FriendsOfBabba\Core\Model\Filter\LanguageMessageCollection;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * LanguageMessages Model
@@ -57,7 +55,7 @@ class LanguageMessagesTable extends BaseTable
         $this->belongsTo('Languages', [
             'foreignKey' => 'language_id',
             'joinType' => 'INNER',
-            'className' => PluginManager::getInstance()->getFQN('Languages'),
+            'className' => 'FriendsOfBabba/Core.Languages',
         ]);
 
         $this->addBehavior('Search.Search', ['collectionClass' => LanguageMessageCollection::class]);

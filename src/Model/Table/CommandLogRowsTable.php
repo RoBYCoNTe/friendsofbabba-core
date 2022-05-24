@@ -8,7 +8,6 @@ use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Crud\Grid;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * CommandLogRows Model
@@ -52,7 +51,7 @@ class CommandLogRowsTable extends BaseTable
         $this->belongsTo('CommandLogs', [
             'foreignKey' => 'command_log_id',
             'joinType' => 'INNER',
-            'className' => PluginManager::getInstance()->getFQN('CommandLogs'),
+            'className' => 'FriendsOfBabba/Core.CommandLogs',
         ]);
     }
 

@@ -2,8 +2,6 @@
 
 namespace FriendsOfBabba\Core\Hook;
 
-use FriendsOfBabba\Core\PluginManager;
-
 class Hook
 {
 	public string $code;

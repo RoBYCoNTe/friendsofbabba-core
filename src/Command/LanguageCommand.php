@@ -15,7 +15,6 @@ use FriendsOfBabba\Core\Model\Entity\Language;
 use FriendsOfBabba\Core\Model\Entity\LanguageMessage;
 use FriendsOfBabba\Core\Model\Table\LanguageMessagesTable;
 use FriendsOfBabba\Core\Model\Table\LanguagesTable;
-use FriendsOfBabba\Core\PluginManager;
 use SplFileObject;
 
 /**
@@ -30,8 +29,8 @@ class LanguageCommand extends Command
     {
         parent::initialize();
 
-        $this->loadModel(PluginManager::getInstance()->getFQN('Languages'));
-        $this->loadModel(PluginManager::getInstance()->getFQN('LanguageMessages'));
+        $this->loadModel('FriendsOfBabba/Core.Languages');
+        $this->loadModel('FriendsOfBabba/Core.LanguageMessages');
     }
 
     /**

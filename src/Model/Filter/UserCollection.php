@@ -3,9 +3,6 @@
 namespace FriendsOfBabba\Core\Model\Filter;
 
 use Cake\ORM\Query;
-use Cake\Utility\Hash;
-use FriendsOfBabba\Core\Hook\HookManager;
-use FriendsOfBabba\Core\PluginManager;
 
 class UserCollection extends BaseCollection
 {

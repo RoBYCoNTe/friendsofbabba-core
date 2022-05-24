@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Model\Table;
 
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * Media Model
@@ -51,7 +49,7 @@ class MediaTable extends Table
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
-            'className' => PluginManager::getInstance()->getFQN('Users'),
+            'className' => 'FriendsOfBabba/Core.Users',
         ]);
     }
 

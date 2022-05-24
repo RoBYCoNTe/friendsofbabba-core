@@ -12,7 +12,6 @@ use Cake\Console\ConsoleOptionParser;
 use Cake\Utility\Text;
 use FriendsOfBabba\Core\Command\User\AddCommand as AddUserCommand;
 use FriendsOfBabba\Core\Model\Entity\Role;
-use FriendsOfBabba\Core\PluginManager;
 use Migrations\Command\MigrationsMigrateCommand;
 
 /**
@@ -59,7 +58,7 @@ class InstallCommand extends Command
         $io->ask(" Please press any key to continue...");
 
 
-        $argv = ["--plugin", PluginManager::getInstance()->getName()];
+        $argv = ["--plugin", "FriendsOfBabba/Core"];
         $this->executeCommand(MigrationsMigrateCommand::class, $argv, $io);
         if ($io->askChoice('Do you want to install SPID login?', ['yes', 'no'], 'no') === "yes") {
             $argv[] = "--source";
@@ -77,7 +76,7 @@ class InstallCommand extends Command
         $io->hr();
 
         $username = 'Administrator';
-        $users = $this->loadModel(PluginManager::getInstance()->getFQN('Users'))
+        $users = $this->loadModel('FriendsOfBabba/Core.Users')
             ->find()
             ->where(['username' => $username])
             ->count();

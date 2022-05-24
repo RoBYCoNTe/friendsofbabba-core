@@ -11,7 +11,6 @@ use Cake\Console\ConsoleOptionParser;
 use FriendsOfBabba\Core\Model\Table\RolesTable;
 use FriendsOfBabba\Core\Model\Table\UserProfilesTable;
 use FriendsOfBabba\Core\Model\Table\UsersTable;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * Users/Add command.
@@ -25,9 +24,9 @@ class AddCommand extends Command
     public function initialize(): void
     {
         parent::initialize();
-        $this->loadModel(PluginManager::getInstance()->getFQN('Users'));
-        $this->loadModel(PluginManager::getInstance()->getFQN('Roles'));
-        $this->loadModel(PluginManager::getInstance()->getFQN('UserProfiles'));
+        $this->loadModel('FriendsOfBabba/Core.Users');
+        $this->loadModel('FriendsOfBabba/Core.Roles');
+        $this->loadModel('FriendsOfBabba/Core.UserProfiles');
     }
     /**
      * Hook method for defining this command's option parser.

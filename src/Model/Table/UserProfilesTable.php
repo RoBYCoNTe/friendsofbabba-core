@@ -6,7 +6,6 @@ namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * UserProfiles Model
@@ -50,7 +49,7 @@ class UserProfilesTable extends BaseTable
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
-            'className' => PluginManager::getInstance()->getFQN('Users'),
+            'className' => 'FriendsOfBabba/Core.Users',
         ]);
     }
 

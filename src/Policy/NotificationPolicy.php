@@ -1,0 +1,71 @@
+<?php
+
+declare(strict_types=1);
+
+namespace FriendsOfBabba\Core\Policy;
+
+use Authorization\IdentityInterface;
+use FriendsOfBabba\Core\Model\Entity\Notification;
+use FriendsOfBabba\Core\Model\Entity\Role;
+use FriendsOfBabba\Core\Model\Entity\User;
+
+/**
+ * Notification policy
+ */
+class NotificationPolicy
+{
+    /**
+     * Check if $user can add Notification
+     *
+     * @param \Authorization\IdentityInterface $user The user.
+     * @param \FriendsOfBabba\Core\Model\Entity\Notification $notification
+     * @return bool
+     */
+    public function canAdd(IdentityInterface $user, Notification $notification)
+    {
+        /** @var User $user */
+        return $user->hasRole(Role::ADMIN) && $notification->isNew();
+    }
+
+    /**
+     * Check if $user can edit Notification
+     *
+     * @param \Authorization\IdentityInterface $user The user.
+     * @param \FriendsOfBabba\Core\Model\Entity\Notification $notification
+     * @return bool
+     */
+    public function canEdit(IdentityInterface $user, Notification $notification)
+    {
+        /** @var User $user */
+        return $user->hasRole(Role::ADMIN) && !$notification->isNew();
+    }
+
+    /**
+     * Check if $user can delete Notification
+     *
+     * @param \Authorization\IdentityInterface $user The user.
+     * @param \FriendsOfBabba\Core\Model\Entity\Notification $notification
+     * @return bool
+     */
+    public function canDelete(IdentityInterface $user, Notification $notification)
+    {
+        /** @var User $user */
+        return $user->hasRole(Role::ADMIN) && !$notification->isNew();
+    }
+
+    /**
+     * Check if $user can view Notification
+     *
+     * @param \Authorization\IdentityInterface $user The user.
+     * @param \FriendsOfBabba\Core\Model\Entity\Notification $notification
+     * @return bool
+     */
+    public function canView(IdentityInterface $user, Notification $notification)
+    {
+        /** @var User $user */
+        if ($user->hasRole(Role::ADMIN)) {
+            return true;
+        }
+        return $notification->user_id === $user->getIdentifier();
+    }
+}

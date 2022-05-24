@@ -10,7 +10,6 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Utility\Inflector;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * Create Filter Collection command
@@ -49,7 +48,7 @@ class CreateFilterCollectionCommand extends Command
 			'nameSingular' => Inflector::singularize($entity),
 			'name' => Inflector::pluralize($entity)
 		]);
-		$out = $renderer->generate(PluginManager::getInstance()->getFQN('Model/filter'));
+		$out = $renderer->generate('FriendsOfBabba/Core.Model/filter');
 		$filename = sprintf('%s/Model/Filter/%sCollection.php', APP, Inflector::singularize($entity));
 		$io->createFile($filename, $out);
 	}

@@ -8,13 +8,19 @@ use Authentication\AuthenticationService;
 use Authentication\AuthenticationServiceInterface;
 use Authentication\AuthenticationServiceProviderInterface;
 use Authentication\Identifier\IdentifierInterface;
+use Authentication\Identity;
 use Authentication\Middleware\AuthenticationMiddleware;
+use Authorization\AuthorizationService;
+use Authorization\AuthorizationServiceInterface;
+use Authorization\AuthorizationServiceProviderInterface;
+use Authorization\Middleware\AuthorizationMiddleware;
+use Authorization\Policy\OrmResolver;
 use Cake\Console\CommandCollection;
 use Cake\Core\BasePlugin;
 use Cake\Core\Configure;
 use Cake\Core\PluginApplicationInterface;
 use Cake\Http\MiddlewareQueue;
-use FriendsOfBabba\Core\Hook\HookManager;
+use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Routing\Middleware\CorsMiddleware;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -25,7 +31,7 @@ use Psr\Http\Message\ServerRequestInterface;
  *
  *
  */
-class Plugin extends BasePlugin implements AuthenticationServiceProviderInterface
+class Plugin extends BasePlugin implements AuthenticationServiceProviderInterface, AuthorizationServiceProviderInterface
 {
     /**
      * Load all the plugin configuration and bootstrap logic.
@@ -40,6 +46,7 @@ class Plugin extends BasePlugin implements AuthenticationServiceProviderInterfac
     {
         // Add authentication plugin necessary to work with core.
         $app->addPlugin("Authentication");
+        $app->addPlugin("Authorization");
 
         // Configure CORS.
         Configure::load('FriendsOfBabba/Core.default', 'default');
@@ -82,6 +89,15 @@ class Plugin extends BasePlugin implements AuthenticationServiceProviderInterfac
     {
         // Add your middlewares here
         $middlewareQueue->add(new AuthenticationMiddleware($this));
+        $middlewareQueue->add(new AuthorizationMiddleware($this, [
+            'identityDecorator' => function ($auth, $identity) {
+                /** @var User */
+                $user = $identity->getOriginalData();
+                $user->setAuthorization($auth);
+                return $user;
+            },
+            'requireAuthorizationCheck' => false
+        ]));
         $middlewareQueue->add(new CorsMiddleware());
         return $middlewareQueue;
     }
@@ -94,30 +110,7 @@ class Plugin extends BasePlugin implements AuthenticationServiceProviderInterfac
      */
     public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
     {
-        $hookName = PluginManager::getInstance()->getFQN('Plugin.getAuthenticationService');
-        $serviceOverride = HookManager::getInstance()->fire($hookName, NULL, $request);
-        if (!is_null($serviceOverride)) {
-            if ($serviceOverride instanceof AuthenticationServiceInterface) {
-                return $serviceOverride;
-            } else {
-                throw new \Exception(sprintf(
-                    "Invalid AuthenticationService returned by hook %s",
-                    $hookName
-                ));
-            }
-        }
         $service = new AuthenticationService();
-        // Define where users should be redirected to when they are not authenticated
-        $service->setConfig([
-            // 'unauthenticatedRedirect' => Router::url([
-            //     'prefix' => 'Api',
-            //     'plugin' => 'FriendsOfBabba/Core',
-            //     'controller' => 'Users',
-            //     'action' => 'login',
-            // ]),
-            // 'queryParam' => 'redirect',
-        ]);
-
         $fields = [
             IdentifierInterface::CREDENTIAL_USERNAME => 'username',
             IdentifierInterface::CREDENTIAL_PASSWORD => 'password'
@@ -128,12 +121,18 @@ class Plugin extends BasePlugin implements AuthenticationServiceProviderInterfac
             'returnPayload' => false
         ]);
         $service->loadAuthenticator('Authentication.Form', [
-            'fields' => $fields
+            'fields' => $fields,
+            'resolver' => [
+                'className' => 'Authentication.Orm',
+                'userModel' => 'FriendsOfBabba/Core.Users',
+                'finder' => 'authenticated'
+            ]
         ]);
         $service->loadIdentifier('Authentication.JwtSubject', [
             'resolver' => [
                 'className' => 'Authentication.Orm',
-                'userModel' => PluginManager::getInstance()->getFQN('Users')
+                'userModel' => 'FriendsOfBabba/Core.Users',
+                'finder' => 'authenticated'
             ]
         ]);
         $service->loadIdentifier('Authentication.Password', [
@@ -141,10 +140,17 @@ class Plugin extends BasePlugin implements AuthenticationServiceProviderInterfac
             'fields' => $fields,
             'resolver' => [
                 'className' => 'Authentication.Orm',
-                'userModel' => PluginManager::getInstance()->getFQN('Users')
+                'userModel' => 'FriendsOfBabba/Core.Users',
+                'finder' => 'authenticated'
             ]
         ]);
 
         return $service;
+    }
+
+    public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
+    {
+        $resolver = new OrmResolver();
+        return new AuthorizationService($resolver);
     }
 }

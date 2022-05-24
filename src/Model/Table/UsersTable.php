@@ -16,7 +16,6 @@ use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Crud\Grid;
 use FriendsOfBabba\Core\Model\Crud\GridField;
 use FriendsOfBabba\Core\Model\Filter\UserCollection;
-use FriendsOfBabba\Core\PluginManager;
 use SoftDelete\Model\Table\SoftDeleteTrait;
 
 /**
@@ -66,14 +65,14 @@ class UsersTable extends BaseTable
             'targetForeignKey' => 'role_id',
             'joinTable' => 'users_roles',
             'saveStrategy' => 'replace',
-            'className' => PluginManager::getInstance()->getFQN('Roles')
+            'className' => 'FriendsOfBabba/Core.Roles'
         ]);
 
         $this->hasOne('UserProfiles', [
             'foreignKey' => 'user_id',
             'propertyName' => 'profile',
             'dependent' => true,
-            'className' => PluginManager::getInstance()->getFQN('UserProfiles')
+            'className' => 'FriendsOfBabba/Core.UserProfiles'
         ]);
     }
 
@@ -131,6 +130,20 @@ class UsersTable extends BaseTable
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
 
         return $rules;
+    }
+
+    public function findAuthenticated(Query $query, array $options): Query
+    {
+        return $query
+            ->where([
+                'Users.status' => 'active'
+            ])
+            ->contain([
+                'Roles' => [
+                    'RolePermissions'
+                ],
+                'UserProfiles'
+            ]);
     }
 
     public function getGrid(?User $user): ?Grid

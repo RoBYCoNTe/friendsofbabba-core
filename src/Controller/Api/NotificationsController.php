@@ -3,10 +3,10 @@
 namespace FriendsOfBabba\Core\Controller\Api;
 
 use Cake\Event\Event;
+use Cake\Http\Exception\ForbiddenException;
 use Cake\ORM\Query;
 use FriendsOfBabba\Core\Model\Entity\Notification;
 use FriendsOfBabba\Core\Model\Table\NotificationsTable;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * @property NotificationsTable $Notifications
@@ -17,16 +17,14 @@ class NotificationsController extends AppController
 	{
 		parent::initialize();
 
-		$this->Crud->useModel(PluginManager::getInstance()->getFQN('Notifications'));
+		$this->useModel("FriendsOfBabba/Core.Notifications");
 	}
 
 	public function index()
 	{
 		$this->Crud->on('beforePaginate', function (Event $event) {
-			$user = $this->getUser();
-			/** @var Query */
 			$query = $event->getSubject()->query;
-			$query = $query->where(['Notifications.user_id' => $user->id]);
+			$query = $this->Authorization->applyScope($query);
 		});
 		$this->Crud->execute();
 	}
@@ -34,10 +32,8 @@ class NotificationsController extends AppController
 	public function view()
 	{
 		$this->Crud->on('beforeFind', function (Event $event) {
-			$user = $this->getUser();
-			/** @var Query */
 			$query = $event->getSubject()->query;
-			$query = $query->where(['Notifications.user_id' => $user->id]);
+			$query = $this->Authorization->applyScope($query);
 		});
 		$this->Crud->on('afterFind', function (Event $event) {
 			/** @var Notification */
@@ -50,25 +46,25 @@ class NotificationsController extends AppController
 		$this->Crud->execute();
 	}
 
-	public function stats()
+	public function add()
 	{
-		$user = $this->getUser();
-		$data = $this->Notifications->find()
-			->where(['Notifications.user_id' => $user->id])
-			->order(['Notifications.readed ASC, Notifications.created DESC'])
-			->limit(10)
-			->all();
-		$unreaded = $this->Notifications->find()
-			->where(['Notifications.readed IS NULL'])
-			->count();
-		$this->set([
-			'success' => true,
-			'data' => [
-				'id' => $user->id,
-				'notifications' => $data,
-				'unreaded' => $unreaded
-			],
-			'_serialize' => ['success', 'data']
-		]);
+		$this->Crud->on('beforeSave', function (Event $event) {
+			$entity = $event->getSubject()->entity;
+			if (!$this->Authorization->can($entity)) {
+				throw new ForbiddenException();
+			}
+		});
+		$this->Crud->execute();
+	}
+
+	public function edit()
+	{
+		$this->Crud->on('beforeSave', function (Event $event) {
+			$entity = $event->getSubject()->entity;
+			if (!$this->Authorization->can($entity)) {
+				throw new ForbiddenException();
+			}
+		});
+		$this->Crud->execute();
 	}
 }

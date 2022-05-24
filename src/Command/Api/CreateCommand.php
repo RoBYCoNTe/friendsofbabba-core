@@ -10,7 +10,6 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Utility\Inflector;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * Create API controller command.
@@ -55,7 +54,7 @@ class CreateCommand extends Command
 
 		$renderer = new TemplateRenderer('');
 		$renderer->set(['name' => Inflector::pluralize($entity)]);
-		$out = $renderer->generate(PluginManager::getInstance()->getFQN('Controller/Api/controller'));
+		$out = $renderer->generate('FriendsOfBabba/Core.Controller/Api/controller');
 		$filename = sprintf('%s/Controller/Api/%sController.php', APP, Inflector::pluralize($entity));
 
 		$io->createFile($filename, $out);

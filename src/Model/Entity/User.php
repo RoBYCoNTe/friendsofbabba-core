@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace FriendsOfBabba\Core\Model\Entity;
 
 use Authentication\PasswordHasher\DefaultPasswordHasher;
-use FriendsOfBabba\Core\Hook\Hook;
-use FriendsOfBabba\Core\Hook\Hookable;
-use FriendsOfBabba\Core\Hook\HookManager;
-use FriendsOfBabba\Core\PluginManager;
+use Authorization\AuthorizationServiceInterface;
+use Authorization\Policy\ResultInterface;
 
 /**
  * User Entity
@@ -26,7 +24,7 @@ use FriendsOfBabba\Core\PluginManager;
  *
  * @property RolePermission[] $permissions
  */
-class User extends BaseEntity
+class User extends BaseEntity implements \Authentication\IdentityInterface, \Authorization\IdentityInterface
 {
 
 	/**
@@ -65,7 +63,7 @@ class User extends BaseEntity
 		'password',
 	];
 
-	protected function _getName(): string
+	protected function _getName(): ?string
 	{
 		if (isset($this->profile)) {
 			return implode(" ", [
@@ -101,5 +99,51 @@ class User extends BaseEntity
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Authorization\IdentityInterface method
+	 */
+	public function can($action, $resource): bool
+	{
+		return $this->authorization->can($this, $action, $resource);
+	}
+
+	/**
+	 * Authorization\IdentityInterface method
+	 */
+	public function canResult($action, $resource): ResultInterface
+	{
+		return $this->authorization->canResult($this, $action, $resource);
+	}
+
+	/**
+	 * Authorization\IdentityInterface method
+	 */
+	public function applyScope($action, $resource)
+	{
+		return $this->authorization->applyScope($this, $action, $resource);
+	}
+
+	/**
+	 * Authorization\IdentityInterface method
+	 */
+	public function getOriginalData()
+	{
+		return $this;
+	}
+
+	/**
+	 * Setter to be used by the middleware.
+	 */
+	public function setAuthorization(AuthorizationServiceInterface $service): \Authentication\IdentityInterface
+	{
+		$this->authorization = $service;
+		return $this;
+	}
+
+	public function getIdentifier()
+	{
+		return $this->id;
 	}
 }

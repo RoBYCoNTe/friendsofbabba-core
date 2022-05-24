@@ -6,7 +6,6 @@ namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\Model\Filter\RoleCollection;
-use FriendsOfBabba\Core\PluginManager;
 use SoftDelete\Model\Table\SoftDeleteTrait;
 
 /**
@@ -54,7 +53,7 @@ class RolesTable extends BaseTable
 
         $this->hasMany('RolePermissions', [
             'foreignKey' => 'role_id',
-            'className' => PluginManager::getInstance()->getFQN('RolePermissions'),
+            'className' => 'FriendsOfBabba/Core.RolePermissions',
             'propertyName' => 'permissions',
             'saveStrategy' => 'replace',
             'dependent' => true
@@ -63,7 +62,7 @@ class RolesTable extends BaseTable
             'foreignKey' => 'role_id',
             'targetForeignKey' => 'user_id',
             'joinTable' => 'users_roles',
-            'className' => PluginManager::getInstance()->getFQN('Users'),
+            'className' => 'FriendsOfBabba/Core.Users',
         ]);
     }
 

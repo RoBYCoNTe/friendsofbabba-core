@@ -24,16 +24,15 @@ alter table table_name add constraint fk_table_name_media_id foreign key (media_
 Open your entity `Table` file and add the following code to map the media:
 
 ```php
-use FriendsOfBabba\Core\PluginManager;
 
 class TableNameTables extends BaseTable {
 
 ...other code...
 
   public function initialize(array $config) {
-    $this->addBehavior(PluginManager::getInstance()->getFQN('Media'), ['media']));
+    $this->addBehavior('FriendsOfBabba/Core.Media', ['media']));
     $this->belongsTo('Media', [
-        'className' => PluginManager::getInstance()->getFQN('Media'),
+        'className' => 'FriendsOfBabba/Core.Media',
         'foreignKey' => 'media_id',
         'joinType' => 'LEFT',
         'propertyName' => 'media'
@@ -71,16 +70,14 @@ create table table_name_media (
 Open your entity `Table` file and add the following code to map the media:
 
 ```php
-use FriendsOfBabba\Core\PluginManager;
-
 class TableNameTables extends BaseTable {
 
-...other code...
+  ...other code...
 
   public function initialize(array $config) {
-    $this->addBehavior(PluginManager::getInstance()->getFQN('Media'), ['media']));
+    $this->addBehavior('FriendsOfBabba/Core.Media', ['media']));
     $this->belongsToMany('MediaCollection', [
-        'className' => PluginManager::getInstance()->getFQN('Media'),
+        'className' => 'FriendsOfBabba/Core.Media',
         'foreignKey' => 'media_id',
         'joinType' => 'LEFT',
         'propertyName' => 'media_collection'

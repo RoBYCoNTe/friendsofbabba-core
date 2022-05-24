@@ -2,8 +2,6 @@
 
 namespace FriendsOfBabba\Core\Model\Filter;
 
-use FriendsOfBabba\Core\Hook\HookManager;
-use FriendsOfBabba\Core\PluginManager;
 
 class RoleCollection extends BaseCollection
 {

@@ -10,10 +10,8 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Utility\Inflector;
 use FriendsOfBabba\Core\Model\CrudManager;
-use FriendsOfBabba\Core\PluginManager;
 use FriendsOfBabba\Core\Workflow\WorkflowRegistry;
 
 /**
@@ -24,7 +22,7 @@ class CreateFilesCommand extends Command
 	public function initialize(): void
 	{
 		parent::initialize();
-		$this->loadModel(PluginManager::getInstance()->getFQN('Transactions'));
+		$this->loadModel('FriendsOfBabba/Core.Transactions');
 	}
 	/**
 	 * Hook method for defining this command's option parser.

@@ -13,7 +13,6 @@ use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
 use Exception;
 use FriendsOfBabba\Core\Model\Table\TransactionsTable;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * Create Transaction Table.
@@ -25,7 +24,7 @@ class CreateTransactionTableCommand extends Command
     public function initialize(): void
     {
         parent::initialize();
-        $this->loadModel(PluginManager::getInstance()->getFQN('Transactions'));
+        $this->loadModel('FriendsOfBabba/Core.Transactions');
     }
     /**
      * Hook method for defining this command's option parser.

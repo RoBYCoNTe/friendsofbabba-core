@@ -14,7 +14,6 @@ use Cake\Utility\Inflector;
 use Crud\Error\Exception\ValidationException;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Table\TransactionsTable;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * @property TransactionsTable $Transactions
@@ -35,8 +34,7 @@ abstract class WorkflowBase
     public function __construct()
     {
         $this->Transactions = TableRegistry::getTableLocator()
-            ->get(PluginManager::getInstance()
-                ->getFQN('Transactions'));
+            ->get('FriendsOfBabba/Core.Transactions');
     }
 
     /**

@@ -6,7 +6,6 @@ namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\Model\Filter\LanguageCollection;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * Languages Model
@@ -47,7 +46,7 @@ class LanguagesTable extends BaseTable
 
         $this->hasMany('LanguageMessages', [
             'foreignKey' => 'language_id',
-            'className' => PluginManager::getInstance()->getFQN('LanguageMessages'),
+            'className' => 'FriendsOfBabba/Core.LanguageMessages',
             'propertyName' => 'messages',
             'saveStrategy' => 'append',
             'dependent' => true,

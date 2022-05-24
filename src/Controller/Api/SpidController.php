@@ -12,7 +12,6 @@ use Cake\Utility\Security;
 use FriendsOfBabba\Core\Controller\Component\JwtTokenProviderComponent;
 use FriendsOfBabba\Core\Controller\Component\RecaptchaComponent;
 use FriendsOfBabba\Core\Controller\Component\SpidAuthComponent;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * Implements required SPID apis for the plugin.

@@ -8,7 +8,6 @@ use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Crud\Grid;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * Commands Model
@@ -51,7 +50,7 @@ class CommandsTable extends BaseTable
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
-            'className' => PluginManager::getInstance()->getFQN('Users'),
+            'className' => 'FriendsOfBabba/Core.Users',
         ]);
     }
 

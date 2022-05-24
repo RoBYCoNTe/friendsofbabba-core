@@ -8,7 +8,6 @@ use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Crud\Grid;
-use FriendsOfBabba\Core\PluginManager;
 
 /**
  * UsersRoles Model
@@ -49,12 +48,12 @@ class UsersRolesTable extends BaseTable
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
-            'className' => PluginManager::getInstance()->getFQN('Users'),
+            'className' => 'FriendsOfBabba/Core.Users',
         ]);
         $this->belongsTo('Roles', [
             'foreignKey' => 'role_id',
             'joinType' => 'INNER',
-            'className' => PluginManager::getInstance()->getFQN('Roles'),
+            'className' => 'FriendsOfBabba/Core.Roles',
         ]);
     }
 
