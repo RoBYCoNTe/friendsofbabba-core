@@ -106,7 +106,10 @@ class PermissionCommand extends Command
             "GET /api/notifications/view",
             "GET /api/export/generate",
             "GET /api/crud/export",
-            "GET /api/crud/load"
+            "GET /api/crud/load",
+            "GET /api/users/profile",
+            "POST /api/users/profile",
+            "POST /api/users/impersonate"
         ];
         return new Collection($list);
     }

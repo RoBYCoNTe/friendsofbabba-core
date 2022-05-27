@@ -13,6 +13,7 @@ use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Crud\Form;
 use FriendsOfBabba\Core\Model\Crud\Grid;
 use FriendsOfBabba\Core\Model\Crud\GridField;
+use FriendsOfBabba\Core\Model\ExtenderFactory;
 use FriendsOfBabba\Core\Model\Filter\NotificationCollection;
 
 /**
@@ -61,6 +62,8 @@ class NotificationsTable extends BaseTable
             'joinType' => 'INNER',
             'className' => 'FriendsOfBabba/Core.Users',
         ]);
+
+        parent::afterInitialize($config);
     }
 
     /**
@@ -99,7 +102,7 @@ class NotificationsTable extends BaseTable
             ->dateTime('readed')
             ->allowEmptyDateTime('readed');
 
-        return $validator;
+        return parent::validationDefault($validator);
     }
 
     /**
@@ -113,15 +116,15 @@ class NotificationsTable extends BaseTable
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
 
-        return $rules;
+        return parent::buildRules($rules);
     }
 
-    public function getForm(?User $user): ?Form
+    public function getForm(?User $user, bool $extends = TRUE): ?Form
     {
         return NULL;
     }
 
-    public function getGrid(?User $user): ?Grid
+    public function getGrid(?User $user, bool $extends = TRUE): ?Grid
     {
         $grid = new Grid("NotificationList");
         $grid->setTitle(__d("friendsofbabba_core", "Notifications"));
@@ -139,7 +142,7 @@ class NotificationsTable extends BaseTable
         $grid->addFilter(Filter::create("q", NULL, "SearchInput")->alwaysOn());
         $grid->addFilter(Filter::create("readed", __d("friendsofbabba_core", "Readed"), "NullableBooleanInput")->alwaysOn());
 
-        return $grid;
+        return ExtenderFactory::instance()->getGrid($this->getAlias(), $grid, $user);
     }
 
     public function getBadge(?User $user): Badge
@@ -151,6 +154,8 @@ class NotificationsTable extends BaseTable
             ])
             ->count();
 
-        return Badge::create('error', $count);
+        $badge = Badge::create('error', $count);
+
+        return ExtenderFactory::instance()->getBadge($this->getAlias(), $badge, $user);
     }
 }

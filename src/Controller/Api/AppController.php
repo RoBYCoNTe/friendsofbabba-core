@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Controller\Api;
 
-use Authentication\Authenticator\UnauthenticatedException;
 use Authentication\Controller\Component\AuthenticationComponent;
 use Authorization\Controller\Component\AuthorizationComponent;
 use Cake\Controller\Component\RequestHandlerComponent;
@@ -79,16 +78,16 @@ class AppController extends Controller
         }
 
         $controller = strtolower(Inflector::dasherize($subject->request->getParam("controller")));
-
-        $prefix = strtolower($subject->request->getParam("prefix"));
-        $method = $subject->request->getEnv("REQUEST_METHOD");
-        $action = $method . " /$prefix/$controller/$action";
-
         $user = $this->getUser();
         if (is_null($user)) {
             throw new UnauthorizedException(__d('friendsofbabba_core', "User not authenticated or session expired!"));
         }
-        if (!$user->hasPermission($action)) {
+
+        $prefix = strtolower($subject->request->getParam("prefix"));
+        $method = $subject->request->getEnv("REQUEST_METHOD");
+        $permission = $method . " /$prefix/$controller/$action";
+
+        if (!$user->hasPermission($permission)) {
             throw new UnauthorizedException(__d('friendsofbabba_core', "Unauthorized: {0}", $action));
         }
     }

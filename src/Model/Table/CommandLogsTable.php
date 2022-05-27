@@ -51,6 +51,8 @@ class CommandLogsTable extends BaseTable
             'foreignKey' => 'command_log_id',
             'className' => 'FriendsOfBabba/Core.CommandLogRows',
         ]);
+
+        parent::afterInitialize($config);
     }
 
     /**
@@ -69,10 +71,10 @@ class CommandLogsTable extends BaseTable
             ->scalar('command')
             ->allowEmptyString('command');
 
-        return $validator;
+        return parent::validationDefault($validator);
     }
 
-    public function getGrid(?User $user): ?Grid
+    public function getGrid(?User $user, bool $extends = TRUE): ?Grid
     {
         return NULL;
     }

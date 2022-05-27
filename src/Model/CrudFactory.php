@@ -11,11 +11,11 @@ use FriendsOfBabba\Core\Model\Crud\ViewConfig;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Table\BaseTable;
 
-class CrudManager
+class CrudFactory
 {
 	private static $_instance  = NULL;
 
-	public static function getInstance(): CrudManager
+	public static function instance(): CrudFactory
 	{
 		if (self::$_instance === NULL) {
 			self::$_instance = new self();

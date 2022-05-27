@@ -52,6 +52,8 @@ class LanguagesTable extends BaseTable
             'dependent' => true,
             'sort' => 'LanguageMessages.code ASC'
         ]);
+
+        parent::afterInitialize($config);
     }
 
     /**
@@ -78,6 +80,6 @@ class LanguagesTable extends BaseTable
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
 
-        return $validator;
+        return parent::validationDefault($validator);
     }
 }

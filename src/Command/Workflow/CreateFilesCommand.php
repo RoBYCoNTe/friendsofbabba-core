@@ -11,7 +11,7 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Utility\Inflector;
-use FriendsOfBabba\Core\Model\CrudManager;
+use FriendsOfBabba\Core\Model\CrudFactory;
 use FriendsOfBabba\Core\Workflow\WorkflowRegistry;
 
 /**
@@ -96,7 +96,7 @@ class CreateFilesCommand extends Command
 
 		$io->out(sprintf("\nBaking state class for %s...\n", $state));
 
-		$viewConfig = CrudManager::getInstance()->getViewConfig($entity, NULL);
+		$viewConfig = CrudFactory::instance()->getViewConfig($entity, NULL);
 
 		$renderer = new TemplateRenderer($theme);
 		$renderer->set([

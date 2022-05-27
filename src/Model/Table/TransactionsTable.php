@@ -31,6 +31,8 @@ class TransactionsTable extends BaseTable
         ]);
 
         $this->addBehavior('Timestamp');
+
+        parent::afterInitialize($config);
     }
 
     public function validationDefault(Validator $validator): Validator
@@ -54,7 +56,7 @@ class TransactionsTable extends BaseTable
             ->requirePresence('data', 'create')
             ->notEmptyString('data');
 
-        return $validator;
+        return parent::validationDefault($validator);
     }
 
     /**

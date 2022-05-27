@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use Migrations\AbstractMigration;
@@ -20,13 +21,31 @@ class InstallSpid extends AbstractMigration
                 'after' => 'surname',
                 'default' => '',
                 'length' => 16,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('spid_code', 'string', [
                 'after' => 'fiscal_code',
                 'default' => '',
                 'length' => 20,
-                'null' => false,
+                'null' => true,
+            ])
+            ->addColumn('birth_place', 'string', [
+                'after' => 'spid_code',
+                'default' => '',
+                'length' => 100,
+                'null' => true
+            ])
+            ->addColumn('birth_province', 'string', [
+                'after' => 'birth_place',
+                'default' => '',
+                'length' => 2,
+                'null' => true
+            ])
+            ->addColumn('birth_date', 'date', [
+                'after' => 'birth_province',
+                'default' => null,
+                'length' => null,
+                'null' => true
             ])
             ->update();
     }

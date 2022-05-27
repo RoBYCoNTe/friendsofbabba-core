@@ -18,6 +18,9 @@ namespace FriendsOfBabba\Core\Model\Entity;
  * @property \Cake\I18n\FrozenTime|null $deleted
  *
  * @property \FriendsOfBabba\Core\Model\Entity\User $user
+ *
+ * @property ?string $full_name
+ *  Return the full name of the user.
  */
 class UserProfile extends BaseEntity
 {

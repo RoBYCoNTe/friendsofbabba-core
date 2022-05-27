@@ -55,6 +55,8 @@ class UsersRolesTable extends BaseTable
             'joinType' => 'INNER',
             'className' => 'FriendsOfBabba/Core.Roles',
         ]);
+
+        parent::afterInitialize($config);
     }
 
     /**
@@ -69,7 +71,7 @@ class UsersRolesTable extends BaseTable
             ->nonNegativeInteger('id')
             ->allowEmptyString('id', null, 'create');
 
-        return $validator;
+        return parent::validationDefault($validator);
     }
 
     /**
@@ -84,10 +86,10 @@ class UsersRolesTable extends BaseTable
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
         $rules->add($rules->existsIn(['role_id'], 'Roles'), ['errorField' => 'role_id']);
 
-        return $rules;
+        return parent::buildRules($rules);
     }
 
-    public function getGrid(?User $user): ?Grid
+    public function getGrid(?User $user, bool $extends = TRUE): ?Grid
     {
         return NULL;
     }

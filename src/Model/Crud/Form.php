@@ -151,6 +151,14 @@ class Form extends Component
 		return $this;
 	}
 
+	public function getInitialValue(string $source): mixed
+	{
+		if (!isset($this->initialValues)) {
+			return NULL;
+		}
+		return $this->initialValues->$source;
+	}
+
 	public static function create(string $component): Form
 	{
 		$form = new Form();

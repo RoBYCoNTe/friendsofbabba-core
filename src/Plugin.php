@@ -8,20 +8,27 @@ use Authentication\AuthenticationService;
 use Authentication\AuthenticationServiceInterface;
 use Authentication\AuthenticationServiceProviderInterface;
 use Authentication\Identifier\IdentifierInterface;
-use Authentication\Identity;
 use Authentication\Middleware\AuthenticationMiddleware;
 use Authorization\AuthorizationService;
 use Authorization\AuthorizationServiceInterface;
 use Authorization\AuthorizationServiceProviderInterface;
 use Authorization\Middleware\AuthorizationMiddleware;
+use Authorization\Middleware\RequestAuthorizationMiddleware;
+use Authorization\Policy\MapResolver;
 use Authorization\Policy\OrmResolver;
+use Authorization\Policy\ResolverCollection;
 use Cake\Console\CommandCollection;
 use Cake\Core\BasePlugin;
 use Cake\Core\Configure;
+use Cake\Core\ContainerInterface;
 use Cake\Core\PluginApplicationInterface;
 use Cake\Http\MiddlewareQueue;
+use Cake\Http\ServerRequest;
 use FriendsOfBabba\Core\Model\Entity\User;
+use FriendsOfBabba\Core\Policy\RequestPolicy;
 use FriendsOfBabba\Core\Routing\Middleware\CorsMiddleware;
+use FriendsOfBabba\Core\Service\Impl\UserService;
+use FriendsOfBabba\Core\Service\UserServiceInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -99,6 +106,7 @@ class Plugin extends BasePlugin implements AuthenticationServiceProviderInterfac
             'requireAuthorizationCheck' => false
         ]));
         $middlewareQueue->add(new CorsMiddleware());
+        $middlewareQueue->add(new RequestAuthorizationMiddleware());
         return $middlewareQueue;
     }
 
@@ -150,7 +158,19 @@ class Plugin extends BasePlugin implements AuthenticationServiceProviderInterfac
 
     public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
     {
-        $resolver = new OrmResolver();
+        $ormResolver = new OrmResolver();
+        $mapResolver = new MapResolver();
+        $mapResolver->map(ServerRequest::class, RequestPolicy::class);
+
+        // Check the map resolver, and fallback to the orm resolver if
+        // a resource is not explicitly mapped.
+        $resolver = new ResolverCollection([$mapResolver, $ormResolver]);
+
         return new AuthorizationService($resolver);
+    }
+
+    public function services(ContainerInterface $container): void
+    {
+        $container->add(UserServiceInterface::class, UserService::class);
     }
 }

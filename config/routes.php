@@ -55,6 +55,18 @@ $routes->plugin(
 				'controller' => 'Users',
 				'action' => 'login'
 			]);
+			$builder->connect('/users/impersonate', [
+				'controller' => 'Users',
+				'action' => 'impersonate'
+			]);
+			$builder->connect('/users/reset-password', [
+				'controller' => 'Users',
+				'action' => 'resetPassword'
+			]);
+			$builder->connect('/users/profile', [
+				'controller' => 'Users',
+				'action' => 'profile'
+			]);
 			$builder->connect('/notifications/stats', [
 				'controller' => 'Notifications',
 				'action' => 'stats'

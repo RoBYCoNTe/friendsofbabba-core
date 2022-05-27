@@ -52,6 +52,8 @@ class CommandsTable extends BaseTable
             'foreignKey' => 'user_id',
             'className' => 'FriendsOfBabba/Core.Users',
         ]);
+
+        parent::afterInitialize($config);
     }
 
     /**
@@ -94,7 +96,7 @@ class CommandsTable extends BaseTable
             ->scalar('notify_args')
             ->allowEmptyString('notify_args');
 
-        return $validator;
+        return parent::validationDefault($validator);
     }
 
     /**
@@ -108,10 +110,10 @@ class CommandsTable extends BaseTable
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
 
-        return $rules;
+        return parent::buildRules($rules);
     }
 
-    public function getGrid(?User $user): ?Grid
+    public function getGrid(?User $user, bool $extends = TRUE): ?Grid
     {
         return NULL;
     }

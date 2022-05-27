@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2022-05-23 10:33+0000\n"
-"PO-Revision-Date: 2022-05-23 12:34+0200\n"
+"POT-Creation-Date: 2022-05-27 14:18+0000\n"
+"PO-Revision-Date: 2022-05-27 16:20+0200\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "Language: it_IT\n"
@@ -15,123 +15,157 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: Controller/Api/AppController.php:89
+#: Controller/Api/AppController.php:83
 msgid "User not authenticated or session expired!"
 msgstr "Utente non autenticato o sessione scaduta!"
 
-#: Controller/Api/AppController.php:92
+#: Controller/Api/AppController.php:91
 msgid "Unauthorized: {0}"
 msgstr "Non autorizzato: {0}"
 
-#: Controller/Api/SpidController.php:76 Controller/Api/SpidController.php:130
+#: Controller/Api/SpidController.php:81 Controller/Api/SpidController.php:139
 msgid "Invalid request."
 msgstr "Richiesta non valida."
 
-#: Controller/Api/SpidController.php:79 Controller/Api/SpidController.php:133
+#: Controller/Api/SpidController.php:84 Controller/Api/SpidController.php:142
 msgid "SPID authentication failed."
 msgstr "Autenticazione SPID fallita."
 
-#: Controller/Api/SpidController.php:113
+#: Controller/Api/SpidController.php:118 Controller/Api/UsersController.php:188
 msgid "Recaptcha validation failed."
 msgstr "Validazione RECAPTCHA fallita."
 
-#: Controller/Api/SpidController.php:154
+#: Controller/Api/SpidController.php:163
 msgid "User not recognized: {0}"
 msgstr "Utente non riconosciuto: {0}"
 
-#: Controller/Api/UsersController.php:68
+#: Controller/Api/UsersController.php:74
 msgid "Invalid username or password"
 msgstr "Username o password errati"
 
-#: Model/Table/LanguageMessagesTable.php:115
+#: Controller/Api/UsersController.php:193
+msgid "Username or email is required."
+msgstr "Username o indirizzo email obbligatorio."
+
+#: Controller/Api/UsersController.php:202
+msgid "User not found."
+msgstr "Utente non trovato."
+
+#: Controller/Api/UsersController.php:211
+msgid "Password reset email sent."
+msgstr ""
+"E-mail di reset password inoltrata, controlla la tua casella di posta "
+"elettronica."
+
+#: Controller/Api/UsersController.php:236
+msgid "Failed to save user."
+msgstr "Impossibile salvare l'utente."
+
+#: Mailer/UserMailer.php:16
+msgid "Password reset"
+msgstr "Resetta password"
+
+#: Model/Table/Extender/SpidUsersTableExtender.php:14
+msgid "Birth Place"
+msgstr "Luogo di nascita"
+
+#: Model/Table/Extender/SpidUsersTableExtender.php:15
+msgid "Birth Province"
+msgstr "Provincia di nascita"
+
+#: Model/Table/Extender/SpidUsersTableExtender.php:18
+msgid "Birth Date"
+msgstr "Data di nascita"
+
+#: Model/Table/LanguageMessagesTable.php:119
 msgid "Language Messages"
 msgstr "Stringhe (i18n)"
 
-#: Model/Table/LanguageMessagesTable.php:124
-#: Model/Table/LanguageMessagesTable.php:167
+#: Model/Table/LanguageMessagesTable.php:128
+#: Model/Table/LanguageMessagesTable.php:171
 msgid "Text"
 msgstr "Testo"
 
-#: Model/Table/LanguageMessagesTable.php:127
-#: Model/Table/LanguageMessagesTable.php:147
+#: Model/Table/LanguageMessagesTable.php:131
+#: Model/Table/LanguageMessagesTable.php:151
 msgid "Language"
 msgstr "Lingua"
 
-#: Model/Table/LanguageMessagesTable.php:132
-#: Model/Table/LanguageMessagesTable.php:159
+#: Model/Table/LanguageMessagesTable.php:136
+#: Model/Table/LanguageMessagesTable.php:163
 msgid "Resource"
 msgstr "Risorsa"
 
-#: Model/Table/LanguageMessagesTable.php:135
+#: Model/Table/LanguageMessagesTable.php:139
 msgid "Translated"
 msgstr "Tradotto"
 
-#: Model/Table/LanguageMessagesTable.php:162
+#: Model/Table/LanguageMessagesTable.php:166
 msgid "The resource to which this message belongs."
 msgstr "La risorsa su cui attestare il messaggio."
 
-#: Model/Table/LanguageMessagesTable.php:166
+#: Model/Table/LanguageMessagesTable.php:170
 msgid "Code"
 msgstr "Codice"
 
-#: Model/Table/NotificationsTable.php:127
+#: Model/Table/NotificationsTable.php:130
 msgid "Notifications"
 msgstr "Notifiche"
 
-#: Model/Table/NotificationsTable.php:140
+#: Model/Table/NotificationsTable.php:143
 msgid "Readed"
 msgstr "Letta"
 
-#: Model/Table/UsersTable.php:152 Model/Table/UsersTable.php:174
-#: Model/Table/UsersTable.php:202
+#: Model/Table/UsersTable.php:167 Model/Table/UsersTable.php:189
+#: Model/Table/UsersTable.php:222
 msgid "Roles"
 msgstr "Ruoli"
 
-#: Model/Table/UsersTable.php:163 Model/Table/UsersTable.php:193
+#: Model/Table/UsersTable.php:178 Model/Table/UsersTable.php:213
 msgid "Status"
 msgstr "Stato"
 
-#: Model/Table/UsersTable.php:166 Model/Table/UsersTable.php:197
+#: Model/Table/UsersTable.php:181 Model/Table/UsersTable.php:217
 msgid "Active"
 msgstr "Attivo"
 
-#: Model/Table/UsersTable.php:169 Model/Table/UsersTable.php:200
+#: Model/Table/UsersTable.php:184 Model/Table/UsersTable.php:220
 msgid "Pending"
 msgstr "In Attesa/Sospeso"
 
-#: Model/Table/UsersTable.php:179
+#: Model/Table/UsersTable.php:195
 msgid "Modified"
 msgstr "Ultima Modifica"
 
-#: Model/Table/UsersTable.php:189
+#: Model/Table/UsersTable.php:209
 msgid "E-mail"
 msgstr "E-mail"
 
-#: Model/Table/UsersTable.php:190
+#: Model/Table/UsersTable.php:210
 msgid "Name"
 msgstr "Nome"
 
-#: Model/Table/UsersTable.php:191
+#: Model/Table/UsersTable.php:211
 msgid "Surname"
 msgstr "Cognome"
 
-#: Workflow/WorkflowBase.php:250
+#: Workflow/WorkflowBase.php:248
 msgid ""
 "You are not authorized to view this record because it's state is corrupted."
 msgstr ""
 "Non sei autorizzato a visualizzare questo record poiché il suo stato è "
 "corrotto."
 
-#: Workflow/WorkflowBase.php:255 Workflow/WorkflowBase.php:287
-#: Workflow/WorkflowBase.php:299 Workflow/WorkflowBase.php:305
+#: Workflow/WorkflowBase.php:253 Workflow/WorkflowBase.php:285
+#: Workflow/WorkflowBase.php:297 Workflow/WorkflowBase.php:303
 msgid "Forbidden"
 msgstr "Accesso negato"
 
-#: Workflow/WorkflowBase.php:312
+#: Workflow/WorkflowBase.php:310
 msgid "Required."
 msgstr "Campo obbligatorio."
 
-#: Workflow/WorkflowBase.php:379
+#: Workflow/WorkflowBase.php:377
 msgid "Error saving transaction: {0}"
 msgstr "Errore durante il salvataggio della transazione: {0}"
 
@@ -142,6 +176,30 @@ msgstr ""
 #: api/spid/auth.php:17
 msgid "Redirecting to the login page {0}"
 msgstr "Reindirizzamento alla pagina di login {0}"
+
+#: email/html/notify.php:16 email/html/password.php:11
+msgid "Dear {0}"
+msgstr "Gentile {0}"
+
+#: email/html/notify.php:19
+msgid "You received new notification"
+msgstr "Hai ricevuto una nuova notifica"
+
+#: email/html/notify.php:27
+msgid "Open Notification Link"
+msgstr "Apri"
+
+#: email/html/password.php:13
+msgid "Your password has been changed"
+msgstr "La tua password è stata reimpostata"
+
+#: email/html/password.php:20
+msgid "Login"
+msgstr ""
+
+#: layout/email/html/layout.php:205
+msgid "Sent from"
+msgstr "Inviato da"
 
 #~ msgid "Received At"
 #~ msgstr "Ricevuta"

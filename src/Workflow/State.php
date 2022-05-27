@@ -2,6 +2,8 @@
 
 namespace FriendsOfBabba\Core\Workflow;
 
+use Cake\Controller\Controller;
+use Cake\Log\Log;
 use Cake\Utility\Hash;
 
 /**
@@ -166,7 +168,7 @@ abstract class State
      *
      * @param State $state
      *  Next state of the transition.
-     * @return void
+     * @return Transition
      *  Created instance of the Transition class.
      */
     public function addTransitionTo(State $state): Transition
@@ -175,6 +177,11 @@ abstract class State
         $transition = new Transition($code);
         $this->transitions[$code] = $transition;
         return $transition;
+    }
+
+    public function beforeFilter(Controller $controller): void
+    {
+        Log::info("beforeFilter");
     }
 
     /**

@@ -12,11 +12,14 @@ use Cake\Utility\Security;
 use FriendsOfBabba\Core\Controller\Component\JwtTokenProviderComponent;
 use FriendsOfBabba\Core\Controller\Component\RecaptchaComponent;
 use FriendsOfBabba\Core\Controller\Component\SpidAuthComponent;
+use FriendsOfBabba\Core\Model\Table\RolesTable;
 
 /**
  * Implements required SPID apis for the plugin.
  * Remember to add 'finder' prop to your model and set it as accessible
  * before execute the finder.
+ *
+ * @property RolesTable $Roles
  *
  * @property SpidAuthComponent $SpidAuth
  * @property JwtTokenProviderComponent $JwtTokenProvider
@@ -28,6 +31,9 @@ class SpidController extends AppController
 	public function initialize(): void
 	{
 		parent::initialize();
+
+		$this->loadModel('FriendsOfBabba/Core.Roles');
+
 		$this->loadComponent("FriendsOfBabba/Core.SpidAuth");
 		$this->loadComponent("FriendsOfBabba/Core.JwtTokenProvider");
 		$this->loadComponent("FriendsOfBabba/Core.Recaptcha");
@@ -109,12 +115,16 @@ class SpidController extends AppController
 			$recaptchaToken = $this->request->getData('token');
 			$valid = $this->Recaptcha->validate($recaptchaToken);
 			if (!$valid) {
-				throw new UnauthorizedException(__d('friendsofbabba_core', 'Recaptcha validation failed.'));
+				throw new BadRequestException(__d('friendsofbabba_core', 'Recaptcha validation failed.'));
 			}
 			$user = $event->getSubject()->entity;
 			$user->set('username', $user->get('email'));
 			$user->set('password', Security::randomBytes(32));
 			$user->set('status', 'active');
+			$user->set('roles', $this->Roles
+				->find()
+				->whereInList('code', Configure::read('Spid.roles'))
+				->toArray());
 		});
 		$this->Crud->on('afterSave', function (Event $event) {
 		});
@@ -164,7 +174,8 @@ class SpidController extends AppController
 				'username' => $user->username,
 				'profile' => $user->profile,
 				'token' => $this->JwtTokenProvider->getToken($user->id),
-				'roles' => $user->roles
+				'roles' => $user->roles,
+				'email' => $user->email
 			],
 			'_serialize' => ['success', 'data']
 		]);

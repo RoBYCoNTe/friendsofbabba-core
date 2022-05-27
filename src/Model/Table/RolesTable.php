@@ -64,6 +64,8 @@ class RolesTable extends BaseTable
             'joinTable' => 'users_roles',
             'className' => 'FriendsOfBabba/Core.Users',
         ]);
+
+        parent::afterInitialize($config);
     }
 
     /**
@@ -94,6 +96,6 @@ class RolesTable extends BaseTable
             ->dateTime('deleted')
             ->allowEmptyDateTime('deleted');
 
-        return $validator;
+        return parent::validationDefault($validator);
     }
 }

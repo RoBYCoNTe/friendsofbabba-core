@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
@@ -29,7 +28,7 @@ use Cake\Validation\Validator;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class MediaTable extends Table
+class MediaTable extends BaseTable
 {
     /**
      * Initialize method
@@ -98,7 +97,7 @@ class MediaTable extends Table
             ->dateTime('deleted')
             ->allowEmptyDateTime('deleted');
 
-        return $validator;
+        return parent::validationDefault($validator);
     }
 
     /**
@@ -112,6 +111,6 @@ class MediaTable extends Table
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
 
-        return $rules;
+        return parent::buildRules($rules);
     }
 }

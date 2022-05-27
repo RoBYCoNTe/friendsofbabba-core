@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\Collection\Collection;
+use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
@@ -14,7 +15,8 @@ use FriendsOfBabba\Core\Model\Crud\Form;
 use FriendsOfBabba\Core\Model\Crud\FormInput;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Crud\Grid;
-use FriendsOfBabba\Core\Model\CrudManager;
+use FriendsOfBabba\Core\Model\CrudFactory;
+use FriendsOfBabba\Core\Model\ExtenderFactory;
 use FriendsOfBabba\Core\Model\Filter\LanguageMessageCollection;
 
 /**
@@ -59,6 +61,8 @@ class LanguageMessagesTable extends BaseTable
         ]);
 
         $this->addBehavior('Search.Search', ['collectionClass' => LanguageMessageCollection::class]);
+
+        parent::afterInitialize($config);
     }
 
     /**
@@ -73,6 +77,9 @@ class LanguageMessagesTable extends BaseTable
             ->nonNegativeInteger('id')
             ->allowEmptyString('id', null, 'create');
 
+        $validator->requirePresence("language_id");
+        $validator->nonNegativeInteger("language_id");
+
         $validator
             ->scalar('code')
             ->maxLength('code', 250)
@@ -84,7 +91,7 @@ class LanguageMessagesTable extends BaseTable
             ->requirePresence('text', 'create')
             ->notEmptyString('text');
 
-        return $validator;
+        return parent::validationDefault($validator);
     }
 
     /**
@@ -98,12 +105,12 @@ class LanguageMessagesTable extends BaseTable
     {
         $rules->add($rules->existsIn(['language_id'], 'Languages'), ['errorField' => 'language_id']);
 
-        return $rules;
+        return parent::buildRules($rules);
     }
 
-    public function getGrid(?User $user): ?Grid
+    public function getGrid(?User $user, bool $extends = TRUE): ?Grid
     {
-        $tables = CrudManager::getInstance()->getListOfTables();
+        $tables = CrudFactory::instance()->getListOfTables();
         $tables = (new Collection($tables))->map(function ($table) {
             $name = $id = Inflector::dasherize($table);
             return compact("name", "id");
@@ -126,7 +133,9 @@ class LanguageMessagesTable extends BaseTable
             ->setSource("language.name");
 
 
-        $grid->addFilterDefaultValue('translated', FALSE);
+        if ($this->find('notTranslated')->count() > 0) {
+            $grid->addFilterDefaultValue('translated', FALSE);
+        }
         $grid->addFilter(Filter::create("resource", __d('friendsofbabba_core', 'Resource'), "SelectInput")
             ->alwaysOn()
             ->setComponentProp("choices", $tables));
@@ -136,9 +145,9 @@ class LanguageMessagesTable extends BaseTable
         return $grid;
     }
 
-    public function getForm(?User $user): ?Form
+    public function getForm(?User $user, bool $extends = TRUE): ?Form
     {
-        $form = parent::getForm($user);
+        $form = parent::getForm($user, FALSE);
         $form->setRedirect("list");
         $form->setRefresh(FALSE);
         $form->getInput("language_id")
@@ -147,7 +156,7 @@ class LanguageMessagesTable extends BaseTable
             ->setComponentProp("reference", "languages")
             ->setComponentProp("optionText", "name");
 
-        $tables = CrudManager::getInstance()->getListOfTables();
+        $tables = CrudFactory::instance()->getListOfTables();
         $tables = (new Collection($tables))->map(function ($table) {
             $name = $id = Inflector::dasherize($table);
             return compact("name", "id");
@@ -163,15 +172,18 @@ class LanguageMessagesTable extends BaseTable
         );
         $form->getInput('code')->setLabel(__d('friendsofbabba_core', 'Code'))->fullWidth();
         $form->getInput("text")->setLabel(__d('friendsofbabba_core', 'Text'))->fullWidth();
-        return $form;
+
+        return ExtenderFactory::instance()->getForm($this->getTable(), $form, $user);
     }
 
     public function getBadge(?User $user): Badge
     {
-        $count = $this->find()
-            ->where(["LanguageMessages.text = LanguageMessages.code"])
-            ->count();
-
+        $count = $this->find('notTranslated')->count();
         return Badge::error($count)->hide($count === 0);
+    }
+
+    public function findNotTranslated(Query $query, array $options = [])
+    {
+        return $query->where(["LanguageMessages.text = LanguageMessages.code"]);
     }
 }

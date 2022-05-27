@@ -53,6 +53,8 @@ class CommandLogRowsTable extends BaseTable
             'joinType' => 'INNER',
             'className' => 'FriendsOfBabba/Core.CommandLogs',
         ]);
+
+        parent::afterInitialize($config);
     }
 
     /**
@@ -76,7 +78,7 @@ class CommandLogRowsTable extends BaseTable
             ->maxLength('type', 255)
             ->allowEmptyString('type');
 
-        return $validator;
+        return parent::validationDefault($validator);
     }
 
     /**
@@ -90,10 +92,10 @@ class CommandLogRowsTable extends BaseTable
     {
         $rules->add($rules->existsIn(['command_log_id'], 'CommandLogs'), ['errorField' => 'command_log_id']);
 
-        return $rules;
+        return parent::buildRules($rules);
     }
 
-    public function getGrid(?User $user): ?Grid
+    public function getGrid(?User $user, bool $extends = TRUE): ?Grid
     {
         return NULL;
     }

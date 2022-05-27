@@ -10,7 +10,7 @@ use FriendsOfBabba\Core\Model\Entity\UserProfile;
  * Configure user profile entity to support spid fields.
  * If the entity to extends is not a UserProfile the extender will throw an exception.
  */
-class SpidExtender extends BaseEntityExtender
+class SpidUserProfileExtender extends BaseEntityExtender
 {
 	public function initialize(BaseEntity $baseEntity): void
 	{
@@ -19,5 +19,8 @@ class SpidExtender extends BaseEntityExtender
 		}
 		$baseEntity->setAccess('fiscal_code', true);
 		$baseEntity->setAccess('spid_code', true);
+		$baseEntity->setAccess('birth_place', true);
+		$baseEntity->setAccess('birth_province', true);
+		$baseEntity->setAccess('birth_date', true);
 	}
 }

@@ -2,7 +2,9 @@
 
 namespace FriendsOfBabba\Core\Model\Table;
 
+use Cake\ORM\RulesChecker;
 use Cake\Utility\Inflector;
+use Cake\Validation\Validator;
 use FriendsOfBabba\Core\Export\Crud\CrudExcelDocument;
 use FriendsOfBabba\Core\Model\Crud\Badge;
 use FriendsOfBabba\Core\Model\Crud\Filter;
@@ -12,6 +14,7 @@ use FriendsOfBabba\Core\Model\Crud\Grid;
 use FriendsOfBabba\Core\Model\Crud\GridField;
 use FriendsOfBabba\Core\Model\Entity\Role;
 use FriendsOfBabba\Core\Model\Entity\User;
+use FriendsOfBabba\Core\Model\ExtenderFactory;
 use FriendsOfBabba\Core\Workflow\WorkflowRegistry;
 
 class BaseTable extends \Cake\ORM\Table
@@ -19,8 +22,14 @@ class BaseTable extends \Cake\ORM\Table
 	public function initialize(array $config): void
 	{
 		parent::initialize($config);
+
+		ExtenderFactory::instance()->beforeInitialize($this->getAlias(), $this, $config);
 	}
 
+	public function afterInitialize(array $config): void
+	{
+		ExtenderFactory::instance()->afterInitialize($this->getAlias(), $this, $config);
+	}
 
 	/**
 	 * Generate a grid for this entity.
@@ -29,10 +38,12 @@ class BaseTable extends \Cake\ORM\Table
 	 *  The user requesting the grid.
 	 *  Using the user instance you can check which fields show etc.
 	 *  The user can be null if this is a guest.
+	 * @param bool $extends
+	 * 	If true, the grid will be extended with optionally defined extenders.
 	 * @return Grid
 	 *  The generated grid.
 	 */
-	public function getGrid(?User $user): ?Grid
+	public function getGrid(?User $user, bool $extends = TRUE): ?Grid
 	{
 		$grid = new Grid();
 		$grid->setTitle(Inflector::humanize($this->getAlias()));
@@ -73,12 +84,17 @@ class BaseTable extends \Cake\ORM\Table
 			$grid->addField(GridField::create("EditButton", "ra.action.edit", "RaEditButton"));
 			$grid->addField(GridField::create("DeleteButton", "ra.action.delete", "RaDeleteButton"));
 		}
-
+		if ($extends) {
+			$extenders = ExtenderFactory::instance()->getForTable($this->getAlias());
+			foreach ($extenders as $extender) {
+				$extender->getGrid($grid, $user);
+			}
+		}
 
 		return $grid;
 	}
 
-	public function getForm(?User $user): ?Form
+	public function getForm(?User $user, bool $extends = TRUE): ?Form
 	{
 		$form = new Form();
 		$form->setRedirect(Form::REDIRECT_LIST);
@@ -123,13 +139,30 @@ class BaseTable extends \Cake\ORM\Table
 				->setComponent("TransactionLogsField")
 				->setComponentProp("admin", !is_null($user) ? $user->hasRole(Role::ADMIN) : FALSE));
 		}
+
+		if ($extends) {
+			ExtenderFactory::instance()->getForm($this->getAlias(), $form, $user);
+		}
 		return $form;
 	}
 
 	public function getBadge(?User $user): Badge
 	{
 		$count = $this->find()->count();
+		$badge = Badge::primary($count)->hide($count <= 0);
 
-		return Badge::primary($count)->hide($count <= 0);
+		ExtenderFactory::instance()->getBadge($this->getAlias(), $badge, $user);
+
+		return $badge;
+	}
+
+	public function validationDefault(Validator $validator): Validator
+	{
+		return ExtenderFactory::instance()->validationDefault($this->getAlias(), $validator);
+	}
+
+	public function buildRules(RulesChecker $rules): RulesChecker
+	{
+		return ExtenderFactory::instance()->buildRules($this->getAlias(), $rules);
 	}
 }

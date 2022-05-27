@@ -5,7 +5,7 @@ namespace FriendsOfBabba\Core\Controller\Api;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\Utility\Inflector;
-use FriendsOfBabba\Core\Model\CrudManager;
+use FriendsOfBabba\Core\Model\CrudFactory;
 
 class CrudController extends AppController
 {
@@ -15,14 +15,14 @@ class CrudController extends AppController
 		if (!is_null($resource)) {
 			$entity = Inflector::underscore($resource);
 			$entity = Inflector::camelize($entity);
-			$viewConfig = CrudManager::getInstance()->getViewConfig($entity, $user);
+			$viewConfig = CrudFactory::instance()->getViewConfig($entity, $user);
 			$this->set([
 				'data' => $viewConfig,
 				'success' => !is_null($viewConfig),
 				'_serialize' => ['data', 'success'],
 			]);
 		} else {
-			$viewConfigList = CrudManager::getInstance()->getViewConfigList($user);
+			$viewConfigList = CrudFactory::instance()->getViewConfigList($user);
 			$this->set([
 				'data' => $viewConfigList,
 				'success' => !empty($viewConfigList),
@@ -35,7 +35,7 @@ class CrudController extends AppController
 	{
 		$user = $this->getUser();
 		$entity = Inflector::humanize($resource);
-		$viewConfig = CrudManager::getInstance()->getViewConfig($entity, $user);
+		$viewConfig = CrudFactory::instance()->getViewConfig($entity, $user);
 		if (empty($viewConfig) || empty($viewConfig->grid)) {
 			throw new NotFoundException(sprintf('No view config found for %s', $resource));
 		}
@@ -45,7 +45,7 @@ class CrudController extends AppController
 		}
 
 		$model = Inflector::humanize($resource);
-		$table = CrudManager::getInstance()->getTable($model);
+		$table = CrudFactory::instance()->getTable($model);
 
 		$sort = $this->request->getQuery('sort');
 		$direction = $this->request->getQuery('direction');

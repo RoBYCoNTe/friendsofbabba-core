@@ -51,6 +51,8 @@ class RolePermissionsTable extends BaseTable
             'joinType' => 'INNER',
             'className' => 'FriendsOfBabba/Core.Roles',
         ]);
+
+        parent::afterInitialize($config);
     }
 
     /**
@@ -71,7 +73,7 @@ class RolePermissionsTable extends BaseTable
             ->requirePresence('action', 'create')
             ->notEmptyString('action');
 
-        return $validator;
+        return parent::validationDefault($validator);
     }
 
     /**
@@ -85,6 +87,6 @@ class RolePermissionsTable extends BaseTable
     {
         $rules->add($rules->existsIn(['role_id'], 'Roles'), ['errorField' => 'role_id']);
 
-        return $rules;
+        return parent::buildRules($rules);
     }
 }

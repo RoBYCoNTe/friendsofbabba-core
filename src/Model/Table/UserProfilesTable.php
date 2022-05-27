@@ -81,7 +81,7 @@ class UserProfilesTable extends BaseTable
             ->dateTime('deleted')
             ->allowEmptyDateTime('deleted');
 
-        return $validator;
+        return parent::validationDefault($validator);
     }
 
     /**
@@ -95,6 +95,6 @@ class UserProfilesTable extends BaseTable
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
 
-        return $rules;
+        return parent::buildRules($rules);
     }
 }

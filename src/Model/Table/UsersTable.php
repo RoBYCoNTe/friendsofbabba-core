@@ -15,6 +15,7 @@ use FriendsOfBabba\Core\Model\Crud\FormInput;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Crud\Grid;
 use FriendsOfBabba\Core\Model\Crud\GridField;
+use FriendsOfBabba\Core\Model\ExtenderFactory;
 use FriendsOfBabba\Core\Model\Filter\UserCollection;
 use SoftDelete\Model\Table\SoftDeleteTrait;
 
@@ -108,13 +109,14 @@ class UsersTable extends BaseTable
         $validator
             ->scalar('status')
             ->maxLength('status', 20)
-            ->notEmptyString('status');
+            ->notEmptyString('status')
+            ->requirePresence('status');
 
         $validator
             ->dateTime('deleted')
             ->allowEmptyDateTime('deleted');
 
-        return $validator;
+        return parent::validationDefault($validator);
     }
 
     /**
@@ -129,7 +131,7 @@ class UsersTable extends BaseTable
         $rules->add($rules->isUnique(['username']), ['errorField' => 'username']);
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
 
-        return $rules;
+        return parent::buildRules($rules);
     }
 
     public function findAuthenticated(Query $query, array $options): Query
@@ -146,9 +148,9 @@ class UsersTable extends BaseTable
             ]);
     }
 
-    public function getGrid(?User $user): ?Grid
+    public function getGrid(?User $user, bool $extends = TRUE): ?Grid
     {
-        $grid = parent::getGrid($user);
+        $grid = parent::getGrid($user, FALSE);
         $grid->getField("status")->setComponent("ChipField");
         /** @var CrudExcelDocument */
         $excelExporter = $grid->getExporter('xlsx');
@@ -189,15 +191,20 @@ class UsersTable extends BaseTable
                 ->setComponentProp("optionText", "name")
                 ->alwaysOn()
         );
+
         $grid->getField("modified")->setLabel(__d("friendsofbabba_core", "Modified"));
+        $grid->addField(GridField::create("login", NULL, "ImpersonateUserButton", false), "after", "modified");
 
-
-        return $grid;
+        return ExtenderFactory::instance()->getGrid($this->getAlias(), $grid, $user);
     }
 
-    public function getForm(?User $user): ?Form
+    public function getForm(?User $user, bool $extends = TRUE): ?Form
     {
-        $form = parent::getForm($user);
+        $form = parent::getForm($user, FALSE);
+        $form->addInitialValue("profile", [
+            "name" => null,
+            "surname" => null,
+        ]);
         $form->getInput("password")->setComponentProp("type", "password");
         $form->getInput("email")->setLabel(__d("friendsofbabba_core", "E-mail"));
         $form->addInput(FormInput::create("profile.name", __d("friendsofbabba_core", "Name")));
@@ -218,7 +225,6 @@ class UsersTable extends BaseTable
             ->setComponentProp("optionText", "name")
             ->fullWidth());
 
-
-        return $form;
+        return ExtenderFactory::instance()->getForm($this->getAlias(), $form, $user);
     }
 }

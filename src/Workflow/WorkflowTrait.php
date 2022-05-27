@@ -14,12 +14,15 @@ trait WorkflowTrait
     use NotificationTrait;
     use MailerAwareTrait;
 
+    /**
+     * @param Notification|NotificationBuilder $notification
+     */
     public function email($notification)
     {
         /** @var Notification $notification */
         $notification = $notification instanceof NotificationBuilder ? $notification->get() : $notification;
         $this
-            ->getMailer('Workflow')
+            ->getMailer('FriendsOfBabba/Core.Workflow')
             ->send('notify', [
                 $notification->user,
                 $notification->title,

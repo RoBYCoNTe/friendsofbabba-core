@@ -23,6 +23,9 @@ use Authorization\Policy\ResultInterface;
  * @property UserProfile $profile
  *
  * @property RolePermission[] $permissions
+ *
+ * @property ?string $name
+ * 	The name of the user (formatted with profile data if profile exists).
  */
 class User extends BaseEntity implements \Authentication\IdentityInterface, \Authorization\IdentityInterface
 {
