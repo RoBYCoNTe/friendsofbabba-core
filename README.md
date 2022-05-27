@@ -100,7 +100,7 @@ As last step you have to configure SPID authorization config in `config/app.php`
 
 ```php
 'Spid' => [
-	// Configure ARTI remote service URL required to receive SPID callbacks.
+	// Configure simplesaml remote service URL required to receive SPID callbacks.
 	'endpoint' => 'https://spid.local/simplesaml/login',
 	'service' => 'yourservice',
 	'secret' => 'yoursecret',
