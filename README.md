@@ -18,8 +18,6 @@ A rapid development plugin for CakePHP 4.x apps including:
 
 ## Installation
 
----
-
 Run the following command to install the plugin:
 
 ```sh
@@ -60,8 +58,6 @@ Add `FriendsOfBabba/Core/Error/AppExceptionRenderer.php` to `config/app.php`:
 ```
 
 ## Configure SPID
-
----
 
 To configure SPID (if not yet installed) install it at database level:
 
