@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2022-05-27 14:18+0000\n"
+"POT-Creation-Date: 2022-05-27 15:45+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -13,6 +13,14 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Command/User/AddCommand.php:91
+msgid "Welcome onboard!"
+msgstr ""
+
+#: Command/User/AddCommand.php:92
+msgid "You have been successfully registered."
+msgstr ""
 
 #: Controller/Api/AppController.php:83
 msgid "User not authenticated or session expired!"
@@ -23,41 +31,41 @@ msgid "Unauthorized: {0}"
 msgstr ""
 
 #: Controller/Api/SpidController.php:81
-#: Controller/Api/SpidController.php:139
+#: Controller/Api/SpidController.php:140
 msgid "Invalid request."
 msgstr ""
 
 #: Controller/Api/SpidController.php:84
-#: Controller/Api/SpidController.php:142
+#: Controller/Api/SpidController.php:143
 msgid "SPID authentication failed."
 msgstr ""
 
 #: Controller/Api/SpidController.php:118
-#: Controller/Api/UsersController.php:188
+#: Controller/Api/UsersController.php:190
 msgid "Recaptcha validation failed."
 msgstr ""
 
-#: Controller/Api/SpidController.php:163
+#: Controller/Api/SpidController.php:164
 msgid "User not recognized: {0}"
 msgstr ""
 
-#: Controller/Api/UsersController.php:74
+#: Controller/Api/UsersController.php:77
 msgid "Invalid username or password"
 msgstr ""
 
-#: Controller/Api/UsersController.php:193
+#: Controller/Api/UsersController.php:195
 msgid "Username or email is required."
 msgstr ""
 
-#: Controller/Api/UsersController.php:202
+#: Controller/Api/UsersController.php:205
 msgid "User not found."
 msgstr ""
 
-#: Controller/Api/UsersController.php:211
+#: Controller/Api/UsersController.php:214
 msgid "Password reset email sent."
 msgstr ""
 
-#: Controller/Api/UsersController.php:236
+#: Controller/Api/UsersController.php:240
 msgid "Failed to save user."
 msgstr ""
 
@@ -77,34 +85,34 @@ msgstr ""
 msgid "Birth Date"
 msgstr ""
 
-#: Model/Table/LanguageMessagesTable.php:119
+#: Model/Table/LanguageMessagesTable.php:120
 msgid "Language Messages"
 msgstr ""
 
-#: Model/Table/LanguageMessagesTable.php:128
-#: Model/Table/LanguageMessagesTable.php:171
+#: Model/Table/LanguageMessagesTable.php:129
+#: Model/Table/LanguageMessagesTable.php:174
 msgid "Text"
 msgstr ""
 
-#: Model/Table/LanguageMessagesTable.php:131
-#: Model/Table/LanguageMessagesTable.php:151
+#: Model/Table/LanguageMessagesTable.php:132
+#: Model/Table/LanguageMessagesTable.php:154
 msgid "Language"
 msgstr ""
 
-#: Model/Table/LanguageMessagesTable.php:136
-#: Model/Table/LanguageMessagesTable.php:163
+#: Model/Table/LanguageMessagesTable.php:139
+#: Model/Table/LanguageMessagesTable.php:166
 msgid "Resource"
 msgstr ""
 
-#: Model/Table/LanguageMessagesTable.php:139
+#: Model/Table/LanguageMessagesTable.php:142
 msgid "Translated"
 msgstr ""
 
-#: Model/Table/LanguageMessagesTable.php:166
+#: Model/Table/LanguageMessagesTable.php:169
 msgid "The resource to which this message belongs."
 msgstr ""
 
-#: Model/Table/LanguageMessagesTable.php:170
+#: Model/Table/LanguageMessagesTable.php:173
 msgid "Code"
 msgstr ""
 
@@ -118,22 +126,22 @@ msgstr ""
 
 #: Model/Table/UsersTable.php:167
 #: Model/Table/UsersTable.php:189
-#: Model/Table/UsersTable.php:222
+#: Model/Table/UsersTable.php:223
 msgid "Roles"
 msgstr ""
 
 #: Model/Table/UsersTable.php:178
-#: Model/Table/UsersTable.php:213
+#: Model/Table/UsersTable.php:214
 msgid "Status"
 msgstr ""
 
 #: Model/Table/UsersTable.php:181
-#: Model/Table/UsersTable.php:217
+#: Model/Table/UsersTable.php:218
 msgid "Active"
 msgstr ""
 
 #: Model/Table/UsersTable.php:184
-#: Model/Table/UsersTable.php:220
+#: Model/Table/UsersTable.php:221
 msgid "Pending"
 msgstr ""
 
@@ -146,10 +154,14 @@ msgid "E-mail"
 msgstr ""
 
 #: Model/Table/UsersTable.php:210
-msgid "Name"
+msgid "Last login"
 msgstr ""
 
 #: Model/Table/UsersTable.php:211
+msgid "Name"
+msgstr ""
+
+#: Model/Table/UsersTable.php:212
 msgid "Surname"
 msgstr ""
 

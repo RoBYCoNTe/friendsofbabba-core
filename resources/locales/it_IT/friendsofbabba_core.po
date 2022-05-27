@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2022-05-27 14:18+0000\n"
-"PO-Revision-Date: 2022-05-27 16:20+0200\n"
+"POT-Creation-Date: 2022-05-27 15:45+0000\n"
+"PO-Revision-Date: 2022-05-27 17:45+0200\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "Language: it_IT\n"
@@ -15,6 +15,21 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 
+#: Command/User/AddCommand.php:91
+msgid "Welcome onboard!"
+msgstr "Benvenuto a bordo!"
+
+#: Command/User/AddCommand.php:92
+msgid "You have been successfully registered."
+msgstr ""
+"La tua registrazione è stata eseguita correttamente ed ora puoi accedere a "
+"tutte le funzionalità della piattaforma. Ricorda di leggere la (poca) "
+"documentazione che sei riuscito a scrivere fino a questo momento "
+"sull'argomento. Qualora tu non dovessi ricordare nulla (molto probabile), ti "
+"consiglio di rileggere parte del codice che tu stesso hai scritto per "
+"provare a fare mente locale e capire come si usa questo prodotto di tua "
+"creazione, buon lavoro."
+
 #: Controller/Api/AppController.php:83
 msgid "User not authenticated or session expired!"
 msgstr "Utente non autenticato o sessione scaduta!"
@@ -23,41 +38,41 @@ msgstr "Utente non autenticato o sessione scaduta!"
 msgid "Unauthorized: {0}"
 msgstr "Non autorizzato: {0}"
 
-#: Controller/Api/SpidController.php:81 Controller/Api/SpidController.php:139
+#: Controller/Api/SpidController.php:81 Controller/Api/SpidController.php:140
 msgid "Invalid request."
 msgstr "Richiesta non valida."
 
-#: Controller/Api/SpidController.php:84 Controller/Api/SpidController.php:142
+#: Controller/Api/SpidController.php:84 Controller/Api/SpidController.php:143
 msgid "SPID authentication failed."
 msgstr "Autenticazione SPID fallita."
 
-#: Controller/Api/SpidController.php:118 Controller/Api/UsersController.php:188
+#: Controller/Api/SpidController.php:118 Controller/Api/UsersController.php:190
 msgid "Recaptcha validation failed."
 msgstr "Validazione RECAPTCHA fallita."
 
-#: Controller/Api/SpidController.php:163
+#: Controller/Api/SpidController.php:164
 msgid "User not recognized: {0}"
 msgstr "Utente non riconosciuto: {0}"
 
-#: Controller/Api/UsersController.php:74
+#: Controller/Api/UsersController.php:77
 msgid "Invalid username or password"
 msgstr "Username o password errati"
 
-#: Controller/Api/UsersController.php:193
+#: Controller/Api/UsersController.php:195
 msgid "Username or email is required."
 msgstr "Username o indirizzo email obbligatorio."
 
-#: Controller/Api/UsersController.php:202
+#: Controller/Api/UsersController.php:205
 msgid "User not found."
 msgstr "Utente non trovato."
 
-#: Controller/Api/UsersController.php:211
+#: Controller/Api/UsersController.php:214
 msgid "Password reset email sent."
 msgstr ""
 "E-mail di reset password inoltrata, controlla la tua casella di posta "
 "elettronica."
 
-#: Controller/Api/UsersController.php:236
+#: Controller/Api/UsersController.php:240
 msgid "Failed to save user."
 msgstr "Impossibile salvare l'utente."
 
@@ -77,34 +92,34 @@ msgstr "Provincia di nascita"
 msgid "Birth Date"
 msgstr "Data di nascita"
 
-#: Model/Table/LanguageMessagesTable.php:119
+#: Model/Table/LanguageMessagesTable.php:120
 msgid "Language Messages"
 msgstr "Stringhe (i18n)"
 
-#: Model/Table/LanguageMessagesTable.php:128
-#: Model/Table/LanguageMessagesTable.php:171
+#: Model/Table/LanguageMessagesTable.php:129
+#: Model/Table/LanguageMessagesTable.php:174
 msgid "Text"
 msgstr "Testo"
 
-#: Model/Table/LanguageMessagesTable.php:131
-#: Model/Table/LanguageMessagesTable.php:151
+#: Model/Table/LanguageMessagesTable.php:132
+#: Model/Table/LanguageMessagesTable.php:154
 msgid "Language"
 msgstr "Lingua"
 
-#: Model/Table/LanguageMessagesTable.php:136
-#: Model/Table/LanguageMessagesTable.php:163
+#: Model/Table/LanguageMessagesTable.php:139
+#: Model/Table/LanguageMessagesTable.php:166
 msgid "Resource"
 msgstr "Risorsa"
 
-#: Model/Table/LanguageMessagesTable.php:139
+#: Model/Table/LanguageMessagesTable.php:142
 msgid "Translated"
 msgstr "Tradotto"
 
-#: Model/Table/LanguageMessagesTable.php:166
+#: Model/Table/LanguageMessagesTable.php:169
 msgid "The resource to which this message belongs."
 msgstr "La risorsa su cui attestare il messaggio."
 
-#: Model/Table/LanguageMessagesTable.php:170
+#: Model/Table/LanguageMessagesTable.php:173
 msgid "Code"
 msgstr "Codice"
 
@@ -117,19 +132,19 @@ msgid "Readed"
 msgstr "Letta"
 
 #: Model/Table/UsersTable.php:167 Model/Table/UsersTable.php:189
-#: Model/Table/UsersTable.php:222
+#: Model/Table/UsersTable.php:223
 msgid "Roles"
 msgstr "Ruoli"
 
-#: Model/Table/UsersTable.php:178 Model/Table/UsersTable.php:213
+#: Model/Table/UsersTable.php:178 Model/Table/UsersTable.php:214
 msgid "Status"
 msgstr "Stato"
 
-#: Model/Table/UsersTable.php:181 Model/Table/UsersTable.php:217
+#: Model/Table/UsersTable.php:181 Model/Table/UsersTable.php:218
 msgid "Active"
 msgstr "Attivo"
 
-#: Model/Table/UsersTable.php:184 Model/Table/UsersTable.php:220
+#: Model/Table/UsersTable.php:184 Model/Table/UsersTable.php:221
 msgid "Pending"
 msgstr "In Attesa/Sospeso"
 
@@ -142,10 +157,14 @@ msgid "E-mail"
 msgstr "E-mail"
 
 #: Model/Table/UsersTable.php:210
+msgid "Last login"
+msgstr "Ultimo accesso"
+
+#: Model/Table/UsersTable.php:211
 msgid "Name"
 msgstr "Nome"
 
-#: Model/Table/UsersTable.php:211
+#: Model/Table/UsersTable.php:212
 msgid "Surname"
 msgstr "Cognome"
 

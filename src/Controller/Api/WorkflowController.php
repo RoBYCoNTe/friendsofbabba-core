@@ -7,7 +7,7 @@ use Cake\Event\Event;
 use Cake\Utility\Inflector;
 use FriendsOfBabba\Core\Model\Table\TransactionsTable;
 use FriendsOfBabba\Core\Workflow\WorkflowBase;
-use FriendsOfBabba\Core\Workflow\WorkflowRegistry;
+use FriendsOfBabba\Core\Workflow\WorkflowFactory;
 
 /**
  * @property TransactionsTable $Transactions
@@ -29,7 +29,7 @@ class WorkflowController extends AppController
 
 	public function load()
 	{
-		$collection = WorkflowRegistry::getInstance()->getConfiguredAsResources();
+		$collection = WorkflowFactory::instance()->getConfiguredAsResources();
 		$collection = array_map(function (WorkflowBase $workflow) {
 			return $workflow->toArray();
 		}, $collection);
@@ -44,7 +44,7 @@ class WorkflowController extends AppController
 	public function resolve($resource)
 	{
 		$entity = Inflector::camelize($resource, '-');
-		$workflow = WorkflowRegistry::getInstance()->resolve($entity);
+		$workflow = WorkflowFactory::instance()->resolve($entity);
 		$states = !empty($workflow) ? $workflow->getStates() : [];
 		$this->set([
 			'data' => array_values($states),
@@ -76,7 +76,7 @@ class WorkflowController extends AppController
 		}
 
 
-		$workflow = WorkflowRegistry::getInstance()->resolve($entityName);
+		$workflow = WorkflowFactory::instance()->resolve($entityName);
 		$states = $workflow->getReadableStates($this->getUser());
 
 		$baseQuery = $baseQuery->whereInList('state', $states);

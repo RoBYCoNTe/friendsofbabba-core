@@ -54,12 +54,15 @@ class UsersController extends AppController
 		$this->Authorization->skipAuthorization();
 		$result = $this->Authentication->getResult();
 		if ($result->isValid()) {
-
-			/** @var User */
+			/** @var User $user*/
 			$user = $result->getData();
-			$user = $this->Users->get($user->id, [
-				'contain' => ['UserProfiles', 'Roles'],
-			]);
+			$user = $this->Users
+				->find('authenticated')
+				->where(['Users.id' => $user->id])
+				->first();
+
+			$this->Users->updateAll(['last_login' => \Cake\I18n\FrozenTime::now()], ['id' => $user->id]);
+
 			$json = [
 				'success' => true,
 				'data' => $userService->getLogin($user, [
@@ -191,13 +194,14 @@ class UsersController extends AppController
 		if (empty($account)) {
 			throw new BadRequestException(__d('friendsofbabba_core', 'Username or email is required.'));
 		}
+
 		$user = $this->Users->find()
 			->where(['OR' => [
 				'Users.email' => $account,
 				'Users.username' => $account,
 			]])
 			->first();
-		if (!$user) {
+		if (!$user || $user->auth !== "local") {
 			throw new NotFoundException(__d('friendsofbabba_core', 'User not found.'));
 		}
 

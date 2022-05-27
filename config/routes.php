@@ -2,14 +2,14 @@
 
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
-use FriendsOfBabba\Core\Workflow\WorkflowRegistry;
+use FriendsOfBabba\Core\Workflow\WorkflowFactory;
 
 /** @var RouteBuilder $routes */
 $routes->prefix("api", function (RouteBuilder $builder) {
 	/**
 	 * Autoload workflow entities.
 	 */
-	$workflows = WorkflowRegistry::getInstance()->getConfigured();
+	$workflows = WorkflowFactory::instance()->getConfigured();
 	$names = array_keys($workflows);
 	foreach ($names as $workflow) {
 		$builder->resources($workflow, ['inflect' => 'dasherize']);

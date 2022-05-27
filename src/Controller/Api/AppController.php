@@ -15,7 +15,7 @@ use Crud\Controller\Component\CrudComponent;
 use Crud\Controller\ControllerTrait;
 use FriendsOfBabba\Core\Controller\Component\NotificationComponent;
 use FriendsOfBabba\Core\Model\Entity\User;
-use FriendsOfBabba\Core\Workflow\WorkflowRegistry;
+use FriendsOfBabba\Core\Workflow\WorkflowFactory;
 
 /**
  * App Controller
@@ -124,7 +124,7 @@ class AppController extends Controller
     public function _beforePaginate(\Cake\Event\Event $event)
     {
         $entityName = $this->request->getParam("controller");
-        $workflow = WorkflowRegistry::getInstance()->resolve($entityName);
+        $workflow = WorkflowFactory::instance()->resolve($entityName);
         if (!is_null($workflow)) {
             $user = $this->getUser();
             $workflow->beforePaginate($entityName, $user, $event);
@@ -134,7 +134,7 @@ class AppController extends Controller
     public function _beforeFind(\Cake\Event\Event $event)
     {
         $entityName = $this->request->getParam("controller");
-        $workflow = WorkflowRegistry::getInstance()->resolve($entityName);
+        $workflow = WorkflowFactory::instance()->resolve($entityName);
         if (!is_null($workflow)) {
             $user = $this->getUser();
             $workflow->beforeFind($entityName, $user, $event);
@@ -144,7 +144,7 @@ class AppController extends Controller
     public function _beforeSave(\Cake\Event\Event $event)
     {
         $entityName = $this->request->getParam("controller");
-        $workflow = WorkflowRegistry::getInstance()->resolve($entityName);
+        $workflow = WorkflowFactory::instance()->resolve($entityName);
         if (!is_null($workflow)) {
             $user = $this->getUser();
             $workflow->beforeSave($entityName, $user, $event);
@@ -154,7 +154,7 @@ class AppController extends Controller
     public function _beforeDelete(\Cake\Event\Event $event)
     {
         $entityName = $this->request->getParam("controller");
-        $workflow = WorkflowRegistry::getInstance()->resolve($entityName);
+        $workflow = WorkflowFactory::instance()->resolve($entityName);
         if (!is_null($workflow)) {
             $user = $this->getUser();
             $workflow->beforeDelete($entityName, $user, $event);
@@ -164,7 +164,7 @@ class AppController extends Controller
     public function _afterSave(\Cake\Event\Event $event)
     {
         $entityName = $this->request->getParam("controller");
-        $workflow = WorkflowRegistry::getInstance()->resolve($entityName);
+        $workflow = WorkflowFactory::instance()->resolve($entityName);
         if (!is_null($workflow)) {
             $user = $this->getUser();
             $workflow->afterSave($entityName, $user, $event);
@@ -174,7 +174,7 @@ class AppController extends Controller
     public function _afterPaginate(\Cake\Event\Event $event)
     {
         $entityName = $this->request->getParam("controller");
-        $workflow = WorkflowRegistry::getInstance()->resolve($entityName);
+        $workflow = WorkflowFactory::instance()->resolve($entityName);
         if (!is_null($workflow)) {
             $user = $this->getUser();
             $workflow->afterPaginate($entityName, $user, $event);

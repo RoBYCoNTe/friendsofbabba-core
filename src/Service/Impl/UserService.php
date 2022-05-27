@@ -30,6 +30,7 @@ class UserService implements UserServiceInterface
 	{
 		return [
 			'id' => "profile",
+			'auth' => $user->auth,
 			'email' => $user->email,
 			'username' => $user->username,
 			'profile' => $user->profile

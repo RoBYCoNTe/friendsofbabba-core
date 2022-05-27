@@ -12,7 +12,7 @@ use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Utility\Inflector;
 use FriendsOfBabba\Core\Model\CrudFactory;
-use FriendsOfBabba\Core\Workflow\WorkflowRegistry;
+use FriendsOfBabba\Core\Workflow\WorkflowFactory;
 
 /**
  * Create Workflow.
@@ -62,14 +62,14 @@ class CreateFilesCommand extends Command
 				$dir = APP . 'Workflow' . DS . $entity;
 				$this->clear($dir);
 
-				WorkflowRegistry::getInstance()->removeInvalids();
+				WorkflowFactory::instance()->removeInvalids();
 			}
 		}
 
 		$this->createStateFiles($args, $io);
 		$this->createWorkflowFile($args, $io);
 
-		WorkflowRegistry::getInstance()->add($entity);
+		WorkflowFactory::instance()->add($entity);
 	}
 
 

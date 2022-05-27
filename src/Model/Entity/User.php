@@ -16,6 +16,7 @@ use Authorization\Policy\ResultInterface;
  * @property string $password
  * @property string $email
  * @property string $status
+ * @property string $auth
  * @property \Cake\I18n\FrozenTime|null $last_login
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
@@ -45,6 +46,7 @@ class User extends BaseEntity implements \Authentication\IdentityInterface, \Aut
 		'email' => true,
 		'status' => true,
 		'last_login' => true,
+		'auth' => true,
 		'created' => true,
 		'modified' => true,
 		'deleted' => true,

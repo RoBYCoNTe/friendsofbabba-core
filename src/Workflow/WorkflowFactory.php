@@ -10,7 +10,7 @@ use Cake\Utility\Inflector;
 /**
  * Represents the root access to every configured workflow for the application.
  */
-class WorkflowRegistry
+class WorkflowFactory
 {
     private static $_instance = null;
 
@@ -29,14 +29,14 @@ class WorkflowRegistry
     }
 
     /**
-     * Get the singleton instance of the WorkflowRegistry.
+     * Get the singleton instance of the WorkflowFactory.
      *
-     * @return WorkflowRegistry
+     * @return WorkflowFactory
      */
-    public static function getInstance(): WorkflowRegistry
+    public static function instance(): WorkflowFactory
     {
         if (is_null(self::$_instance)) {
-            self::$_instance = new WorkflowRegistry();
+            self::$_instance = new WorkflowFactory();
         }
         return self::$_instance;
     }

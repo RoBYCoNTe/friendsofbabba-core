@@ -454,6 +454,16 @@ class InstallDatabase extends AbstractMigration
                 'limit' => 20,
                 'null' => false,
             ])
+            ->addColumn('auth', 'string', [
+                'default' => 'local',
+                'limit' => 100,
+                'null' => true,
+            ])
+            ->addColumn('last_login', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true
+            ])
             ->addColumn('created', 'datetime', [
                 'default' => null,
                 'limit' => null,

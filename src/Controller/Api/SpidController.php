@@ -125,6 +125,7 @@ class SpidController extends AppController
 				->find()
 				->whereInList('code', Configure::read('Spid.roles'))
 				->toArray());
+			$user->set('auth', 'spid');
 		});
 		$this->Crud->on('afterSave', function (Event $event) {
 		});

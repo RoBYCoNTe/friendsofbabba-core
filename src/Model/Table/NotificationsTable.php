@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FriendsOfBabba\Core\Model\Table;
 
+use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\Model\Crud\Badge;
@@ -131,7 +132,10 @@ class NotificationsTable extends BaseTable
         $grid->disableDelete();
         $grid->disableCreate();
         $grid->disableExporter();
-        $grid->addFilterDefaultValue("readed", false);
+        if ($this->find('mine', ['user' => $user])->count() > 0) {
+            $grid->addFilterDefaultValue("readed", false);
+        }
+
         $grid->addBulkActionButton(BulkAction::create("MarkAsReadedButton"));
         $grid->addBulkActionButton(BulkAction::create("MarkAsUnreadedButton"));
         $grid->setSort('created', Grid::ORDER_DESC);
@@ -147,15 +151,36 @@ class NotificationsTable extends BaseTable
 
     public function getBadge(?User $user): Badge
     {
-        $count = $this->find()
-            ->where([
-                'Notifications.user_id' => $user->id,
-                'Notifications.readed IS' => NULL,
-            ])
+        $count = $this
+            ->find('mine', ['user' => $user])
+            ->find('unreaded')
             ->count();
 
         $badge = Badge::create('error', $count);
 
         return ExtenderFactory::instance()->getBadge($this->getAlias(), $badge, $user);
+    }
+
+    public function findMine(Query $query, array $options): Query
+    {
+        /** @var User */
+        $user = $options['user'];
+        return $query->where([
+            'Notifications.user_id' => $user->id
+        ]);
+    }
+
+    public function findReaded(Query $query, array $options): Query
+    {
+        return $query->where([
+            'Notifications.readed IS NOT' => NULL,
+        ]);
+    }
+
+    public function findUnreaded(Query $query, array $options): Query
+    {
+        return $query->where([
+            'Notifications.readed IS' => NULL,
+        ]);
     }
 }

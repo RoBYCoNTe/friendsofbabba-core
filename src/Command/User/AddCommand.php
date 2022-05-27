@@ -8,9 +8,12 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
+use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Table\RolesTable;
 use FriendsOfBabba\Core\Model\Table\UserProfilesTable;
 use FriendsOfBabba\Core\Model\Table\UsersTable;
+use FriendsOfBabba\Core\Notification\NotificationBuilder;
+use FriendsOfBabba\Core\Notification\NotificationTrait;
 
 /**
  * Users/Add command.
@@ -21,6 +24,8 @@ use FriendsOfBabba\Core\Model\Table\UsersTable;
  */
 class AddCommand extends Command
 {
+    use NotificationTrait;
+
     public function initialize(): void
     {
         parent::initialize();
@@ -69,6 +74,8 @@ class AddCommand extends Command
             'username' => $username,
             'password' => $password,
             'email' => $email,
+            'auth' => 'local',
+            'status' => 'active',
             'profile' => $this->UserProfiles->newEntity([
                 'name' => $name,
                 'surname' => $surname,
@@ -80,6 +87,10 @@ class AddCommand extends Command
             'associated' => ['Roles']
         ]);
         if ($this->Users->save($user, ['associated' => ['Roles', 'UserProfiles']])) {
+            $this->notify(NotificationBuilder::create()
+                ->withTitle(__d("friendsofbabba_core", "Welcome onboard!"))
+                ->withContent(__d("friendsofbabba_core", "You have been successfully registered."))
+                ->forUser($user));
             $io->verbose(sprintf(
                 'User created: %s',
                 $user->id

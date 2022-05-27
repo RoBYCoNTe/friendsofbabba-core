@@ -207,6 +207,7 @@ class UsersTable extends BaseTable
         ]);
         $form->getInput("password")->setComponentProp("type", "password");
         $form->getInput("email")->setLabel(__d("friendsofbabba_core", "E-mail"));
+        $form->getInput("last_login")->setLabel(__d("friendsofbabba_core", "Last login"));
         $form->addInput(FormInput::create("profile.name", __d("friendsofbabba_core", "Name")));
         $form->addInput(FormInput::create("profile.surname", __d("friendsofbabba_core", "Surname")));
         $form->getInput("status")

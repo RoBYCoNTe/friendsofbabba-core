@@ -15,7 +15,7 @@ use FriendsOfBabba\Core\Model\Crud\GridField;
 use FriendsOfBabba\Core\Model\Entity\Role;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\ExtenderFactory;
-use FriendsOfBabba\Core\Workflow\WorkflowRegistry;
+use FriendsOfBabba\Core\Workflow\WorkflowFactory;
 
 class BaseTable extends \Cake\ORM\Table
 {
@@ -74,7 +74,7 @@ class BaseTable extends \Cake\ORM\Table
 			}
 			$grid->addField($column);
 		}
-		$workflow = WorkflowRegistry::getInstance()->resolve($this->getAlias());
+		$workflow = WorkflowFactory::instance()->resolve($this->getAlias());
 		if (!is_null($workflow)) {
 			$grid->addFilter(Filter::create("state", "State", "StateInput")->alwaysOn());
 			$grid->addField(GridField::create("state", "State", "StateCollectionInput"));
@@ -99,7 +99,7 @@ class BaseTable extends \Cake\ORM\Table
 		$form = new Form();
 		$form->setRedirect(Form::REDIRECT_LIST);
 		$columns = $this->getSchema()->columns();
-		$workflow = WorkflowRegistry::getInstance()->resolve($this->getAlias());
+		$workflow = WorkflowFactory::instance()->resolve($this->getAlias());
 		$form->setUseWorkflow(!is_null($workflow));
 		foreach ($columns as $columnName) {
 			if (in_array($columnName, ['id', 'created', 'modified', 'deleted'])) {
