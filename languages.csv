@@ -1,10 +1,16 @@
-it	app.welcome	Ciao %{full_name}
-it	menu.groups.admin	Admin
+it	activity_plan.description_of_context.help	Descrizione del contesto territoriale e sociale all’interno del quale è collocato il Centro Risorse e analisi dei fabbisogni espressi dalla comunità giovanile locale
+it	app.date_format.long	DD/MM/YYYY, HH:mm:ss
+it	app.input.max_length_info	Usati %{count} su %{max} caratteri disponibili (spazi inclusi)
+it	app.welcome	Benvenuto %{full_name}
+it	Forbidden	Accesso non consentito
+it	menu.groups.admin	Amministrazione
 it	menu.groups.dashboard	Dashboard
-it	menu.items.posts	Posts
+it	menu.items.language-messages	Stringhe (i18n)
+it	menu.items.notifications	Notifiche
 it	menu.items.users	Utenti
 it	ra.action.add	Aggiungi
 it	ra.action.add_filter	Aggiungi un filtro
+it	ra.action.all	(Tutti)
 it	ra.action.back	Indietro
 it	ra.action.bulk_actions	%{smart_count} selezionati
 it	ra.action.cancel	Annulla
@@ -19,6 +25,7 @@ it	ra.action.edit	Modifica
 it	ra.action.expand	Espandi
 it	ra.action.export	Esporta
 it	ra.action.list	Elenco
+it	ra.action.next	Prosegui
 it	ra.action.open_menu	Apri il menu
 it	ra.action.refresh	Aggiorna
 it	ra.action.remove	Rimuovi
@@ -29,24 +36,38 @@ it	ra.action.show	Mostra
 it	ra.action.sort	Ordina
 it	ra.action.undo	Annulla
 it	ra.action.unselect	Annulla selezione
+it	ra.auth.account	Username o email
 it	ra.auth.auth_check_error	È necessario accedere per continuare
+it	ra.auth.back_to_login	Torna al login
+it	ra.auth.impersonating.undo	Smetti di impersonate %{name}
+it	ra.auth.impersonating.undo.short	Esci da %{name}
+it	ra.auth.login.spid	Entra con SPID/CIE/CNS
 it	ra.auth.logout	Disconnessione
 it	ra.auth.password	Password
+it	ra.auth.password_reset.button	Reimposta
+it	ra.auth.password_reset.title	Reimposta password
+it	ra.auth.reset_password	Recupera Password
+it	ra.auth.signup	Registrati
 it	ra.auth.sign_in	Login
 it	ra.auth.sign_in_error	Autenticazione fallita, riprovare.
+it	ra.auth.sign_in_success	Utente impersona con successo, ricaricamento pagina in corso...
+it	ra.auth.sign_out_success	Logout da altro utente eseguito con successo, ricaricamento pagina in corso...
 it	ra.auth.username	Nome utente
 it	ra.auth.user_menu	Profilo
 it	ra.boolean.false	No
-it	ra.boolean.null	" "
+it	ra.boolean.null	(Tutti)
 it	ra.boolean.true	Si
 it	ra.image.upload_several	Trascina le immagini da caricare, oppure clicca per selezionarle.
 it	ra.image.upload_single	Trascina l'immagine da caricare, oppure clicca per selezionarla.
 it	ra.input.file.upload_several	Trascina i files da caricare, oppure clicca per selezionare.
 it	ra.input.file.upload_single	Trascina il file da caricare, oppure clicca per selezionarlo.
+it	ra.input.password.toggle_hidden	Nascondi Password
+it	ra.input.password.toggle_visible	Mostra Password
 it	ra.message.about	Informazioni
 it	ra.message.are_you_sure	Sei sicuro?
 it	ra.message.bulk_delete_content	Sei sicuro di voler cancellare questo %{name}? |||| Sei sicuro di voler eliminare questi %{smart_count}?
 it	ra.message.bulk_delete_title	Delete %{name} |||| Delete %{smart_count} %{name} items
+it	ra.message.confirm_delete	Sei sicuro di voler cancellare questo elemento?
 it	ra.message.delete_content	Are you sure you want to delete this item?
 it	ra.message.delete_title	Cancella %{name} #%{id}
 it	ra.message.details	Dettagli
@@ -55,6 +76,7 @@ it	ra.message.invalid_form	Il modulo non è valido. Si prega di verificare la pr
 it	ra.message.loading	La pagina si sta caricando, solo un momento per favore
 it	ra.message.no	No
 it	ra.message.not_found	Hai inserito un URL errato, oppure hai cliccato un link errato
+it	ra.message.profile_updated	Profilo aggiornato correttamente
 it	ra.message.unsaved_changes	Alcune modifiche non sono state salvate. Sei sicuro di volerle ignorare?
 it	ra.message.yes	Si
 it	ra.navigation.next	Successivo
@@ -77,6 +99,7 @@ it	ra.notification.i18n_error	Traduzioni non trovate per il linguaggio specifica
 it	ra.notification.item_doesnt_exist	Record inesistente
 it	ra.notification.logged_out	La sessione è stata terminata, si prega di ripetere l\'autenticazione.
 it	ra.notification.updated	Record aggiornato |||| %{smart_count} records aggiornati
+it	ra.no_results	Nessun elemento registrato.
 it	ra.page.create	Aggiungi %{name}
 it	ra.page.dashboard	Cruscotto
 it	ra.page.edit	%{name} %{id}
@@ -86,16 +109,20 @@ it	ra.page.invite	Vuoi aggiungerne uno?
 it	ra.page.list	%{name}
 it	ra.page.loading	Caricamento in corso
 it	ra.page.not_found	Non trovato
+it	ra.page.profile.title	Informazioni profilo
 it	ra.page.show	%{name} %{id}
 it	ra.password.toggle_hidden	Mostra la password
 it	ra.password.toggle_visible	Nascondi la password
 it	ra.references.all_missing	Impossibile trovare i riferimenti associati.
 it	ra.references.many_missing	Almeno uno dei riferimenti associati non sembra più disponibile.
 it	ra.references.single_missing	Il riferimento associato non sembra più disponibile.
+it	ra.reference_list.sorry	Salva almeno una volta l'elemento corrente per poter aggiungere nuove informazioni in questa sezione.
 it	ra.sort.ASC	cresente
 it	ra.sort.DESC	decrescente
 it	ra.sort.sort_by	Ordina per %{field} %{order}
+it	ra.title.confirm_delete	Conferma
 it	ra.validation.email	Deve essere un valido indirizzo email
+it	ra.validation.future_date	La data deve essere successiva ad oggi
 it	ra.validation.maxLength	Deve essere lungo %{max} caratteri al massimo
 it	ra.validation.maxValue	Deve essere al massimo %{max}
 it	ra.validation.minLength	Deve essere lungo %{min} caratteri almeno
@@ -104,3 +131,48 @@ it	ra.validation.number	Deve essere un numero
 it	ra.validation.oneOf	Deve essere uno di: %{options}
 it	ra.validation.regex	Deve rispettare il formato (espressione regolare): %{pattern}
 it	ra.validation.required	Campo obbligatorio
+it	ra.validation_summary.message.explain	Successivamente al primo salvataggio saranno mostrati gli eventuali errori di validazione che è necessario correggere prima dell'inoltro ufficiale della pratica.
+it	ra.validation_summary.message.loading	A breve comparirà l'esito della validazione della sezione corrente, attendere prego...
+it	ra.validation_summary.message.success	Tutte le informazioni presenti nella sezione corrente sono state inserite correttamente.
+it	ra.validation_summary.message.warning	Nella sezione corrente sono presenti %{count} che devono essere risolti prima dell'invio ufficiale della proposta, in caso contrario non sarà possibile completare la pratica di inoltro.
+it	ra.validation_summary.title.explain	Leggimi
+it	ra.validation_summary.title.loading	Caricamento in corso...
+it	ra.validation_summary.title.success	Sezione completa!
+it	ra.validation_summary.title.warning	Ci sono %{count} errori da risolvere
+it	ra.workflow.do_action	Esegui Azione
+it	resources.language-messages.fields.code	Code
+it	resources.language-messages.fields.id	Id
+it	resources.language-messages.fields.language_id	Language Id
+it	resources.language-messages.fields.text	Text
+it	resources.language-messages.name	Language Message |||| Language Messages
+it	resources.language-messages.name	Stringa Localizzata |||| Stringhe Localizzate
+it	resources.notifications.buttons.mark_as_readed	Segna come letto
+it	resources.notifications.buttons.mark_as_unreaded	Segna come non letto
+it	resources.notifications.empty	Ancora nessuna notifica!
+it	resources.notifications.fields.created	Ricevuta
+it	resources.notifications.fields.notification	Notifica
+it	resources.notifications.messages.readed.done	Notifiche segnate come lette.
+it	resources.notifications.messages.readed.error	Impossibile segnare le notifiche selezionate.
+it	resources.notifications.messages.unreaded.done	Notifiche segnate come non lette.
+it	resources.notifications.readed	Letta in data %{readed}
+it	resources.spid.fields.profile.birth_date	Data di nascita
+it	resources.spid.fields.profile.birth_place	Luogo di nascita
+it	resources.spid.fields.profile.fiscal_code	Codice Fiscale
+it	resources.spid.fields.profile.name	Nome
+it	resources.spid.fields.profile.phone	Contatto Telefonico
+it	resources.spid.fields.profile.surname	Cognome
+it	resources.transactions.fields.created	Data
+it	resources.transactions.fields.id	#ID
+it	resources.transactions.fields.is_private.helper_text	Indica se la nota è ad uso interno e non deve essere visibile all'utente.
+it	resources.transactions.fields.notes	Note
+it	resources.transactions.fields.notes.empty	Nessuna nota inserita
+it	resources.transactions.fields.notes.show_less	Mostra meno
+it	resources.transactions.fields.notes.show_more	Mostra di più
+it	resources.transactions.fields.state	Stato
+it	resources.transactions.fields.user	Utente
+it	resources.users.name	Utente |||| Utenti
+it	resources.workflow.fields.notes	Note
+it	resources.workflow.move.message	Note/Messaggio
+it	resources.workflow.move.message.required	Devi inserire una nota/messaggio come causale del cambio stato
+it	resources.workflow.move.success	Cambio stato eseguito correttamente
+it	resources.workflow.move.title	Cambio Stato
