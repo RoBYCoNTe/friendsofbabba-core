@@ -35,6 +35,14 @@ of our newly created app:
 // ]));
 ```
 
+Generate your private and public key necessary to work with JWT authentication:
+
+```sh
+openssl genrsa -out config/jwt.key 1024
+openssl rsa -in config/jwt.key -outform PEM -pubout -out config/jwt.pem
+chown -R www-data:www-data config/
+```
+
 In `config/app.php` under `App` configuration section you have to add these lines:
 
 ```php
@@ -55,6 +63,12 @@ Add `FriendsOfBabba/Core/Error/AppExceptionRenderer.php` to `config/app.php`:
 'Error' => [
 	'exceptionRenderer' => \FriendsOfBabba\Core\Error\AppExceptionRenderer::class,
 ],
+```
+
+To complete installation you have to execute this command:
+
+```sh
+bin/cake install fob
 ```
 
 ## Configure SPID
