@@ -152,7 +152,7 @@ class LanguageMessagesController extends AppController
 			}
 		}
 
-		$this->export();
+		$this->_export();
 
 		$this->set([
 			'data' => $data,

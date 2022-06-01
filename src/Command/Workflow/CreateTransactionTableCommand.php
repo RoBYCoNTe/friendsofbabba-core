@@ -77,6 +77,7 @@ class CreateTransactionTableCommand extends Command
             ->addColumn('is_private', ['type' => 'boolean', 'null' => false, 'default' => false])
             ->addColumn('data', ['type' => 'text', 'null' => true])
             ->addColumn('created', ['type' => 'datetime', 'null' => false])
+            ->addColumn('deleted', ['type' => 'datetime', 'null' => false])
             ->addConstraint("pk_{$tableName}", ['type' => 'primary', 'columns' => ['id']])
             ->addConstraint("fk_{$table}_transactions_users", [
                 'type' => 'foreign',
