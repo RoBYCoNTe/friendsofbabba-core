@@ -12,7 +12,7 @@
         "friendsofcake/search": "^6.2",
         "firebase/php-jwt": "^5.4",
         "salines/cakephp4-soft-delete": "^1.0",
-        "phpoffice/phpspreadsheet": "1.18",
+        "phpoffice/phpspreadsheet": "^1.23",
         "cakephp/authorization": "^2.0"
     },
     "require-dev": {
