@@ -69,7 +69,7 @@ class Plugin extends BasePlugin implements AuthenticationServiceProviderInterfac
     {
         $commands->add('user add', \FriendsOfBabba\Core\Command\User\AddCommand::class);
         $commands->add('user pwd', \FriendsOfBabba\Core\Command\User\PwdCommand::class);
-
+        $commands->add('role init', \FriendsOfBabba\Core\Command\Role\InitCommand::class);
         $commands->add('permission scan', \FriendsOfBabba\Core\Command\PermissionCommand::class);
         $commands->add('language', \FriendsOfBabba\Core\Command\LanguageCommand::class);
         $commands->add('install fob', \FriendsOfBabba\Core\Command\InstallCommand::class);

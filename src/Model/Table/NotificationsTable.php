@@ -133,7 +133,11 @@ class NotificationsTable extends BaseTable
         $grid->disableCreate();
         $grid->disableExporter();
         if ($this->find('mine', ['user' => $user])->count() > 0) {
-            $grid->addFilterDefaultValue("readed", false);
+            $unreaded = $this
+                ->find('mine', ['user' => $user])
+                ->find('unreaded')
+                ->count();
+            $grid->addFilterDefaultValue("readed", $unreaded === 0);
         }
 
         $grid->addBulkActionButton(BulkAction::create("MarkAsReadedButton"));

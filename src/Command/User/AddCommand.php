@@ -65,8 +65,12 @@ class AddCommand extends Command
         $username = $args->getArgument('username');
         $password = $args->getArgument('password');
         $email = $args->getArgument('email');
-        $role = $args->getArgument('role');
-        $role = $this->Roles->findByCode($role)->first();
+        $roleCode = $args->getArgument('role');
+        $role = $this->Roles->findByCode($roleCode)->first();
+        if (empty($role)) {
+            $io->error(sprintf('Role %s not found', $roleCode));
+            return 1;
+        }
         $name = $args->getArgument('name');
         $surname = $args->getArgument('surname');
 
