@@ -2,7 +2,7 @@
     "name": "friendsofbabba/core",
     "description": "FriendsOfBabba/Core plugin for CakePHP",
     "type": "cakephp-plugin",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "license": "MIT",
     "require": {
         "php": ">=7.2",
@@ -10,7 +10,7 @@
         "cakephp/authentication": "^2.0",
         "friendsofcake/crud": "^6.0",
         "friendsofcake/search": "^6.2",
-        "firebase/php-jwt": "^5.4",
+        "firebase/php-jwt": "^5.5",
         "salines/cakephp4-soft-delete": "^1.0",
         "phpoffice/phpspreadsheet": "^1.23",
         "cakephp/authorization": "^2.0"

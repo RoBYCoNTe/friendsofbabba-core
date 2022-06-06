@@ -6,6 +6,7 @@ use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\Http\Exception\BadRequestException;
 use Cake\Http\Exception\UnauthorizedException;
+use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use Cake\Utility\Security;
@@ -106,6 +107,12 @@ class SpidController extends AppController
 			'success' => true,
 			'_serialize' => ['success', 'data']
 		]);
+	}
+
+	public function fetchTable(?string $alias = null, array $options = []): Table
+	{
+		$table = Configure::read('Spid.table');
+		return TableRegistry::getTableLocator()->get($table, $options);
 	}
 
 	public function add(): void
