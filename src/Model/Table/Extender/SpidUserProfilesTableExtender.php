@@ -34,5 +34,6 @@ class SpidUserProfilesTableExtender extends BaseTableExtender
 	{
 		$validator->notEmptyString('name');
 		$validator->notEmptyString('surname');
+		$validator->notEmptyString('phone');
 	}
 }

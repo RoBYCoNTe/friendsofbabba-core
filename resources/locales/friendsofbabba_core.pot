@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2022-05-27 15:45+0000\n"
+"POT-Creation-Date: 2022-06-07 08:00+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,206 +14,210 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Command/User/AddCommand.php:91
+#: ./plugins/FriendsOfBabba/Core/src/Command/User/AddCommand.php:95
 msgid "Welcome onboard!"
 msgstr ""
 
-#: Command/User/AddCommand.php:92
+#: ./plugins/FriendsOfBabba/Core/src/Command/User/AddCommand.php:96
 msgid "You have been successfully registered."
 msgstr ""
 
-#: Controller/Api/AppController.php:83
+#: ./plugins/FriendsOfBabba/Core/src/Controller/Api/AppController.php:83
 msgid "User not authenticated or session expired!"
 msgstr ""
 
-#: Controller/Api/AppController.php:91
+#: ./plugins/FriendsOfBabba/Core/src/Controller/Api/AppController.php:91
 msgid "Unauthorized: {0}"
 msgstr ""
 
-#: Controller/Api/SpidController.php:81
-#: Controller/Api/SpidController.php:140
+#: ./plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:82
+#: ./plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:147
 msgid "Invalid request."
 msgstr ""
 
-#: Controller/Api/SpidController.php:84
-#: Controller/Api/SpidController.php:143
+#: ./plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:85
+#: ./plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:150
 msgid "SPID authentication failed."
 msgstr ""
 
-#: Controller/Api/SpidController.php:118
-#: Controller/Api/UsersController.php:190
+#: ./plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:125
+#: ./plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:190
 msgid "Recaptcha validation failed."
 msgstr ""
 
-#: Controller/Api/SpidController.php:164
+#: ./plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:171
 msgid "User not recognized: {0}"
 msgstr ""
 
-#: Controller/Api/UsersController.php:77
+#: ./plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:77
 msgid "Invalid username or password"
 msgstr ""
 
-#: Controller/Api/UsersController.php:195
+#: ./plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:195
 msgid "Username or email is required."
 msgstr ""
 
-#: Controller/Api/UsersController.php:205
+#: ./plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:205
 msgid "User not found."
 msgstr ""
 
-#: Controller/Api/UsersController.php:214
+#: ./plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:214
 msgid "Password reset email sent."
 msgstr ""
 
-#: Controller/Api/UsersController.php:240
+#: ./plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:240
 msgid "Failed to save user."
 msgstr ""
 
-#: Mailer/UserMailer.php:16
+#: ./plugins/FriendsOfBabba/Core/src/Mailer/UserMailer.php:16
 msgid "Password reset"
 msgstr ""
 
-#: Model/Table/Extender/SpidUsersTableExtender.php:14
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/Extender/SpidUsersTableExtender.php:14
+msgid "Phone"
+msgstr ""
+
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/Extender/SpidUsersTableExtender.php:15
 msgid "Birth Place"
 msgstr ""
 
-#: Model/Table/Extender/SpidUsersTableExtender.php:15
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/Extender/SpidUsersTableExtender.php:16
 msgid "Birth Province"
 msgstr ""
 
-#: Model/Table/Extender/SpidUsersTableExtender.php:18
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/Extender/SpidUsersTableExtender.php:19
 msgid "Birth Date"
 msgstr ""
 
-#: Model/Table/LanguageMessagesTable.php:120
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/LanguageMessagesTable.php:120
 msgid "Language Messages"
 msgstr ""
 
-#: Model/Table/LanguageMessagesTable.php:129
-#: Model/Table/LanguageMessagesTable.php:174
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/LanguageMessagesTable.php:129
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/LanguageMessagesTable.php:174
 msgid "Text"
 msgstr ""
 
-#: Model/Table/LanguageMessagesTable.php:132
-#: Model/Table/LanguageMessagesTable.php:154
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/LanguageMessagesTable.php:132
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/LanguageMessagesTable.php:154
 msgid "Language"
 msgstr ""
 
-#: Model/Table/LanguageMessagesTable.php:139
-#: Model/Table/LanguageMessagesTable.php:166
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/LanguageMessagesTable.php:139
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/LanguageMessagesTable.php:166
 msgid "Resource"
 msgstr ""
 
-#: Model/Table/LanguageMessagesTable.php:142
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/LanguageMessagesTable.php:142
 msgid "Translated"
 msgstr ""
 
-#: Model/Table/LanguageMessagesTable.php:169
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/LanguageMessagesTable.php:169
 msgid "The resource to which this message belongs."
 msgstr ""
 
-#: Model/Table/LanguageMessagesTable.php:173
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/LanguageMessagesTable.php:173
 msgid "Code"
 msgstr ""
 
-#: Model/Table/NotificationsTable.php:130
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/NotificationsTable.php:131
 msgid "Notifications"
 msgstr ""
 
-#: Model/Table/NotificationsTable.php:143
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/NotificationsTable.php:151
 msgid "Readed"
 msgstr ""
 
-#: Model/Table/UsersTable.php:167
-#: Model/Table/UsersTable.php:189
-#: Model/Table/UsersTable.php:223
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:167
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:189
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:223
 msgid "Roles"
 msgstr ""
 
-#: Model/Table/UsersTable.php:178
-#: Model/Table/UsersTable.php:214
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:178
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:214
 msgid "Status"
 msgstr ""
 
-#: Model/Table/UsersTable.php:181
-#: Model/Table/UsersTable.php:218
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:181
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:218
 msgid "Active"
 msgstr ""
 
-#: Model/Table/UsersTable.php:184
-#: Model/Table/UsersTable.php:221
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:184
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:221
 msgid "Pending"
 msgstr ""
 
-#: Model/Table/UsersTable.php:195
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:195
 msgid "Modified"
 msgstr ""
 
-#: Model/Table/UsersTable.php:209
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:209
 msgid "E-mail"
 msgstr ""
 
-#: Model/Table/UsersTable.php:210
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:210
 msgid "Last login"
 msgstr ""
 
-#: Model/Table/UsersTable.php:211
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:211
 msgid "Name"
 msgstr ""
 
-#: Model/Table/UsersTable.php:212
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:212
 msgid "Surname"
 msgstr ""
 
-#: Workflow/WorkflowBase.php:248
+#: ./plugins/FriendsOfBabba/Core/src/Workflow/WorkflowBase.php:248
 msgid "You are not authorized to view this record because it's state is corrupted."
 msgstr ""
 
-#: Workflow/WorkflowBase.php:253
-#: Workflow/WorkflowBase.php:285
-#: Workflow/WorkflowBase.php:297
-#: Workflow/WorkflowBase.php:303
+#: ./plugins/FriendsOfBabba/Core/src/Workflow/WorkflowBase.php:253
+#: ./plugins/FriendsOfBabba/Core/src/Workflow/WorkflowBase.php:285
+#: ./plugins/FriendsOfBabba/Core/src/Workflow/WorkflowBase.php:297
+#: ./plugins/FriendsOfBabba/Core/src/Workflow/WorkflowBase.php:303
 msgid "Forbidden"
 msgstr ""
 
-#: Workflow/WorkflowBase.php:310
+#: ./plugins/FriendsOfBabba/Core/src/Workflow/WorkflowBase.php:310
 msgid "Required."
 msgstr ""
 
-#: Workflow/WorkflowBase.php:377
+#: ./plugins/FriendsOfBabba/Core/src/Workflow/WorkflowBase.php:377
 msgid "Error saving transaction: {0}"
 msgstr ""
 
-#: api/spid/auth.php:16
+#: ./plugins/FriendsOfBabba/Core/templates/api/spid/auth.php:16
 msgid "SPID"
 msgstr ""
 
-#: api/spid/auth.php:17
+#: ./plugins/FriendsOfBabba/Core/templates/api/spid/auth.php:17
 msgid "Redirecting to the login page {0}"
 msgstr ""
 
-#: email/html/notify.php:16
-#: email/html/password.php:11
+#: ./plugins/FriendsOfBabba/Core/templates/email/html/notify.php:16
+#: ./plugins/FriendsOfBabba/Core/templates/email/html/password.php:11
 msgid "Dear {0}"
 msgstr ""
 
-#: email/html/notify.php:19
+#: ./plugins/FriendsOfBabba/Core/templates/email/html/notify.php:19
 msgid "You received new notification"
 msgstr ""
 
-#: email/html/notify.php:27
+#: ./plugins/FriendsOfBabba/Core/templates/email/html/notify.php:27
 msgid "Open Notification Link"
 msgstr ""
 
-#: email/html/password.php:13
+#: ./plugins/FriendsOfBabba/Core/templates/email/html/password.php:13
 msgid "Your password has been changed"
 msgstr ""
 
-#: email/html/password.php:20
+#: ./plugins/FriendsOfBabba/Core/templates/email/html/password.php:20
 msgid "Login"
 msgstr ""
 
-#: layout/email/html/layout.php:205
+#: ./plugins/FriendsOfBabba/Core/templates/layout/email/html/layout.php:205
 msgid "Sent from"
 msgstr ""
 

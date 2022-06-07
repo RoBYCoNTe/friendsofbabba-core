@@ -17,6 +17,7 @@ class SpidUserProfileExtender extends BaseEntityExtender
 		if (!$baseEntity instanceof UserProfile) {
 			throw new \Exception('SpidExtender can only be used with UserProfile entities.');
 		}
+		$baseEntity->setAccess("phone", true);
 		$baseEntity->setAccess('fiscal_code', true);
 		$baseEntity->setAccess('spid_code', true);
 		$baseEntity->setAccess('birth_place', true);

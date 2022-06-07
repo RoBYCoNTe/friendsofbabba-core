@@ -17,12 +17,19 @@ class InstallSpid extends AbstractMigration
     {
 
         $this->table('user_profiles')
-            ->addColumn('fiscal_code', 'char', [
+            ->addColumn("phone", "string", [
                 'after' => 'surname',
+                'default' => '',
+                'length' => 30,
+                'null' => true
+            ])
+            ->addColumn('fiscal_code', 'char', [
+                'after' => 'phone',
                 'default' => '',
                 'length' => 16,
                 'null' => true,
             ])
+
             ->addColumn('spid_code', 'string', [
                 'after' => 'fiscal_code',
                 'default' => '',
