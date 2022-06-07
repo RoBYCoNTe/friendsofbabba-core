@@ -24,7 +24,10 @@ class WorkflowFactory
      */
     private function __construct()
     {
-        $this->removeInvalids();
+        $debug = Configure::read('debug');
+        if ($debug === TRUE) {
+            $this->removeInvalids();
+        }
         $this->init();
     }
 
