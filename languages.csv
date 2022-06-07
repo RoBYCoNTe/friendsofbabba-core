@@ -157,10 +157,12 @@ it	resources.notifications.messages.unreaded.done	Notifiche segnate come non let
 it	resources.notifications.readed	Letta in data %{readed}
 it	resources.spid.fields.profile.birth_date	Data di nascita
 it	resources.spid.fields.profile.birth_place	Luogo di nascita
+it	resources.spid.fields.profile.birth_province	Provincia di nascita
 it	resources.spid.fields.profile.fiscal_code	Codice Fiscale
 it	resources.spid.fields.profile.name	Nome
 it	resources.spid.fields.profile.phone	Contatto Telefonico
 it	resources.spid.fields.profile.surname	Cognome
+it	resources.spid.steps.general	Informazioni Generali
 it	resources.transactions.fields.created	Data
 it	resources.transactions.fields.id	#ID
 it	resources.transactions.fields.is_private.helper_text	Indica se la nota è ad uso interno e non deve essere visibile all'utente.
@@ -170,7 +172,9 @@ it	resources.transactions.fields.notes.show_less	Mostra meno
 it	resources.transactions.fields.notes.show_more	Mostra di più
 it	resources.transactions.fields.state	Stato
 it	resources.transactions.fields.user	Utente
+it	resources.users.fields.profile.name	Nome
 it	resources.users.name	Utente |||| Utenti
+it	resources.users.profile.fields.surname	Cognome
 it	resources.workflow.fields.notes	Note
 it	resources.workflow.move.message	Note/Messaggio
 it	resources.workflow.move.message.required	Devi inserire una nota/messaggio come causale del cambio stato
