@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2022-06-07 08:00+0000\n"
-"PO-Revision-Date: 2022-06-07 10:01+0200\n"
+"POT-Creation-Date: 2022-06-08 14:18+0000\n"
+"PO-Revision-Date: 2022-06-08 16:19+0200\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "Language: it_IT\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1\n"
 
 #: plugins/FriendsOfBabba/Core/src/Command/User/AddCommand.php:95
 msgid "Welcome onboard!"
@@ -82,6 +82,36 @@ msgstr "Impossibile salvare l'utente."
 #: plugins/FriendsOfBabba/Core/src/Mailer/UserMailer.php:16
 msgid "Password reset"
 msgstr "Resetta password"
+
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:107
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:132
+msgid "Log Type"
+msgstr "Tipo Log"
+
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:110
+msgid "Info"
+msgstr "Info"
+
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:113
+msgid "Error"
+msgstr "Errore"
+
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:121
+msgid "Command Log"
+msgstr "Comando"
+
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:127
+msgid "Output"
+msgstr "Ouput"
+
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:136
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogsTable.php:87
+msgid "Created"
+msgstr "Data di Creazione"
+
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogsTable.php:86
+msgid "Command"
+msgstr "Comando"
 
 #: plugins/FriendsOfBabba/Core/src/Model/Table/Extender/SpidUsersTableExtender.php:14
 msgid "Phone"

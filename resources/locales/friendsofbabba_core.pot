@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2022-06-07 08:00+0000\n"
+"POT-Creation-Date: 2022-06-08 14:28+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -71,6 +71,44 @@ msgstr ""
 
 #: ./plugins/FriendsOfBabba/Core/src/Mailer/UserMailer.php:16
 msgid "Password reset"
+msgstr ""
+
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:105
+msgid "Command Log Rows"
+msgstr ""
+
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:107
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:132
+msgid "Log Type"
+msgstr ""
+
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:110
+msgid "Info"
+msgstr ""
+
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:113
+msgid "Error"
+msgstr ""
+
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:121
+msgid "Command Log"
+msgstr ""
+
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:127
+msgid "Output"
+msgstr ""
+
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:136
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogsTable.php:88
+msgid "Created"
+msgstr ""
+
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogsTable.php:83
+msgid "Command Logs"
+msgstr ""
+
+#: ./plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogsTable.php:87
+msgid "Command"
 msgstr ""
 
 #: ./plugins/FriendsOfBabba/Core/src/Model/Table/Extender/SpidUsersTableExtender.php:14

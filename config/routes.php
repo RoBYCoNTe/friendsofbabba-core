@@ -30,6 +30,9 @@ $routes->plugin(
 			$builder->resources('Languages', ['inflect' => 'dasherize']);
 			$builder->resources('LanguageMessages', ['inflect' => 'dasherize']);
 			$builder->resources('Resources');
+			$builder->resources('Commands');
+			$builder->resources('CommandLogs', ['inflect' => 'dasherize']);
+			$builder->resources('CommandLogRows', ['inflect' => 'dasherize']);
 
 			$builder->connect("/language-messages/generate/:resource", [
 				'controller' => 'LanguageMessages',

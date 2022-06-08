@@ -6,8 +6,10 @@ namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
+use FriendsOfBabba\Core\Model\Crud\Form;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Crud\Grid;
+use FriendsOfBabba\Core\Model\Filter\CommandCollection;
 
 /**
  * Commands Model
@@ -47,6 +49,7 @@ class CommandsTable extends BaseTable
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Search.Search', ['collectionClass' => CommandCollection::class]);
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
@@ -114,6 +117,14 @@ class CommandsTable extends BaseTable
     }
 
     public function getGrid(?User $user, bool $extends = TRUE): ?Grid
+    {
+        $grid = parent::getGrid($user, $extends);
+        $grid->disableCreate();
+        $grid->disableDelete();
+        return $grid;
+    }
+
+    public function getForm(?User $user, bool $extends = TRUE): ?Form
     {
         return NULL;
     }

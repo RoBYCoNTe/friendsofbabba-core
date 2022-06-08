@@ -34,7 +34,8 @@ class CrudController extends AppController
 	public function export(string $resource, string $extension): Response
 	{
 		$user = $this->getUser();
-		$entity = Inflector::humanize($resource);
+		$entity = Inflector::underscore($resource);
+		$entity = Inflector::camelize($entity);
 		$viewConfig = CrudFactory::instance()->getViewConfig($entity, $user);
 		if (empty($viewConfig) || empty($viewConfig->grid)) {
 			throw new NotFoundException(sprintf('No view config found for %s', $resource));
@@ -44,8 +45,7 @@ class CrudController extends AppController
 			throw new NotFoundException(sprintf('No exporter found for extension %s', $extension));
 		}
 
-		$model = Inflector::humanize($resource);
-		$table = CrudFactory::instance()->getTable($model);
+		$table = CrudFactory::instance()->getTable($entity);
 
 		$sort = $this->request->getQuery('sort');
 		$direction = $this->request->getQuery('direction');
@@ -54,7 +54,7 @@ class CrudController extends AppController
 			->order([$sort => $direction]);
 		$exporter->generate($query);
 		return $this->response->withFile($exporter->export(), [
-			'name' => "{$model}.xlsx",
+			'name' => "{$entity}.xlsx",
 			'download' => true
 		]);
 	}

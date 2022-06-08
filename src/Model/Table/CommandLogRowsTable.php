@@ -6,8 +6,11 @@ namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
+use FriendsOfBabba\Core\Model\Crud\Filter;
+use FriendsOfBabba\Core\Model\Crud\Form;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Crud\Grid;
+use FriendsOfBabba\Core\Model\Filter\CommandLogRowCollection;
 
 /**
  * CommandLogRows Model
@@ -47,6 +50,7 @@ class CommandLogRowsTable extends BaseTable
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Search.Search', ['collectionClass' => CommandLogRowCollection::class]);
 
         $this->belongsTo('CommandLogs', [
             'foreignKey' => 'command_log_id',
@@ -96,6 +100,47 @@ class CommandLogRowsTable extends BaseTable
     }
 
     public function getGrid(?User $user, bool $extends = TRUE): ?Grid
+    {
+        $grid = parent::getGrid($user, $extends);
+        $grid->setTitle(__d("friendsofbabba_core", "Command Log Rows"));
+        $grid->addFilter(
+            Filter::create("type", __d("friendsofbabba_core", "Log Type"), "SelectInput")
+                ->setComponentProp("choices", [[
+                    'id' => 'info',
+                    'name' => __d("friendsofbabba_core", "Info"),
+                ], [
+                    'id' => 'error',
+                    'name' => __d("friendsofbabba_core", "Error"),
+                ]])
+                ->alwaysOn()
+        );
+        $grid->disableCreate();
+        $grid->disableDelete();
+        $grid
+            ->getField("command_log_id")
+            ->setLabel(__d("friendsofbabba_core", "Command Log"))
+            ->setSource("command_log.command")
+            ->setSortBy("CommandLogs.command");
+
+        $grid
+            ->getField('output')
+            ->setLabel(__d("friendsofbabba_core", "Output"))
+            ->setComponent("LongTextField")
+            ->setComponentProp("minWidth", 300);
+        $grid
+            ->getField("type")
+            ->setLabel(__d("friendsofbabba_core", "Log Type"))
+            ->setComponent("ChipField");
+        $grid
+            ->getField("created")
+            ->setLabel(__d("friendsofbabba_core", "Created"));
+        $grid->removeField("EditButton");
+        $grid->removeField("DeleteButton");
+        $grid->removeField("modified");
+        return $grid;
+    }
+
+    public function getForm(?User $user, bool $extends = TRUE): ?Form
     {
         return NULL;
     }

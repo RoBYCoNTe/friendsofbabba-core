@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\Validation\Validator;
+use FriendsOfBabba\Core\Model\Crud\Form;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Crud\Grid;
+use FriendsOfBabba\Core\Model\Filter\CommandLogCollection;
 
 /**
  * CommandLogs Model
@@ -46,6 +48,7 @@ class CommandLogsTable extends BaseTable
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Search.Search', ['collectionClass' => CommandLogCollection::class]);
 
         $this->hasMany('CommandLogRows', [
             'foreignKey' => 'command_log_id',
@@ -75,6 +78,21 @@ class CommandLogsTable extends BaseTable
     }
 
     public function getGrid(?User $user, bool $extends = TRUE): ?Grid
+    {
+        $grid = parent::getGrid($user, $extends);
+        $grid->setTitle(__d('friendsofbabba_core', 'Command Logs'));
+        $grid->disableCreate();
+        $grid->disableDelete();
+        $grid->removeField("modified");
+        $grid->getField("command")->setLabel(__d('friendsofbabba_core', 'Command'));
+        $grid->getField("created")->setLabel(__d('friendsofbabba_core', 'Created'));
+        $grid->removeField("EditButton");
+        $grid->removeField("DeleteButton");
+
+        return $grid;
+    }
+
+    public function getForm(?User $user, bool $extends = TRUE): ?Form
     {
         return NULL;
     }
