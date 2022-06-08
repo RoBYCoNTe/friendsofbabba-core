@@ -279,14 +279,14 @@ abstract class WorkflowBase
         }
         $moved = FALSE;
 
-        if (empty($lastTransaction)) {
+        if (empty($last)) {
             $canCreate = $this->canCreate($user);
             if (!$canCreate) {
                 throw new ForbiddenException(__d('friendsofbabba_core', "Forbidden"));
             }
             $moved = TRUE;
         } else {
-            $moved = !empty($entity->state) && $lastTransaction->state !== $entity->state;
+            $moved = !empty($entity->state) && $last->state !== $entity->state;
         }
 
         $next = $entity->state;
