@@ -116,6 +116,7 @@ class CommandLogRowsTable extends BaseTable
         );
         $grid->disableCreate();
         $grid->disableDelete();
+        $grid->setSort("CommandLogRows.created", "DESC");
         $grid
             ->getField("command_log_id")
             ->setLabel(__d("friendsofbabba_core", "Command Log"))

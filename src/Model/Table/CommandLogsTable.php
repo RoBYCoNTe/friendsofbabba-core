@@ -83,6 +83,7 @@ class CommandLogsTable extends BaseTable
         $grid->setTitle(__d('friendsofbabba_core', 'Command Logs'));
         $grid->disableCreate();
         $grid->disableDelete();
+        $grid->setSort("CommandLogs.created", "DESC");
         $grid->removeField("modified");
         $grid->getField("command")->setLabel(__d('friendsofbabba_core', 'Command'));
         $grid->getField("created")->setLabel(__d('friendsofbabba_core', 'Created'));

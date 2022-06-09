@@ -121,6 +121,7 @@ class CommandsTable extends BaseTable
         $grid = parent::getGrid($user, $extends);
         $grid->disableCreate();
         $grid->disableDelete();
+        $grid->setSort("Commands.executed_at", "DESC");
         return $grid;
     }
 

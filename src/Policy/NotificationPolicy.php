@@ -37,7 +37,7 @@ class NotificationPolicy
     public function canEdit(IdentityInterface $user, Notification $notification)
     {
         /** @var User $user */
-        return $user->hasRole(Role::ADMIN) && !$notification->isNew();
+        return $notification->user_id === $user->id;
     }
 
     /**
