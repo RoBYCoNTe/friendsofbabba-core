@@ -136,13 +136,13 @@ class Form extends Component
 		return $this;
 	}
 
-	public function setComponentProp(string $prop, mixed $value = NULL): Form
+	public function setComponentProp(string $prop, $value = NULL): Form
 	{
 		parent::setComponentProp($prop, $value);
 		return $this;
 	}
 
-	public function addInitialValue(string $source, mixed $value): Form
+	public function addInitialValue(string $source, $value): Form
 	{
 		if (!isset($this->initialValues)) {
 			$this->initialValues = new \stdClass();
@@ -151,7 +151,11 @@ class Form extends Component
 		return $this;
 	}
 
-	public function getInitialValue(string $source): mixed
+	/**
+	 * @param string $source
+	 * @return mixed
+	 */
+	public function getInitialValue(string $source)
 	{
 		if (!isset($this->initialValues)) {
 			return NULL;

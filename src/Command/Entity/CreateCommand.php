@@ -33,6 +33,7 @@ class CreateCommand extends Command
 		$parser = parent::buildOptionParser($parser);
 		$parser->addArgument('entity', ['required' => true, 'help' => 'The entity for which generate the model and tables.']);
 		$parser->addOption('theme', ['help' => 'The theme to use when baking code.', 'short' => 't', 'default' => 'FriendsOfBabba/Core']);
+		$parser->addOption('connection', ['help' => 'The connection to use.', 'short' => 'c', 'default' => 'default']);
 		return $parser;
 	}
 
@@ -55,6 +56,11 @@ class CreateCommand extends Command
 		if ($theme) {
 			$argv[] = "--theme";
 			$argv[] = $theme;
+		}
+		$connection = $args->getOption('connection');
+		if ($connection) {
+			$argv[] = "--connection";
+			$argv[] = $connection;
 		}
 
 		$this->executeCommand(CreateFilterCollectionCommand::class, [$entity]);

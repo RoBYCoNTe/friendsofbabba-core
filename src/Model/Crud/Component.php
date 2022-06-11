@@ -25,7 +25,7 @@ class Component
 		$this->props = $props;
 	}
 
-	public function setComponentProp(string $name, mixed $value = NULL): Component
+	public function setComponentProp(string $name,  $value = NULL): Component
 	{
 		if (is_null($name)) {
 			unset($this->componentProps[$name]);
@@ -35,7 +35,11 @@ class Component
 		return $this;
 	}
 
-	public function getComponentProp(string $name): mixed
+	/**
+	 * @param string $name
+	 * @return mixed
+	 */
+	public function getComponentProp(string $name)
 	{
 		return $this->componentProps[$name] ?? NULL;
 	}

@@ -2,6 +2,7 @@
 
 namespace FriendsOfBabba\Core\Model;
 
+use Cake\Cache\Cache;
 use Cake\Collection\Collection;
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\Exception\MissingTableClassException;
@@ -24,9 +25,26 @@ class CrudFactory
 		return self::$_instance;
 	}
 
+	/**
+	 * Returns list of all tables in the database(s).
+	 * @return array
+	 */
 	public function getListOfTables(): array
 	{
-		return ConnectionManager::get('default')->getSchemaCollection()->listTables();
+		$cached = Cache::read('fob.crud.tables');
+		if (!is_null($cached)) {
+			return $cached;
+		}
+		$connections = ConnectionManager::configured();
+		$tables = [];
+		foreach ($connections as $connection) {
+			$tables = array_merge(
+				$tables,
+				ConnectionManager::get($connection)->getSchemaCollection()->listTables()
+			);
+		}
+		Cache::write('fob.crud.tables', $tables);
+		return $tables;
 	}
 
 	/**

@@ -204,7 +204,7 @@ class Grid extends Component
 		return $this;
 	}
 
-	public function addFilterDefaultValue(string $field, mixed $value): Grid
+	public function addFilterDefaultValue(string $field, $value): Grid
 	{
 		if (!isset($this->filterDefaultValues)) {
 			$this->filterDefaultValues = new \stdClass();
@@ -213,7 +213,11 @@ class Grid extends Component
 		return $this;
 	}
 
-	public function getFilterDefaultValue(string $field): mixed
+	/**
+	 * @param string $field
+	 * @return mixed
+	 */
+	public function getFilterDefaultValue(string $field)
 	{
 		if (property_exists($this->filterDefaultValues, $field)) {
 			return $this->filterDefaultValues->{$field};

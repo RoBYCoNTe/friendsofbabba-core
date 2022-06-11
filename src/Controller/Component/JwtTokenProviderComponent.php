@@ -14,7 +14,7 @@ class JwtTokenProviderComponent extends Component
 		$this->_provider = new JwtTokenProvider();
 	}
 
-	public function getToken(mixed $sub): string
+	public function getToken($sub): string
 	{
 		return $this->_provider->getToken($sub);
 	}

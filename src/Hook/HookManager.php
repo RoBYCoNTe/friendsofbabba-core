@@ -2,6 +2,9 @@
 
 namespace FriendsOfBabba\Core\Hook;
 
+/**
+ * @deprecated
+ */
 class HookManager
 {
 	private static $_instance = null;

@@ -54,7 +54,7 @@ class SpidClient
 		return $data;
 	}
 
-	public function encrypt(mixed $r): string
+	public function encrypt($r): string
 	{
 		$r = json_encode($r);
 		$r = openssl_encrypt($r, "DES", $this->_secret);

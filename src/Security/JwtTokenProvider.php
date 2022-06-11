@@ -7,7 +7,7 @@ use Firebase\JWT\JWT;
 
 class JwtTokenProvider
 {
-	public function getToken(mixed $sub, int $duration = (3600 * 24 * 7)): ?string
+	public function getToken($sub, int $duration = (3600 * 24 * 7)): ?string
 	{
 		$privateKey = file_get_contents(CONFIG . 'jwt.key');
 		$duration = empty($duration)
