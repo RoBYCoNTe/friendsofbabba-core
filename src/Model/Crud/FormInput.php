@@ -56,7 +56,7 @@ class FormInput extends Component
 		return $this;
 	}
 
-	public function setComponentProp(string $name, mixed $value = NULL): FormInput
+	public function setComponentProp(string $name, $value = NULL): FormInput
 	{
 		parent::setComponentProp($name, $value);
 		return $this;
