@@ -48,7 +48,7 @@ class BaseTable extends \Cake\ORM\Table
 		$grid = new Grid();
 		$grid->setTitle(Inflector::humanize($this->getAlias()));
 		$grid->addFilter((new Filter("q"))->alwaysOn());
-		$grid->addExporter("xlsx", new CrudExcelDocument($grid));
+		// $grid->addExporter("xlsx", new CrudExcelDocument($grid));
 		$grid->setSort($this->getAlias() . ".id", Grid::ORDER_ASC);
 		$columns = $this->getSchema()->columns();
 		foreach ($columns as $columnName) {
