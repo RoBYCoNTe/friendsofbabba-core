@@ -40,8 +40,8 @@ class UsersController extends AppController
 	{
 		parent::initialize();
 
-		$this->loadModel('FriendsOfBabba/Core.Users');
-		$this->loadModel('FriendsOfBabba/Core.UserProfiles');
+		$this->fetchTable('FriendsOfBabba/Core.Users');
+		$this->fetchTable('FriendsOfBabba/Core.UserProfiles');
 		$this->loadComponent('FriendsOfBabba/Core.JwtTokenProvider');
 		$this->loadComponent('FriendsOfBabba/Core.Recaptcha');
 

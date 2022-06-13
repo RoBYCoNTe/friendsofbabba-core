@@ -105,7 +105,6 @@ class AppController extends Controller
     public function useModel(string $model): void
     {
         $this->Crud->useModel($model);
-        $this->modelClass = $model;
     }
 
     public function implementedEvents(): array
