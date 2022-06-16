@@ -34,7 +34,9 @@ class {{ name }}DataMigration extends AbstractDataMigration
 
 		$this->getEntities($table, $results, [], function (EntityInterface $entity) use ($io, $table) {
 			$io->out("|__ Processing {$entity->id}");
-			// TODO: Implement your save strategy here
+			$query = $table
+				->find('all', ['withDeleted' => true])
+				->where(['id' => $entity->id]);
 			$result = $table->findOrCreate(['id' => $entity->id], function (EntityInterface $newEntity) use ($table, $entity) {
 				$newEntity = $table->patchEntity($newEntity, $entity->toArray());
 			});
