@@ -73,7 +73,11 @@ class Plugin extends BasePlugin implements AuthenticationServiceProviderInterfac
         $commands->add('permission scan', \FriendsOfBabba\Core\Command\PermissionCommand::class);
         $commands->add('language', \FriendsOfBabba\Core\Command\LanguageCommand::class);
         $commands->add('install fob', \FriendsOfBabba\Core\Command\InstallCommand::class);
-        $commands->add('migration', \FriendsOfBabba\Core\Command\MigrationCommand::class);
+
+        $commands->add('data-migration create', \FriendsOfBabba\Core\Command\DataMigration\CreateCommand::class);
+        $commands->add('data-migration execute', \FriendsOfBabba\Core\Command\DataMigration\ExecuteCommand::class);
+        $commands->add('dm create', \FriendsOfBabba\Core\Command\DataMigration\CreateCommand::class);
+        $commands->add('dm execute', \FriendsOfBabba\Core\Command\DataMigration\ExecuteCommand::class);
 
         $commands->add('workflow create', \FriendsOfBabba\Core\Command\Workflow\CreateCommand::class);
         $commands->add('workflow create_transaction_table', \FriendsOfBabba\Core\Command\Workflow\CreateTransactionTableCommand::class);

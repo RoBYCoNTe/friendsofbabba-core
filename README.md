@@ -295,3 +295,25 @@ The command will do many things (that can be executed separately):
 as resources following the standard path: `api/<EntityName>` using `dasherized` version of the resource
 (suppose you've created a workflow for an entity called `ResearchProjects`, you will
 access the resource using `api/research-projects`).
+
+## Data Migration
+
+In some cases you needs to move data from one database to another. Suppose you
+are implementing a new application and you want to use the data from an old application.
+
+In this case you can organize data migration using predefined scripts.
+
+Using the cli you can create new data migration script:
+
+```sh
+bin/cake data-migration create <NameOfMigration>
+```
+
+This command will create a new migration script in to `src/Command/DataMigration` directory.
+You have to open and edit the script before execute it.
+
+To execute the migration script:
+
+```sh
+bin/cake data-migration execute <NameOfMigration>
+```
