@@ -75,6 +75,8 @@ class UsersTable extends BaseTable
             'dependent' => true,
             'className' => 'FriendsOfBabba/Core.UserProfiles'
         ]);
+
+        parent::afterInitialize($config);
     }
 
     /**

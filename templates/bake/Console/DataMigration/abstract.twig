@@ -4,6 +4,7 @@ namespace App\Command\DataMigration;
 
 use Cake\Console\ConsoleIo;
 use Cake\Datasource\ConnectionManager;
+use Cake\Datasource\EntityInterface;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use FriendsOfBabba\Core\Command\DataMigration\AbstractDataMigration;
 
@@ -31,11 +32,11 @@ class {{ name }}DataMigration extends AbstractDataMigration
 		$io->info(count($results) . " {{ remote }} found");
 		$io->hr();
 
-		$this->getEntities($table, $results, [], function ($entity) use ($io, $table) {
+		$this->getEntities($table, $results, [], function (EntityInterface $entity) use ($io, $table) {
 			$io->out("|__ Processing {$entity->id}");
 			// TODO: Implement your save strategy here
-			$result = $table->findOrCreate(['id' => $entity->id], function ($newEntity) use ($entity) {
-				$newEntity->id = $entity->id;
+			$result = $table->findOrCreate(['id' => $entity->id], function (EntityInterface $newEntity) use ($table, $entity) {
+				$newEntity = $table->patchEntity($newEntity, $entity->toArray());
 			});
 			if ($result) {
 				$io->success("|__ {$entity->id} saved :-D");
