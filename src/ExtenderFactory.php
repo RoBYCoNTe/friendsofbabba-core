@@ -2,6 +2,7 @@
 
 namespace FriendsOfBabba\Core;
 
+use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Datasource\RulesChecker;
 use Cake\Event\Event;
@@ -93,59 +94,59 @@ class ExtenderFactory
 		return $rules;
 	}
 
-	public function beforePaginate(string $entityName, Event $event)
+	public function beforePaginate(string $entityName, Event $event, Controller $controller)
 	{
 		$extenders = $this->getForController($entityName);
 		foreach ($extenders as $extender) {
-			$extender->beforePaginate($event);
+			$extender->beforePaginate($event, $controller);
 		}
 	}
 
-	public function afterPaginate(string $entityName, Event $event)
+	public function afterPaginate(string $entityName, Event $event, Controller $controller)
 	{
 		$extenders = $this->getForController($entityName);
 		foreach ($extenders as $extender) {
-			$extender->afterPaginate($event);
+			$extender->afterPaginate($event, $controller);
 		}
 	}
 
-	public function beforeFind(string $entityName, Event $event)
+	public function beforeFind(string $entityName, Event $event, Controller $controller)
 	{
 		$extenders = $this->getForController($entityName);
 		foreach ($extenders as $extender) {
-			$extender->beforeFind($event);
+			$extender->beforeFind($event, $controller);
 		}
 	}
 
-	public function afterFind(string $entityName, Event $event)
+	public function afterFind(string $entityName, Event $event, Controller $controller)
 	{
 		$extenders = $this->getForController($entityName);
 		foreach ($extenders as $extender) {
-			$extender->afterFind($event);
+			$extender->afterFind($event, $controller);
 		}
 	}
 
-	public function beforeSave(string $entityName, Event $event)
+	public function beforeSave(string $entityName, Event $event, Controller $controller)
 	{
 		$extenders = $this->getForController($entityName);
 		foreach ($extenders as $extender) {
-			$extender->beforeSave($event);
+			$extender->beforeSave($event, $controller);
 		}
 	}
 
-	public function afterSave(string $entityName, Event $event)
+	public function afterSave(string $entityName, Event $event, Controller $controller)
 	{
 		$extenders = $this->getForController($entityName);
 		foreach ($extenders as $extender) {
-			$extender->afterSave($event);
+			$extender->afterSave($event, $controller);
 		}
 	}
 
-	public function beforeDelete(string $entityName, Event $event)
+	public function beforeDelete(string $entityName, Event $event, Controller $controller)
 	{
 		$extenders = $this->getForController($entityName);
 		foreach ($extenders as $extender) {
-			$extender->beforeDelete($event);
+			$extender->beforeDelete($event, $controller);
 		}
 	}
 

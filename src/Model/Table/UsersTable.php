@@ -164,8 +164,12 @@ class UsersTable extends BaseTable
             )
             ->removeField("created")
             ->setMobilePrimaryText("username")
-            ->setMobileSecondaryText("email")
             ->setMobileTertiaryText("status");
+
+        $grid
+            ->setMobileSecondaryText("email")
+            ->setMobileSecondaryComponent("EmailField")
+            ->setComponentProp("component", "span");
 
         $grid->addFilter(Filter::create("status", __d("friendsofbabba_core", "Status"), "SelectInput")
             ->setComponentProp("choices", [[
@@ -183,7 +187,7 @@ class UsersTable extends BaseTable
                 ->setComponentProp("optionText", "name")
                 ->alwaysOn()
         );
-
+        $grid->getField("email")->setComponent("EmailField");
         $grid->getField("modified")->setLabel(__d("friendsofbabba_core", "Modified"));
         $grid->addField(GridField::create("login", NULL, "ImpersonateUserButton", false), "after", "modified");
 

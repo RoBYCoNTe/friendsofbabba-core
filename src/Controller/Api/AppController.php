@@ -129,7 +129,7 @@ class AppController extends Controller
             $user = $this->getUser();
             $workflow->beforePaginate($entityName, $user, $event);
         }
-        ExtenderFactory::instance()->beforePaginate($entityName, $event);
+        ExtenderFactory::instance()->beforePaginate($entityName, $event, $this);
     }
 
     public function _beforeFind(\Cake\Event\Event $event)
@@ -140,7 +140,7 @@ class AppController extends Controller
             $user = $this->getUser();
             $workflow->beforeFind($entityName, $user, $event);
         }
-        ExtenderFactory::instance()->beforeFind($entityName, $event);
+        ExtenderFactory::instance()->beforeFind($entityName, $event, $this);
     }
 
     public function _beforeSave(\Cake\Event\Event $event)
@@ -151,7 +151,7 @@ class AppController extends Controller
             $user = $this->getUser();
             $workflow->beforeSave($entityName, $user, $event);
         }
-        ExtenderFactory::instance()->beforeSave($entityName, $event);
+        ExtenderFactory::instance()->beforeSave($entityName, $event, $this);
     }
 
     public function _afterSave(\Cake\Event\Event $event)
@@ -162,7 +162,7 @@ class AppController extends Controller
             $user = $this->getUser();
             $workflow->afterSave($entityName, $user, $event);
         }
-        ExtenderFactory::instance()->afterSave($entityName, $event);
+        ExtenderFactory::instance()->afterSave($entityName, $event, $this);
     }
 
 
@@ -174,7 +174,7 @@ class AppController extends Controller
             $user = $this->getUser();
             $workflow->beforeDelete($entityName, $user, $event);
         }
-        ExtenderFactory::instance()->beforeDelete($entityName, $event);
+        ExtenderFactory::instance()->beforeDelete($entityName, $event, $this);
     }
 
     public function _afterPaginate(\Cake\Event\Event $event)
@@ -185,6 +185,6 @@ class AppController extends Controller
             $user = $this->getUser();
             $workflow->afterPaginate($entityName, $user, $event);
         }
-        ExtenderFactory::instance()->afterPaginate($entityName, $event);
+        ExtenderFactory::instance()->afterPaginate($entityName, $event, $this);
     }
 }
