@@ -37,7 +37,7 @@ class {{ name }}DataMigration extends AbstractDataMigration
 			$query = $table
 				->find('all', ['withDeleted' => true])
 				->where(['id' => $entity->id]);
-			$result = $table->findOrCreate(['id' => $entity->id], function (EntityInterface $newEntity) use ($table, $entity) {
+			$result = $table->findOrCreate($query, function (EntityInterface $newEntity) use ($table, $entity) {
 				$newEntity = $table->patchEntity($newEntity, $entity->toArray());
 			});
 			if ($result) {

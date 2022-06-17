@@ -5,7 +5,6 @@ namespace FriendsOfBabba\Core\Model\Table;
 use Cake\ORM\RulesChecker;
 use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
-use FriendsOfBabba\Core\Export\Crud\CrudExcelDocument;
 use FriendsOfBabba\Core\Model\Crud\Badge;
 use FriendsOfBabba\Core\Model\Crud\Filter;
 use FriendsOfBabba\Core\Model\Crud\Form;
@@ -14,7 +13,7 @@ use FriendsOfBabba\Core\Model\Crud\Grid;
 use FriendsOfBabba\Core\Model\Crud\GridField;
 use FriendsOfBabba\Core\Model\Entity\Role;
 use FriendsOfBabba\Core\Model\Entity\User;
-use FriendsOfBabba\Core\Model\ExtenderFactory;
+use FriendsOfBabba\Core\ExtenderFactory;
 use FriendsOfBabba\Core\Workflow\WorkflowFactory;
 
 class BaseTable extends \Cake\ORM\Table

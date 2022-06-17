@@ -7,6 +7,7 @@ namespace FriendsOfBabba\Core\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
+use FriendsOfBabba\Core\ExtenderFactory;
 use FriendsOfBabba\Core\Model\Crud\Badge;
 use FriendsOfBabba\Core\Model\Crud\BulkAction;
 use FriendsOfBabba\Core\Model\Crud\Filter;
@@ -14,7 +15,6 @@ use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Crud\Form;
 use FriendsOfBabba\Core\Model\Crud\Grid;
 use FriendsOfBabba\Core\Model\Crud\GridField;
-use FriendsOfBabba\Core\Model\ExtenderFactory;
 use FriendsOfBabba\Core\Model\Filter\NotificationCollection;
 
 /**

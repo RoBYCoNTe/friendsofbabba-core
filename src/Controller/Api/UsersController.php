@@ -16,6 +16,7 @@ use Crud\Action\AddAction;
 use Crud\Error\Exception\ValidationException;
 use FriendsOfBabba\Core\Controller\Component\JwtTokenProviderComponent;
 use FriendsOfBabba\Core\Controller\Component\RecaptchaComponent;
+use FriendsOfBabba\Core\ExtenderFactory;
 use FriendsOfBabba\Core\Model\Entity\Role;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Service\UserServiceInterface;

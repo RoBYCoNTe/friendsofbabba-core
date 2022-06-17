@@ -2,9 +2,8 @@
 
 namespace FriendsOfBabba\Core\Model\Entity;
 
-use Cake\Core\Configure;
 use Cake\ORM\Entity;
-use FriendsOfBabba\Core\Model\ExtenderFactory;
+use FriendsOfBabba\Core\ExtenderFactory;
 
 class BaseEntity extends Entity
 {
