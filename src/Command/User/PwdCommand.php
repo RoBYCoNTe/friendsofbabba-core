@@ -20,7 +20,7 @@ class PwdCommand extends Command
 	public function initialize(): void
 	{
 		parent::initialize();
-		$this->loadModel('FriendsOfBabba/Core.Users');
+		$this->Users = $this->fetchTable('FriendsOfBabba/Core.Users');
 	}
 	/**
 	 * Hook method for defining this command's option parser.

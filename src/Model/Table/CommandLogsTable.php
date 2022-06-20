@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\Validation\Validator;
+use FriendsOfBabba\Core\Model\Crud\Badge;
 use FriendsOfBabba\Core\Model\Crud\Form;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Crud\Grid;
@@ -94,6 +95,11 @@ class CommandLogsTable extends BaseTable
     }
 
     public function getForm(?User $user, bool $extends = TRUE): ?Form
+    {
+        return NULL;
+    }
+
+    public function getBadge(?User $user): ?Badge
     {
         return NULL;
     }

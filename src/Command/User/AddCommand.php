@@ -29,9 +29,10 @@ class AddCommand extends Command
     public function initialize(): void
     {
         parent::initialize();
-        $this->loadModel('FriendsOfBabba/Core.Users');
-        $this->loadModel('FriendsOfBabba/Core.Roles');
-        $this->loadModel('FriendsOfBabba/Core.UserProfiles');
+
+        $this->Users = $this->fetchTable('FriendsOfBabba/Core.Users');
+        $this->Roles = $this->fetchTable('FriendsOfBabba/Core.Roles');
+        $this->UserProfiles = $this->fetchTable('FriendsOfBabba/Core.UserProfiles');
     }
     /**
      * Hook method for defining this command's option parser.

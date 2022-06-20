@@ -155,14 +155,17 @@ class NotificationsTable extends BaseTable
 
     public function getBadge(?User $user): Badge
     {
+        $badge = ExtenderFactory::instance()->getBadge($this->getAlias(), $this, $user);
+        if (!is_null($badge)) {
+            return $badge;
+        }
         $count = $this
             ->find('mine', ['user' => $user])
             ->find('unreaded')
             ->count();
 
         $badge = Badge::create('error', $count);
-
-        return ExtenderFactory::instance()->getBadge($this->getAlias(), $badge, $user);
+        return $badge;
     }
 
     public function findMine(Query $query, array $options): Query

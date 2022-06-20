@@ -7,7 +7,13 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Utility\Hash;
 use FriendsOfBabba\Core\Model\Entity\Command;
+use FriendsOfBabba\Core\Model\Table\CommandsTable;
+use FriendsOfBabba\Core\Model\Table\NotificationsTable;
 
+/**
+ * @property CommandsTable $Commands
+ * @property NotificationsTable $Notifications
+ */
 class CommandExecutorCommand extends CakeCommand
 {
 	public $io;
@@ -15,8 +21,9 @@ class CommandExecutorCommand extends CakeCommand
 	public function initialize(): void
 	{
 		parent::initialize();
-		$this->loadModel('FriendsOfBabba/Core.Commands');
-		$this->loadModel('FriendsOfBabba/Core.Notifications');
+
+		$this->Commands = $this->fetchTable('FriendsOfBabba/Core.Commands');
+		$this->Notifications = $this->fetchTable('FriendsOfBabba/Core.Notifications');
 	}
 
 	private function prefetch($commands)

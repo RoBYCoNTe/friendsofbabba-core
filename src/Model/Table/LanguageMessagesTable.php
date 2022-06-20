@@ -178,6 +178,10 @@ class LanguageMessagesTable extends BaseTable
 
     public function getBadge(?User $user): Badge
     {
+        $badge = ExtenderFactory::instance()->getBadge($this->getAlias(), $this, $user);
+        if (!is_null($badge)) {
+            return $badge;
+        }
         $count = $this->find('notTranslated')->count();
         return Badge::error($count)->hide($count === 0);
     }

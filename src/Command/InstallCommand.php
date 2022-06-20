@@ -76,7 +76,7 @@ class InstallCommand extends Command
         $io->hr();
 
         $username = 'Administrator';
-        $users = $this->loadModel('FriendsOfBabba/Core.Users')
+        $users = $this->fetchTable('FriendsOfBabba/Core.Users')
             ->find()
             ->where(['username' => $username])
             ->count();

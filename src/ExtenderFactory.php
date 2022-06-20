@@ -76,13 +76,26 @@ class ExtenderFactory
 		return $validator;
 	}
 
-	public function getBadge(string $table, Badge $badge, ?User $user): Badge
+	/**
+	 * Process queue of extenders classes and return first valid occurrence of
+	 * badge. Please remember that badge methods are processed based on app.php
+	 * config declarations in FIFO order.
+	 *
+	 * @param string $table
+	 * @param BaseTable $baseTable
+	 * @param User|null $user
+	 * @return Badge
+	 */
+	public function getBadge(string $table, BaseTable $baseTable, ?User $user): ?Badge
 	{
 		$extenders = $this->getForTable($table);
 		foreach ($extenders as $extender) {
-			$extender->getBadge($badge, $user);
+			$badge = $extender->getBadge($baseTable, $user);
+			if (!is_null($badge)) {
+				return $badge;
+			}
 		}
-		return $badge;
+		return NULL;
 	}
 
 	public function buildRules(string $table, RulesChecker $rules): RulesChecker

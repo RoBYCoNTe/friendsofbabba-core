@@ -24,7 +24,8 @@ class CreateTransactionTableCommand extends Command
     public function initialize(): void
     {
         parent::initialize();
-        $this->loadModel('FriendsOfBabba/Core.Transactions');
+
+        $this->Transactions = $this->fetchTable('FriendsOfBabba/Core.Transactions');
     }
     /**
      * Hook method for defining this command's option parser.

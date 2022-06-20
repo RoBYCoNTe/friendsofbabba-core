@@ -37,8 +37,9 @@ abstract class BaseTableExtender implements Extender
 	{
 	}
 
-	public function getBadge(Badge $badge, User $user): void
+	public function getBadge(BaseTable $baseTable, User $user): ?Badge
 	{
+		return NULL;
 	}
 
 	public function buildRules(RulesChecker $rules): void

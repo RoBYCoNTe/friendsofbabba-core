@@ -29,8 +29,8 @@ class LanguageCommand extends Command
     {
         parent::initialize();
 
-        $this->loadModel('FriendsOfBabba/Core.Languages');
-        $this->loadModel('FriendsOfBabba/Core.LanguageMessages');
+        $this->Languages = $this->fetchTable('FriendsOfBabba/Core.Languages');
+        $this->LanguageMessages = $this->fetchTable('FriendsOfBabba/Core.LanguageMessages');
     }
 
     /**

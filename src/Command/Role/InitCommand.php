@@ -27,7 +27,8 @@ class InitCommand extends Command
 	public function initialize(): void
 	{
 		parent::initialize();
-		$this->loadModel('FriendsOfBabba/Core.Roles');
+
+		$this->Roles = $this->fetchTable('FriendsOfBabba/Core.Roles');
 	}
 	/**
 	 * Hook method for defining this command's option parser.

@@ -144,13 +144,14 @@ class BaseTable extends \Cake\ORM\Table
 		return $form;
 	}
 
-	public function getBadge(?User $user): Badge
+	public function getBadge(?User $user): ?Badge
 	{
+		$badge = ExtenderFactory::instance()->getBadge($this->getAlias(), $this, $user);
+		if (!is_null($badge)) {
+			return $badge;
+		}
 		$count = $this->find()->count();
 		$badge = Badge::primary($count)->hide($count <= 0);
-
-		ExtenderFactory::instance()->getBadge($this->getAlias(), $badge, $user);
-
 		return $badge;
 	}
 

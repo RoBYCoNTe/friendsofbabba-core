@@ -23,7 +23,8 @@ class PermissionCommand extends Command
     public function initialize(): void
     {
         parent::initialize();
-        $this->loadModel('FriendsOfBabba/Core.Roles');
+
+        $this->Roles = $this->fetchTable('FriendsOfBabba/Core.Roles');
     }
 
     /**

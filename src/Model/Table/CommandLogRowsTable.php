@@ -6,6 +6,7 @@ namespace FriendsOfBabba\Core\Model\Table;
 
 use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
+use FriendsOfBabba\Core\Model\Crud\Badge;
 use FriendsOfBabba\Core\Model\Crud\Filter;
 use FriendsOfBabba\Core\Model\Crud\Form;
 use FriendsOfBabba\Core\Model\Entity\User;
@@ -142,6 +143,11 @@ class CommandLogRowsTable extends BaseTable
     }
 
     public function getForm(?User $user, bool $extends = TRUE): ?Form
+    {
+        return NULL;
+    }
+
+    public function getBadge(?User $user): ?Badge
     {
         return NULL;
     }
