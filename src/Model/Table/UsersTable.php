@@ -8,6 +8,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\ExtenderFactory;
+use FriendsOfBabba\Core\Model\Crud\Button;
 use FriendsOfBabba\Core\Model\Crud\Filter;
 use FriendsOfBabba\Core\Model\Crud\Form;
 use FriendsOfBabba\Core\Model\Crud\FormInput;
@@ -171,6 +172,8 @@ class UsersTable extends BaseTable
             ->setMobileSecondaryComponent("EmailField")
             ->setComponentProp("component", "span");
 
+        $grid->getField("auth")->setComponent("ChipField");
+
         $grid->addFilter(Filter::create("status", __d("friendsofbabba_core", "Status"), "SelectInput")
             ->setComponentProp("choices", [[
                 'id' => 'active',
@@ -190,6 +193,7 @@ class UsersTable extends BaseTable
         $grid->getField("email")->setComponent("EmailField");
         $grid->getField("modified")->setLabel(__d("friendsofbabba_core", "Modified"));
         $grid->addField(GridField::create("login", NULL, "ImpersonateUserButton", false), "after", "modified");
+        $grid->addField(GridField::create("reset", NULL, "ResetPasswordButton", false), "after", "login");
 
         return ExtenderFactory::instance()->getGrid($this->getAlias(), $grid, $user);
     }
@@ -221,6 +225,26 @@ class UsersTable extends BaseTable
             ->setComponentProp("reference", "roles")
             ->setComponentProp("optionText", "name")
             ->fullWidth());
+
+        $form->getInput("auth")
+            ->setComponent("SelectInput")
+            ->setComponentProp("choices", [[
+                'id' => 'local',
+                'name' => 'Local'
+            ], [
+                'id' => 'spid',
+                'name' => 'SPID'
+            ]])
+            ->setComponentProp("optionText", "name");
+
+        $form->setUseCustomButtons();
+        $form->addAction(Button::create("ResetPasswordButton"));
+        $form->addAction(Button::create("ImpersonateUserButton"));
+        $form->addAction(Button::create("BackButton"));
+
+        $form->addButton(Button::create("SaveButton"));
+        $form->addButton(Button::create("DeleteButton"));
+
 
         return ExtenderFactory::instance()->getForm($this->getAlias(), $form, $user);
     }

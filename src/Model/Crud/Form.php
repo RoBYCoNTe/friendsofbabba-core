@@ -45,6 +45,14 @@ class Form extends Component
 	public bool $sanitizeEmptyValues = TRUE;
 
 	/**
+	 * Set if the form uses custom button. When this props is true the CRUD engine
+	 * will display only local added button and not automatic CRUD buttons.
+	 *
+	 * @var boolean
+	 */
+	public bool $useCustomButtons = FALSE;
+
+	/**
 	 * Indicates if current form is subjected to workflow or not.
 	 *
 	 * @var boolean
@@ -53,11 +61,27 @@ class Form extends Component
 
 	public array $inputs = [];
 
+	public array $buttons = [];
+
+	public array $actions = [];
+
 	public ?string $title = NULL;
 
 	public function __construct()
 	{
 		parent::__construct("SimpleForm", []);
+	}
+
+	public function addAction(Button $button): Form
+	{
+		$this->actions[] = $button;
+		return $this;
+	}
+
+	public function addButton(Button $button): Form
+	{
+		$this->buttons[] = $button;
+		return $this;
 	}
 
 	public function addInput(FormInput $input, ?string $beforeOrAfter = NULL, ?string $source = NULL): Form
@@ -127,6 +151,19 @@ class Form extends Component
 	public function setUseWorkflow(?bool $useWorkflow): Form
 	{
 		$this->useWorkflow = $useWorkflow;
+		return $this;
+	}
+
+	/**
+	 * Set if the form uses custom button. When this props is true the CRUD engine
+	 * will display only local added button and not automatic CRUD buttons.
+	 *
+	 * @param boolean|null $useCustomButtons
+	 * @return Form
+	 */
+	public function setUseCustomButtons(?bool $useCustomButtons = true): Form
+	{
+		$this->useCustomButtons = $useCustomButtons;
 		return $this;
 	}
 

@@ -186,9 +186,14 @@ class UsersController extends AppController
 
 	public function resetPassword(): void
 	{
-		$recaptchaToken = $this->request->getData('token');
-		if (empty($recaptchaToken) || !$this->Recaptcha->validate($recaptchaToken)) {
-			throw new BadRequestException(__d('friendsofbabba_core', 'Recaptcha validation failed.'));
+		$user = $this->getUser();
+		if (empty($user)) {
+			$recaptchaToken = $this->request->getData('token');
+			if (empty($recaptchaToken) || !$this->Recaptcha->validate($recaptchaToken)) {
+				throw new BadRequestException(__d('friendsofbabba_core', 'Recaptcha validation failed.'));
+			}
+		} else if (!$user->hasRole(Role::ADMIN)) {
+			throw new ForbiddenException();
 		}
 
 		$account = $this->request->getData('account');
