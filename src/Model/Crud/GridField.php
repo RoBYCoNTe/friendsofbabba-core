@@ -85,6 +85,12 @@ class GridField extends Component
 		return $this;
 	}
 
+	public function setComponentProp(string $name, $value = NULL): GridField
+	{
+		parent::setComponentProp($name, $value);
+		return $this;
+	}
+
 	public function setSortBy(string $sortBy): GridField
 	{
 		$this->sortBy = $sortBy;

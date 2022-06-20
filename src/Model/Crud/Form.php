@@ -19,7 +19,7 @@ class Form extends Component
 	 * @see https://marmelab.com/react-admin/doc/3.19/CreateEdit.html#redirection-after-submission
 	 * @var string
 	 */
-	public string $redirect;
+	public ?string $redirect;
 
 	public ?bool $refresh = NULL;
 
@@ -67,17 +67,51 @@ class Form extends Component
 
 	public ?string $title = NULL;
 
+	/**
+	 * Provide access to toolbar component with his default configuration.
+	 * Accessing this props you can customize toolbar and buttons inside.
+	 */
+	public Component $toolbar;
+
 	public function __construct()
 	{
 		parent::__construct("SimpleForm", []);
+
+		$this->toolbar = new Component("Toolbar", []);
 	}
 
+	public function setToolbarComponent(string $component): Form
+	{
+		$this->toolbar->setComponent($component);
+		return $this;
+	}
+
+	public function setToolbarComponentProp(string $prop, $value): Form
+	{
+		$this->toolbar->setComponentProp($prop, $value);
+		return $this;
+	}
+
+	/**
+	 * Add new action to the list of top-right actions visible in the form.
+	 *
+	 * @param Button $button
+	 * 	Should be always a button but you can use any component.
+	 * @return Form
+	 */
 	public function addAction(Button $button): Form
 	{
 		$this->actions[] = $button;
 		return $this;
 	}
 
+	/**
+	 * Add new button to configured toolbar.
+	 *
+	 * @param Button $button
+	 *  Should be always a button but you can use any component.
+	 * @return Form
+	 */
 	public function addButton(Button $button): Form
 	{
 		$this->buttons[] = $button;
@@ -148,6 +182,12 @@ class Form extends Component
 		return $this;
 	}
 
+	/**
+	 * Set if the form use workflow or not.
+	 *
+	 * @param boolean|null $useWorkflow
+	 * @return Form
+	 */
 	public function setUseWorkflow(?bool $useWorkflow): Form
 	{
 		$this->useWorkflow = $useWorkflow;
