@@ -1,10 +1,15 @@
-it	activity_plan.description_of_context.help	Descrizione del contesto territoriale e sociale all’interno del quale è collocato il Centro Risorse e analisi dei fabbisogni espressi dalla comunità giovanile locale
 it	app.date_format.long	DD/MM/YYYY, HH:mm:ss
 it	app.input.max_length_info	Usati %{count} su %{max} caratteri disponibili (spazi inclusi)
 it	app.welcome	Benvenuto %{full_name}
 it	Forbidden	Accesso non consentito
 it	menu.groups.admin	Amministrazione
+it	menu.groups.blog	Blog
 it	menu.groups.dashboard	Dashboard
+it	menu.items.blog-categories	Categorie
+it	menu.items.blog-posts	Posts
+it	menu.items.command-log-rows	Comandi (Row Logs)
+it	menu.items.command-logs	Comandi (Logs)
+it	menu.items.commands	Comandi
 it	menu.items.language-messages	Stringhe (i18n)
 it	menu.items.notifications	Notifiche
 it	menu.items.users	Utenti
@@ -144,7 +149,6 @@ it	resources.language-messages.fields.code	Code
 it	resources.language-messages.fields.id	Id
 it	resources.language-messages.fields.language_id	Language Id
 it	resources.language-messages.fields.text	Text
-it	resources.language-messages.name	Language Message |||| Language Messages
 it	resources.language-messages.name	Stringa Localizzata |||| Stringhe Localizzate
 it	resources.notifications.buttons.mark_as_readed	Segna come letto
 it	resources.notifications.buttons.mark_as_unreaded	Segna come non letto
@@ -168,11 +172,17 @@ it	resources.transactions.fields.id	#ID
 it	resources.transactions.fields.is_private.helper_text	Indica se la nota è ad uso interno e non deve essere visibile all'utente.
 it	resources.transactions.fields.notes	Note
 it	resources.transactions.fields.notes.empty	Nessuna nota inserita
+it	resources.transactions.fields.notes.public	Nota Pubblica
 it	resources.transactions.fields.notes.show_less	Mostra meno
 it	resources.transactions.fields.notes.show_more	Mostra di più
 it	resources.transactions.fields.state	Stato
 it	resources.transactions.fields.user	Utente
+it	resources.users.buttons.reset	Reset
 it	resources.users.fields.profile.name	Nome
+it	resources.users.messages.reset_content	Confermando l'operazione la password dell'utente sarà aggiornata ed inoltrata automaticamente via email, sicuro di voler procedere?
+it	resources.users.messages.reset_failure	Reset password fallito.
+it	resources.users.messages.reset_success	Reset password eseguito correttamente
+it	resources.users.messages.reset_title	Conferma Reset Password
 it	resources.users.name	Utente |||| Utenti
 it	resources.users.profile.fields.surname	Cognome
 it	resources.workflow.fields.notes	Note
