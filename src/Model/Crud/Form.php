@@ -170,7 +170,7 @@ class Form extends Component
 		return $this;
 	}
 
-	public function setRedirect(string $redirect): Form
+	public function setRedirect(?string $redirect): Form
 	{
 		$this->redirect = $redirect;
 		return $this;
