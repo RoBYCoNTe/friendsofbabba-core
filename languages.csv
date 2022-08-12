@@ -139,7 +139,7 @@ it	ra.validation.required	Campo obbligatorio
 it	ra.validation_summary.message.explain	Successivamente al primo salvataggio saranno mostrati gli eventuali errori di validazione che è necessario correggere prima dell'inoltro ufficiale della pratica.
 it	ra.validation_summary.message.loading	A breve comparirà l'esito della validazione della sezione corrente, attendere prego...
 it	ra.validation_summary.message.success	Tutte le informazioni presenti nella sezione corrente sono state inserite correttamente.
-it	ra.validation_summary.message.warning	Nella sezione corrente sono presenti %{count} che devono essere risolti prima dell'invio ufficiale della proposta, in caso contrario non sarà possibile completare la pratica di inoltro.
+it	ra.validation_summary.message.warning	Nella sezione corrente sono presenti %{count} errori che devono essere risolti prima dell'invio ufficiale della proposta, in caso contrario non sarà possibile completare la pratica di inoltro.
 it	ra.validation_summary.title.explain	Leggimi
 it	ra.validation_summary.title.loading	Caricamento in corso...
 it	ra.validation_summary.title.success	Sezione completa!

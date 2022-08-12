@@ -106,9 +106,9 @@ class LanguageCommand extends Command
     public function import(Arguments $args, ConsoleIo $io)
     {
         $paths = [
-            ROOT . DS . "languages.csv",
             ROOT . DS . "plugins" . DS . "FriendsOfBabba" . DS . "Core" . DS . "languages.csv",
-            ROOT . DS . "vendor" . DS . "friendsofbabba" . DS . "core" . DS . "languages.csv"
+            ROOT . DS . "vendor" . DS . "friendsofbabba" . DS . "core" . DS . "languages.csv",
+            ROOT . DS . "languages.csv"
         ];
         foreach ($paths as $path) {
             $io->verbose(sprintf("Importing file %s...", $path));
