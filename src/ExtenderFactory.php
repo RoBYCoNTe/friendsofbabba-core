@@ -6,6 +6,7 @@ use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Datasource\RulesChecker;
 use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\Controller\BaseControllerExtender;
 use FriendsOfBabba\Core\Model\Crud\Badge;
@@ -106,6 +107,9 @@ class ExtenderFactory
 		}
 		return $rules;
 	}
+
+
+
 
 	public function beforePaginate(string $entityName, Event $event, Controller $controller)
 	{
@@ -233,5 +237,15 @@ class ExtenderFactory
 			}
 		}
 		return $this->_extenders[$classPath];
+	}
+
+	public function fireAction(string $entityName, string $actionName, EventInterface $event, Controller $controller): void
+	{
+		$extenders = $this->getForController($entityName);
+		foreach ($extenders as $extender) {
+			if (method_exists($extender, $actionName)) {
+				$extender->{$actionName}($event, $controller);
+			}
+		}
 	}
 }

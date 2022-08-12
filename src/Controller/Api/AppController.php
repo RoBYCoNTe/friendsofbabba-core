@@ -91,6 +91,11 @@ class AppController extends Controller
         if (!$user->hasPermission($permission)) {
             throw new UnauthorizedException(__d('friendsofbabba_core', "Unauthorized: {0}", $action));
         }
+
+        $actionName = "before" . Inflector::camelize($action);
+        $entityName = $this->request->getParam("controller");
+
+        ExtenderFactory::instance()->fireAction($entityName,  $actionName, $event, $this);
     }
 
     /**
@@ -117,7 +122,6 @@ class AppController extends Controller
             'Crud.beforeDelete' => '_beforeDelete',
             'Crud.afterSave' => '_afterSave',
             'Crud.afterPaginate' => '_afterPaginate',
-
         ];
     }
 
