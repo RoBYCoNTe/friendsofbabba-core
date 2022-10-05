@@ -32,6 +32,13 @@ class Field
      */
     public function addPermission(String $role, Bool $canEdit = FALSE, Bool $canRead = FALSE): Field
     {
+        foreach ($this->permissions as $permission) {
+            if ($permission->role == $role) {
+                $permission->canEdit = $canEdit;
+                $permission->canRead = $canRead;
+                return $this;
+            }
+        }
         $permission = new FieldPermission($role);
         $permission->canEdit = $canEdit;
         $permission->canRead = $canRead;

@@ -2,6 +2,7 @@
 
 namespace FriendsOfBabba\Core\Workflow;
 
+use Cake\Collection\Collection;
 use Cake\Controller\Controller;
 use Cake\Log\Log;
 use Cake\Utility\Hash;
@@ -154,7 +155,12 @@ abstract class State
      */
     public function addField(String $fieldName): Field
     {
-        $field = Hash::extract($this->fields, "[name=$fieldName]");
+        $field = (new Collection($this->fields))
+            ->filter(function (Field $field) use ($fieldName) {
+                return $field->name == $fieldName;
+            })
+            ->first();
+
         if (empty($field)) {
             $field = new Field($fieldName);
             $this->fields[] = $field;
