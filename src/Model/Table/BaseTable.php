@@ -123,7 +123,6 @@ class BaseTable extends \Cake\ORM\Table
 
 
 		if (!is_null($workflow)) {
-
 			$form->addInput(FormInput::create("notes", "Notes")
 				->setComponent("TransactionNotesInput")
 				->setComponentProp("helperText", "Notes for this transaction")
@@ -136,6 +135,9 @@ class BaseTable extends \Cake\ORM\Table
 			$form->addInput(FormInput::create("logs", "Logs")
 				->setComponent("TransactionLogsField")
 				->setComponentProp("admin", !is_null($user) ? $user->hasRole(Role::ADMIN) : FALSE));
+			$form->addInput(FormInput::create("stateinfo", "State")
+				->setComponent("StateInfoField")
+				->fullWidth());
 		}
 
 		if ($extends) {
