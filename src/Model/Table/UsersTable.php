@@ -112,7 +112,7 @@ class UsersTable extends BaseTable
             ->scalar('status')
             ->maxLength('status', 20)
             ->notEmptyString('status')
-            ->requirePresence('status');
+            ->requirePresence('status', 'create');
 
         $validator
             ->dateTime('deleted')
