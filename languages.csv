@@ -190,3 +190,17 @@ it	resources.workflow.move.message	Note/Messaggio
 it	resources.workflow.move.message.required	Devi inserire una nota/messaggio come causale del cambio stato
 it	resources.workflow.move.success	Cambio stato eseguito correttamente
 it	resources.workflow.move.title	Cambio Stato
+it	app.label.day	Data
+it	app.label.end_at	Alla data
+it	app.label.start_at	Dalla data
+it	app.date_range.all	Tutto
+it	app.date_range.day	Giorno
+it	app.date_range.last_30_days	Ultimi 30 giorni
+it	app.date_range.last_7_days	Ultimi 7 giorni
+it	app.date_range.last_month	Mese precedente
+it	app.date_range.last_two_months	Ultimi due mesi
+it	app.date_range.prev_week	Settimana scorsa
+it	app.date_range.range	Periodo
+it	app.date_range.this_month	Questo mese
+it	app.date_range.today	Oggi
+it	app.date_range.yesterday	Ieri

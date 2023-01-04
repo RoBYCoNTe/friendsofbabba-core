@@ -74,8 +74,8 @@ class BaseTable extends \Cake\ORM\Table
 		}
 		$workflow = WorkflowFactory::instance()->resolve($this->getAlias());
 		if (!is_null($workflow)) {
-			$grid->addFilter(Filter::create("state", "State", "StateInput")->alwaysOn());
-			$grid->addField(GridField::create("state", "State", "StateCollectionInput"));
+			$grid->addFilter(Filter::create("state", __("State"), "StateInput")->alwaysOn());
+			$grid->addField(GridField::create("state", __("State"), "StateCollectionInput"));
 			$grid->addField(GridField::create("EditButton", "ra.action.edit")
 				->setComponent("EditButton"));
 		} else {
@@ -104,8 +104,6 @@ class BaseTable extends \Cake\ORM\Table
 				continue;
 			}
 			$formInput = FormInput::create($columnName, Inflector::humanize($columnName));
-			$formInput->setUseWorkflow($form->useWorkflow);
-
 			$type = $this->getSchema()->getColumnType($columnName);
 			switch ($type) {
 				case 'datetime':
@@ -123,19 +121,19 @@ class BaseTable extends \Cake\ORM\Table
 
 
 		if (!is_null($workflow)) {
-			$form->addInput(FormInput::create("notes", "Notes")
+			$form->addInput(FormInput::create("notes", __("Notes"))
 				->setComponent("TransactionNotesInput")
 				->setComponentProp("helperText", "Notes for this transaction")
 				->setComponentProp("admin", !is_null($user) ? $user->hasRole(Role::ADMIN) : FALSE)
 				->fullWidth());
-			$form->addInput(FormInput::create("is_private", "Is Private")
+			$form->addInput(FormInput::create("is_private", __("Is Private"))
 				->setComponent("TransactionNotesIsPrivateInput")
 				->setComponentProp("admin", !is_null($user) ? $user->hasRole(Role::ADMIN) : FALSE)
 				->fullWidth());
-			$form->addInput(FormInput::create("logs", "Logs")
+			$form->addInput(FormInput::create("logs", __("Logs"))
 				->setComponent("TransactionLogsField")
 				->setComponentProp("admin", !is_null($user) ? $user->hasRole(Role::ADMIN) : FALSE));
-			$form->addInput(FormInput::create("stateinfo", "State")
+			$form->addInput(FormInput::create("stateinfo", __("State"))
 				->setComponent("StateInfoField")
 				->fullWidth());
 		}

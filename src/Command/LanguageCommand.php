@@ -87,7 +87,7 @@ class LanguageCommand extends Command
     {
         $languages = $this->Languages->find()
             ->contain("LanguageMessages")
-            ->toList();
+            ->toArray();
 
         $updateCore = $args->getOption('update-core');
         $paths = [

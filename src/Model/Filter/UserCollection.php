@@ -21,7 +21,9 @@ class UserCollection extends BaseCollection
             "wildcardOne" => "?",
             "fields" => [
                 "Users.username",
-                "Users.email"
+                "Users.email",
+                "UserProfiles.name",
+                "UserProfiles.surname"
             ],
             "beforeProcess" => function (Query $query) {
                 $query->contain("UserProfiles");
