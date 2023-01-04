@@ -132,7 +132,10 @@ class BaseTable extends \Cake\ORM\Table
 				->fullWidth());
 			$form->addInput(FormInput::create("logs", __("Logs"))
 				->setComponent("TransactionLogsField")
-				->setComponentProp("admin", !is_null($user) ? $user->hasRole(Role::ADMIN) : FALSE));
+				->setComponentProp("addLabel", true)
+				->setComponentProp("label", __("Logs"))
+				->setComponentProp("admin", !is_null($user) ? $user->hasRole(Role::ADMIN) : FALSE)
+				->fullWidth());
 			$form->addInput(FormInput::create("stateinfo", __("State"))
 				->setComponent("StateInfoField")
 				->fullWidth());
