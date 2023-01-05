@@ -104,6 +104,7 @@ class BaseTable extends \Cake\ORM\Table
 				continue;
 			}
 			$formInput = FormInput::create($columnName, Inflector::humanize($columnName));
+			$formInput->setUseWorkflow($form->useWorkflow);
 			$type = $this->getSchema()->getColumnType($columnName);
 			switch ($type) {
 				case 'datetime':
