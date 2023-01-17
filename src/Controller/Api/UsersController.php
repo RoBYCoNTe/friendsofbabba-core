@@ -115,10 +115,10 @@ class UsersController extends AppController
 	{
 		/** @var AddAction */
 		$action = $this->Crud->action();
-		$action->saveOptions(['associated' => [
+		$action->saveOptions(ExtenderFactory::instance()->getSaveOptions('Users', ['associated' => [
 			'UserProfiles',
 			'Roles'
-		]]);
+		]]));
 		$this->Crud->on('beforeSave', function (Event $event) {
 			$entity = $event->getSubject()->entity;
 			if (!$this->Authorization->can($entity)) {
@@ -132,10 +132,10 @@ class UsersController extends AppController
 	{
 		/** @var AddAction */
 		$action = $this->Crud->action();
-		$action->saveOptions(['associated' => [
+		$action->saveOptions(ExtenderFactory::instance()->getSaveOptions('Users', ['associated' => [
 			'UserProfiles',
 			'Roles'
-		]]);
+		]]));
 
 		$this->Crud->on("beforeSave", function (Event $event) {
 			$entity = $event->getSubject()->entity;

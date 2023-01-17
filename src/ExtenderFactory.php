@@ -167,6 +167,16 @@ class ExtenderFactory
 		}
 	}
 
+	public function getSaveOptions(string $entityName, array $defaultConfig): array
+	{
+		$extenders = $this->getForController($entityName);
+		$options = [];
+		foreach ($extenders as $extender) {
+			$options = array_merge($options, $extender->getSaveOptions($defaultConfig));
+		}
+		return $options;
+	}
+
 	/**
 	 * Return list of extenders registered for this entity.
 	 *

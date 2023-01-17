@@ -34,4 +34,9 @@ abstract class BaseControllerExtender
 	public function beforeDelete(Event $event, Controller $controller)
 	{
 	}
+
+	public function getSaveOptions(array $defaultConfig): array
+	{
+		return $defaultConfig;
+	}
 }
