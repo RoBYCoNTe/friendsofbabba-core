@@ -28,7 +28,7 @@ use SplFileObject;
  *
  * @property \FriendsOfBabba\Core\Model\Entity\User $user
  */
-class Media extends Entity
+class Media extends BaseEntity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -57,15 +57,17 @@ class Media extends Entity
 
     public function _getFile()
     {
-        if (isset($this->filepath)) {
-            return [
-                'path' => Router::url(DS . $this->filepath, true),
-                'name' => $this->filename,
-                'size' => $this->filesize,
-                'type' => $this->filetype
-            ];
-        }
-        return NULL;
+        return parent::fireMethod('_getFile', function (Media $media) {
+            if (isset($media->filepath)) {
+                return [
+                    'path' => Router::url(DS . $media->filepath, true),
+                    'name' => $media->filename,
+                    'size' => $media->filesize,
+                    'type' => $media->filetype
+                ];
+            }
+            return NULL;
+        });
     }
 
     /**
