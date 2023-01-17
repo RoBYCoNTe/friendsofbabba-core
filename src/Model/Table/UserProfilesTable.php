@@ -51,6 +51,8 @@ class UserProfilesTable extends BaseTable
             'joinType' => 'INNER',
             'className' => 'FriendsOfBabba/Core.Users',
         ]);
+
+        parent::afterInitialize($config);
     }
 
     /**
