@@ -21,7 +21,7 @@ class SpidUserProfilesTableExtender extends BaseTableExtender
 	 */
 	public function afterInitialize(BaseTable $baseTable, array $config): void
 	{
-		$baseTable->addBehavior('FriendsOfBabba/Core.Date', ['birth_date']);
+		$baseTable->addBehavior('FriendsOfBabba/Core.DateTime', ['birth_date']);
 	}
 
 	/**

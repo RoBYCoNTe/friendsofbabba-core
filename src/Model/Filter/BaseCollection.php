@@ -48,5 +48,29 @@ class BaseCollection extends FilterCollection
                     ->where(['Transactions.state' => $args['state']]);
             }
         ]);
+        $this->add("states", "Search.Callback", [
+            'callback' => function (Query $query, array $args) {
+                $states = explode(",", $args['states']);
+                $query
+                    ->innerJoinWith("Transactions")
+                    ->where(['Transactions.state IN' => $states]);
+            }
+        ]);
+        $this->add("not_state", "Search.Callback", [
+            'callback' => function (Query $query, array $args) {
+                $query
+                    ->innerJoinWith("Transactions")
+                    ->where(['Transactions.state !=' => $args['not_state']]);
+            }
+        ]);
+
+        $this->add("not_states", "Search.Callback", [
+            'callback' => function (Query $query, array $args) {
+                $states = explode(",", $args['not_states']);
+                $query
+                    ->innerJoinWith("Transactions")
+                    ->where(['Transactions.state NOT IN' => $states]);
+            }
+        ]);
     }
 }
