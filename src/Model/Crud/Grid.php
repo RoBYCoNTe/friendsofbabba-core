@@ -8,6 +8,8 @@ use FriendsOfBabba\Core\Export\BaseExportable;
 /**
  * Provide an easy way to describe a grid.
  * This class has been designed usign react-admin standard grid config.
+ *
+ * @property mixed? $pagination
  */
 class Grid extends Component
 {
@@ -34,6 +36,10 @@ class Grid extends Component
 	 * @var stdClass
 	 */
 	public \stdClass $filter;
+
+	public ?string $filterVariant = "filled";
+	public ?string $filterMargin = "dense";
+
 	/**
 	 * @see https://marmelab.com/react-admin/doc/3.19/List.html#filterdefaultvalues
 	 * @var stdClass
@@ -93,6 +99,18 @@ class Grid extends Component
 	public function __construct(string $component = "Datagrid")
 	{
 		parent::__construct($component);
+	}
+
+	public function setFilterVariant(string $variant): Grid
+	{
+		$this->filterVariant = $variant;
+		return $this;
+	}
+
+	public function setFilterMargin(string $margin): Grid
+	{
+		$this->filterMargin = $margin;
+		return $this;
 	}
 
 	/**

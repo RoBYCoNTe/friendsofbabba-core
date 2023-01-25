@@ -6,13 +6,12 @@ use ArrayObject;
 use Cake\Event\Event;
 use Cake\ORM\Behavior;
 use Cake\Utility\Hash;
-use DateTime;
 
 class DateTimeBehavior extends Behavior
 {
     protected $_defaultConfig = [];
 
-    public function process(ArrayObject $data)
+    private function _process(ArrayObject $data)
     {
         $config = $this->getConfig();
         $fields = Hash::get($config, []);
@@ -32,6 +31,6 @@ class DateTimeBehavior extends Behavior
 
     public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $options)
     {
-        $this->process($data);
+        $this->_process($data);
     }
 }
