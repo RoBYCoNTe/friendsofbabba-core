@@ -10,6 +10,10 @@ use FriendsOfBabba\Core\Export\BaseExportable;
  * This class has been designed usign react-admin standard grid config.
  *
  * @property mixed? $pagination
+ * @property mixed? $actions
+ * @property bool? $canDelete
+ * @property bool? $canCreate
+ * @property mixed? $exporter
  */
 class Grid extends Component
 {
@@ -250,9 +254,12 @@ class Grid extends Component
 		return $this;
 	}
 
-	public function addPermanentFilter(string $field, string $value): Grid
+	public function addPermanentFilter(string $field, $value): Grid
 	{
-		$this->filter[$field] = $value;
+		if (!isset($this->filter)) {
+			$this->filter = new \stdClass();
+		}
+		$this->filter->{$field} = $value;
 		return $this;
 	}
 

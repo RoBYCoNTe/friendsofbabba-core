@@ -33,8 +33,6 @@ class SpidController extends AppController
 	{
 		parent::initialize();
 
-		$this->loadModel('FriendsOfBabba/Core.Roles');
-
 		$this->loadComponent("FriendsOfBabba/Core.SpidAuth");
 		$this->loadComponent("FriendsOfBabba/Core.JwtTokenProvider");
 		$this->loadComponent("FriendsOfBabba/Core.Recaptcha");
@@ -111,8 +109,11 @@ class SpidController extends AppController
 
 	public function fetchTable(?string $alias = null, array $options = []): Table
 	{
-		$table = Configure::read('Spid.table');
-		return TableRegistry::getTableLocator()->get($table, $options);
+		if (is_null($alias)) {
+			$alias = Configure::read('Spid.table');
+		}
+
+		return parent::fetchTable($alias, $options);
 	}
 
 	public function add(): void
@@ -128,7 +129,7 @@ class SpidController extends AppController
 			$user->set('username', $user->get('email'));
 			$user->set('password', Security::randomBytes(32));
 			$user->set('status', 'active');
-			$user->set('roles', $this->Roles
+			$user->set('roles', $this->fetchTable('FriendsOfBabba/Core.Roles')
 				->find()
 				->whereInList('code', Configure::read('Spid.roles'))
 				->toArray());
