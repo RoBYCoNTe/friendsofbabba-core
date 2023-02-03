@@ -67,6 +67,11 @@ class Form extends Component
 
 	public ?string $title = NULL;
 
+	public array $titles = [
+		'edit' => NULL,
+		'create' => NULL,
+	];
+
 	/**
 	 * Provide access to toolbar component with his default configuration.
 	 * Accessing this props you can customize toolbar and buttons inside.
@@ -148,6 +153,20 @@ class Form extends Component
 		$this->title = $title;
 		return $this;
 	}
+
+	public function setEditTitle(string $title): Form
+	{
+		$this->titles['edit'] = $title;
+		return $this;
+	}
+
+	public function setCreateTitle(string $title): Form
+	{
+		$this->titles['create'] = $title;
+		return $this;
+	}
+
+
 
 	public function getInput(string $source): FormInput
 	{

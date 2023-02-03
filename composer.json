@@ -2,7 +2,7 @@
     "name": "friendsofbabba/core",
     "description": "FriendsOfBabba/Core plugin for CakePHP",
     "type": "cakephp-plugin",
-    "version": "1.1.21",
+    "version": "1.1.22",
     "license": "MIT",
     "require": {
         "php": ">=7.2",
