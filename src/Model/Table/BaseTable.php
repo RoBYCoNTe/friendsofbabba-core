@@ -159,6 +159,21 @@ class BaseTable extends \Cake\ORM\Table
 		return $badge;
 	}
 
+	public function getAliasGrid(?User $user, bool $extends = TRUE, ?string $alias = NULL): ?Grid
+	{
+		return $this->getGrid($user, $extends);
+	}
+
+	public function getAliasForm(?User $user, bool $extends = TRUE, ?string $alias = NULL): ?Form
+	{
+		return $this->getForm($user, $extends);
+	}
+
+	public function getAliasBadge(?User $user, ?string $alias = NULL): ?Badge
+	{
+		return $this->getBadge($user);
+	}
+
 	public function validationDefault(Validator $validator): Validator
 	{
 		return ExtenderFactory::instance()->validationDefault($this->getAlias(), $validator);

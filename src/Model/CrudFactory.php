@@ -91,7 +91,7 @@ class CrudFactory
 					$viewConfigList[$resourceName] = $viewConfig;
 					if (isset($this->_aliases[$tableName])) {
 						foreach ($this->_aliases[$tableName] as $alias) {
-							$viewConfigList[$alias] = $viewConfig;
+							$viewConfigList[$alias] = $this->getViewConfig($tableName, $user, $alias);
 						}
 					}
 				}
@@ -113,16 +113,22 @@ class CrudFactory
 	 * @throws MissingTableClassException
 	 *  If the entity does not exist or user does not have access to it.
 	 */
-	public function getViewConfig(string $entity, ?User $user): ?ViewConfig
+	public function getViewConfig(string $entity, ?User $user, ?string $alias = NULL): ?ViewConfig
 	{
 		$table = $this->getTable($entity);
 		if (is_null($table)) {
 			return NULL;
 		}
 
-		$grid = $table->getGrid($user);
-		$form = $table->getForm($user);
-		$badge = $table->getBadge($user);
+		$grid = is_null($alias)
+			? $table->getGrid($user)
+			: $table->getAliasGrid($user, TRUE, $alias);
+		$form = is_null($alias)
+			? $table->getForm($user)
+			: $table->getAliasForm($user, TRUE, $alias);
+		$badge = is_null($alias)
+			? $table->getBadge($user)
+			: $table->getAliasBadge($user, $alias);
 
 		$viewConfig = new ViewConfig();
 		$viewConfig->grid = $grid;
