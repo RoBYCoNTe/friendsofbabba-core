@@ -9,9 +9,6 @@ use FriendsOfBabba\Core\Model\Table\TransactionsTable;
 use FriendsOfBabba\Core\Workflow\WorkflowBase;
 use FriendsOfBabba\Core\Workflow\WorkflowFactory;
 
-/**
- * @property TransactionsTable $Transactions
- */
 class WorkflowController extends AppController
 {
 	public $paginate = [
@@ -23,7 +20,6 @@ class WorkflowController extends AppController
 	public function initialize(): void
 	{
 		parent::initialize();
-		$this->loadModel("FriendsOfBabba/Core.Transactions");
 		$this->Authentication->addUnauthenticatedActions(['resolve', 'load']);
 	}
 
@@ -65,7 +61,9 @@ class WorkflowController extends AppController
 		$entityName = implode(" ", $entityName);
 		$entityName = Inflector::camelize($entityName);
 
-		$baseQuery = $this->Transactions
+		/** @var TransactionsTable */
+		$table = $this->fetchTable("FriendsOfBabba/Core.Transactions");
+		$baseQuery = $table
 			->forEntity($entityName)
 			->find();
 		if (!empty($id)) {

@@ -15,6 +15,7 @@ use FriendsOfBabba\Core\Model\Table\BaseTable;
 class CrudFactory
 {
 	private static $_instance  = NULL;
+	private $_aliases = [];
 
 	public static function instance(): CrudFactory
 	{
@@ -23,6 +24,26 @@ class CrudFactory
 		}
 
 		return self::$_instance;
+	}
+
+	/**
+	 * Allow to register an alias for a table.
+	 * Aliases are used to allow to use a table name in a CRUD url.
+	 *
+	 * @param string $entity The table name
+	 * @param string $alias The alias to register
+	 * @return void
+	 */
+	public function registerAlias(string $entity, string $alias): void
+	{
+		$table = $this->getTable($entity);
+		if (is_null($table)) {
+			throw new \Exception(sprintf("Entity %s not found", $entity));
+		}
+		if (!isset($this->_aliases[$entity])) {
+			$this->_aliases[$entity] = [];
+		}
+		$this->_aliases[$entity][] = $alias;
 	}
 
 	/**
@@ -68,6 +89,11 @@ class CrudFactory
 				if ($viewConfig !== NULL) {
 					$resourceName = Inflector::dasherize($tableName);
 					$viewConfigList[$resourceName] = $viewConfig;
+					if (isset($this->_aliases[$tableName])) {
+						foreach ($this->_aliases[$tableName] as $alias) {
+							$viewConfigList[$alias] = $viewConfig;
+						}
+					}
 				}
 				return $viewConfigList;
 			}, []);
