@@ -74,8 +74,8 @@ class BaseTable extends \Cake\ORM\Table
 		}
 		$workflow = WorkflowFactory::instance()->resolve($this->getAlias());
 		if (!is_null($workflow)) {
-			$grid->addFilter(Filter::create("state", __("State"), "StateInput")->alwaysOn());
-			$grid->addField(GridField::create("state", __("State"), "StateCollectionInput"));
+			$grid->addFilter(Filter::create("state", __d("friendsofbabba_core", "State"), "StateInput")->alwaysOn());
+			$grid->addField(GridField::create("state", __d("friendsofbabba_core", "State"), "StateCollectionInput"));
 			$grid->addField(GridField::create("EditButton", "ra.action.edit")
 				->setComponent("EditButton"));
 		} else {

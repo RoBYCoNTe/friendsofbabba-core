@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2022-06-08 14:18+0000\n"
-"PO-Revision-Date: 2022-06-08 16:19+0200\n"
+"POT-Creation-Date: 2023-02-15 15:09+0000\n"
+"PO-Revision-Date: 2023-02-15 16:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "Language: it_IT\n"
@@ -13,13 +13,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
-#: plugins/FriendsOfBabba/Core/src/Command/User/AddCommand.php:95
+#: plugins/FriendsOfBabba/Core/src/Command/DataMigration/ExecuteCommand.php:55
+msgid "No class found, please create {0}"
+msgstr "Nessuna classe trovata, per favore crea {0}"
+
+#: plugins/FriendsOfBabba/Core/src/Command/DataMigration/ExecuteCommand.php:60
+msgid "To create data migration execute: bin/cake data-migration create {0}"
+msgstr ""
+"Per creare un nuovo script di migrazione esegui: bin/cake data-migration "
+"create {0}"
+
+#: plugins/FriendsOfBabba/Core/src/Command/User/AddCommand.php:96
 msgid "Welcome onboard!"
 msgstr "Benvenuto a bordo!"
 
-#: plugins/FriendsOfBabba/Core/src/Command/User/AddCommand.php:96
+#: plugins/FriendsOfBabba/Core/src/Command/User/AddCommand.php:97
 msgid "You have been successfully registered."
 msgstr ""
 "La tua registrazione è stata eseguita correttamente ed ora puoi accedere a "
@@ -30,52 +40,52 @@ msgstr ""
 "provare a fare mente locale e capire come si usa questo prodotto di tua "
 "creazione, buon lavoro."
 
-#: plugins/FriendsOfBabba/Core/src/Controller/Api/AppController.php:83
+#: plugins/FriendsOfBabba/Core/src/Controller/Api/AppController.php:84
 msgid "User not authenticated or session expired!"
 msgstr "Utente non autenticato o sessione scaduta!"
 
-#: plugins/FriendsOfBabba/Core/src/Controller/Api/AppController.php:91
+#: plugins/FriendsOfBabba/Core/src/Controller/Api/AppController.php:92
 msgid "Unauthorized: {0}"
 msgstr "Non autorizzato: {0}"
 
-#: plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:82
-#: plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:147
+#: plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:80
+#: plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:148
 msgid "Invalid request."
 msgstr "Richiesta non valida."
 
-#: plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:85
-#: plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:150
+#: plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:83
+#: plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:151
 msgid "SPID authentication failed."
 msgstr "Autenticazione SPID fallita."
 
-#: plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:125
-#: plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:190
+#: plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:126
+#: plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:193
 msgid "Recaptcha validation failed."
 msgstr "Validazione RECAPTCHA fallita."
 
-#: plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:171
+#: plugins/FriendsOfBabba/Core/src/Controller/Api/SpidController.php:172
 msgid "User not recognized: {0}"
 msgstr "Utente non riconosciuto: {0}"
 
-#: plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:77
+#: plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:78
 msgid "Invalid username or password"
 msgstr "Username o password errati"
 
-#: plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:195
+#: plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:201
 msgid "Username or email is required."
 msgstr "Username o indirizzo email obbligatorio."
 
-#: plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:205
+#: plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:211
 msgid "User not found."
 msgstr "Utente non trovato."
 
-#: plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:214
+#: plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:220
 msgid "Password reset email sent."
 msgstr ""
 "E-mail di reset password inoltrata, controlla la tua casella di posta "
 "elettronica."
 
-#: plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:240
+#: plugins/FriendsOfBabba/Core/src/Controller/Api/UsersController.php:246
 msgid "Failed to save user."
 msgstr "Impossibile salvare l'utente."
 
@@ -83,33 +93,46 @@ msgstr "Impossibile salvare l'utente."
 msgid "Password reset"
 msgstr "Resetta password"
 
-#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:107
-#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:132
+#: plugins/FriendsOfBabba/Core/src/Model/Table/BaseTable.php:77
+#: plugins/FriendsOfBabba/Core/src/Model/Table/BaseTable.php:78
+msgid "State"
+msgstr "Stato"
+
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:106
+msgid "Command Log Rows"
+msgstr ""
+
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:108
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:134
 msgid "Log Type"
 msgstr "Tipo Log"
 
-#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:110
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:111
 msgid "Info"
 msgstr "Info"
 
-#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:113
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:114
 msgid "Error"
 msgstr "Errore"
 
-#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:121
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:123
 msgid "Command Log"
 msgstr "Comando"
 
-#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:127
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:129
 msgid "Output"
 msgstr "Ouput"
 
-#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:136
-#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogsTable.php:87
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogRowsTable.php:138
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogsTable.php:90
 msgid "Created"
 msgstr "Data di Creazione"
 
-#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogsTable.php:86
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogsTable.php:84
+msgid "Command Logs"
+msgstr ""
+
+#: plugins/FriendsOfBabba/Core/src/Model/Table/CommandLogsTable.php:89
 msgid "Command"
 msgstr "Comando"
 
@@ -168,28 +191,28 @@ msgstr "Notifiche"
 msgid "Readed"
 msgstr "Letta"
 
-#: plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:167
-#: plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:189
+#: plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:160
+#: plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:188
 #: plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:223
 msgid "Roles"
 msgstr "Ruoli"
 
-#: plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:178
+#: plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:177
 #: plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:214
 msgid "Status"
 msgstr "Stato"
 
-#: plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:181
+#: plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:180
 #: plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:218
 msgid "Active"
 msgstr "Attivo"
 
-#: plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:184
+#: plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:183
 #: plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:221
 msgid "Pending"
 msgstr "In Attesa/Sospeso"
 
-#: plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:195
+#: plugins/FriendsOfBabba/Core/src/Model/Table/UsersTable.php:194
 msgid "Modified"
 msgstr "Ultima Modifica"
 

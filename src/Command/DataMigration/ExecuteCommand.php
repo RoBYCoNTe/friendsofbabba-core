@@ -54,11 +54,13 @@ class ExecuteCommand extends Command
 		if (!class_exists($className)) {
 			$io->error(__d(
 				"friendsofbabba_core",
-				"No class found, please create {$className}"
+				"No class found, please create {0}",
+				$className
 			));
 			$io->info(__d(
 				"friendsofbabba_core",
-				"To create data migration execute: bin/cake data-migration create {$name}"
+				"To create data migration execute: bin/cake data-migration create {0}",
+				$name
 			));
 			return;
 		}
