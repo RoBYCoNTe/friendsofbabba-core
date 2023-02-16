@@ -19,6 +19,7 @@ use FriendsOfBabba\Core\Model\Entity\BaseEntityExtender;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Table\BaseTable;
 use FriendsOfBabba\Core\Model\Table\BaseTableExtender;
+use FriendsOfBabba\Core\Policy\BasePolicyExtender;
 
 /**
  * Provide access to entity's extenders.
@@ -222,6 +223,18 @@ class ExtenderFactory
 	}
 
 	/**
+	 * Return list of extenders registered for this entity's policy.
+	 *
+	 * @param string $entityName Name of entity.
+	 * @return BasePolicyExtender[] List of extenders.
+	 */
+	public function getForPolicy(string $entityName): iterable
+	{
+		$extenders = $this->getExtenders($entityName, "Extender.Policy");
+		return $extenders;
+	}
+
+	/**
 	 * Returns list of extenders registered for this entity.
 	 *
 	 * You can register extenders in config/app.php or config/app_local.php.
@@ -276,7 +289,7 @@ class ExtenderFactory
 	 */
 	public function fireEntityPolicy(string $entityName, string $policyName, IdentityInterface $identity, EntityInterface $resource)
 	{
-		$extenders = $this->getForEntity($entityName);
+		$extenders = $this->getForPolicy($entityName);
 		foreach ($extenders as $extender) {
 			if (method_exists($extender, $policyName)) {
 				$can = $extender->{$policyName}($identity, $resource);
@@ -302,7 +315,7 @@ class ExtenderFactory
 	 */
 	public function fireTablePolicy(string $tableName, string $policyName, IdentityInterface $identity, Query $query)
 	{
-		$extenders = $this->getForTable($tableName);
+		$extenders = $this->getForPolicy($tableName);
 		foreach ($extenders as $extender) {
 			if (method_exists($extender, $policyName)) {
 				$can = $extender->{$policyName}($identity, $query);
