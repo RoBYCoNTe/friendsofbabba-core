@@ -105,8 +105,7 @@ class WorkflowFactory
         Configure::load('workflow');
         $workflow = Configure::read('workflow');
         foreach ($workflow as $entity => $workflowClass) {
-
-            $this->_configured[$entity] = new $workflowClass();
+            $this->_configured[$entity] = new $workflowClass($entity);
             $this->_configured[$entity]->init();
         }
     }

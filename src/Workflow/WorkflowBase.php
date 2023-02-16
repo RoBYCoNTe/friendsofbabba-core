@@ -27,14 +27,31 @@ abstract class WorkflowBase
      * @var State[]
      */
     private $_states = [];
+    /**
+     * Name of the entity handled by the workflow.
+     *
+     * @var string
+     */
+    private $_entityName = null;
 
     /**
      * Initialize the workflow.
      */
-    public function __construct()
+    public function __construct(string $entityName = NULL)
     {
+        $this->_entityName = $entityName;
         $this->Transactions = TableRegistry::getTableLocator()
             ->get('FriendsOfBabba/Core.Transactions');
+    }
+
+    /**
+     * Return the name of the entity handled by the workflow.
+     *
+     * @return string
+     */
+    public function getEntityName(): string
+    {
+        return $this->_entityName;
     }
 
     /**
