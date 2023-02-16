@@ -2,28 +2,13 @@
 
 namespace FriendsOfBabba\Core\Policy;
 
-use Authorization\IdentityInterface;
-use Cake\Datasource\EntityInterface;
-
+/**
+ * You can add methods with this signature: can{Action}(\Authorization\IdentityInterface $user, EntityInterface $resource)
+ * where {Action} is the name of the action you want to check (examples: canView, canEdit, canDelete, canAdd).
+ *
+ * You can add methods with this signature: scope{Action}(\Authorization\IdentityInterface $user, Query $query)
+ * where {Action} is the name of the action you want to check (examples: scopeView, scopeEdit, scopeDelete, scopeAdd).
+ */
 class BasePolicyExtender
 {
-	public function canAdd(IdentityInterface $user, EntityInterface $resource): bool
-	{
-		return true;
-	}
-
-	public function canEdit(IdentityInterface $user, EntityInterface $resource): bool
-	{
-		return true;
-	}
-
-	public function canView(IdentityInterface $user, EntityInterface $resource): bool
-	{
-		return true;
-	}
-
-	public function canDelete(IdentityInterface $user, EntityInterface $resource): bool
-	{
-		return true;
-	}
 }
