@@ -135,10 +135,15 @@ class AppController extends Controller
         return $resourceName;
     }
 
+    public function getEntityName(): string
+    {
+        return $this->request->getParam("controller");
+    }
+
     public function resolveWorkflow(): ?WorkflowBase
     {
         $resourceName = $this->getResourceName();
-        $entityName = $this->request->getParam("controller");
+        $entityName = $this->getEntityName();
         $possibleMatches = array_unique([$resourceName, $entityName]);
         foreach ($possibleMatches as $possibleMatch) {
             $workflow = WorkflowFactory::instance()->resolve($possibleMatch);
@@ -152,67 +157,67 @@ class AppController extends Controller
     public function _beforePaginate(\Cake\Event\Event $event)
     {
         $workflow = $this->resolveWorkflow();
+        $entityName = $this->getEntityName();
         if (!is_null($workflow)) {
             $user = $this->getUser();
-            $workflow->beforePaginate($workflow->getEntityName(), $user, $event);
+            $workflow->beforePaginate($entityName, $user, $event);
         }
-        $resourceName = $this->getResourceName();
-        ExtenderFactory::instance()->beforePaginate($resourceName, $event, $this);
+        ExtenderFactory::instance()->beforePaginate($entityName, $event, $this);
     }
 
     public function _beforeFind(\Cake\Event\Event $event)
     {
         $workflow = $this->resolveWorkflow();
+        $entityName = $this->getEntityName();
         if (!is_null($workflow)) {
             $user = $this->getUser();
-            $workflow->beforeFind($workflow->getEntityName(), $user, $event);
+            $workflow->beforeFind($entityName, $user, $event);
         }
-        $resourceName = $this->getResourceName();
-        ExtenderFactory::instance()->beforeFind($resourceName, $event, $this);
+        ExtenderFactory::instance()->beforeFind($entityName, $event, $this);
     }
 
     public function _beforeSave(\Cake\Event\Event $event)
     {
         $workflow = $this->resolveWorkflow();
+        $entityName = $this->getEntityName();
         if (!is_null($workflow)) {
             $user = $this->getUser();
-            $workflow->beforeSave($workflow->getEntityName(), $user, $event);
+            $workflow->beforeSave($entityName, $user, $event);
         }
-        $resourceName = $this->getResourceName();
-        ExtenderFactory::instance()->beforeSave($resourceName, $event, $this);
+        ExtenderFactory::instance()->beforeSave($entityName, $event, $this);
     }
 
     public function _afterSave(\Cake\Event\Event $event)
     {
         $workflow = $this->resolveWorkflow();
+        $entityName = $this->getEntityName();
         if (!is_null($workflow)) {
             $user = $this->getUser();
-            $workflow->afterSave($workflow->getEntityName(), $user, $event);
+            $workflow->afterSave($entityName, $user, $event);
         }
-        $resourceName = $this->getResourceName();
-        ExtenderFactory::instance()->afterSave($resourceName, $event, $this);
+        ExtenderFactory::instance()->afterSave($entityName, $event, $this);
     }
 
 
     public function _beforeDelete(\Cake\Event\Event $event)
     {
         $workflow = $this->resolveWorkflow();
+        $entityName = $this->getEntityName();
         if (!is_null($workflow)) {
             $user = $this->getUser();
-            $workflow->beforeDelete($workflow->getEntityName(), $user, $event);
+            $workflow->beforeDelete($entityName, $user, $event);
         }
-        $resourceName = $this->getResourceName();
-        ExtenderFactory::instance()->beforeDelete($resourceName, $event, $this);
+        ExtenderFactory::instance()->beforeDelete($entityName, $event, $this);
     }
 
     public function _afterPaginate(\Cake\Event\Event $event)
     {
         $workflow = $this->resolveWorkflow();
+        $entityName = $this->getEntityName();
         if (!is_null($workflow)) {
             $user = $this->getUser();
-            $workflow->afterPaginate($workflow->getEntityName(), $user, $event);
+            $workflow->afterPaginate($entityName, $user, $event);
         }
-        $resourceName = $this->getResourceName();
-        ExtenderFactory::instance()->afterPaginate($resourceName, $event, $this);
+        ExtenderFactory::instance()->afterPaginate($entityName, $event, $this);
     }
 }
