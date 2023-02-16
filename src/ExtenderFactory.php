@@ -2,11 +2,14 @@
 
 namespace FriendsOfBabba\Core;
 
+use Authorization\IdentityInterface;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
+use Cake\Datasource\EntityInterface;
 use Cake\Datasource\RulesChecker;
 use Cake\Event\Event;
 use Cake\Event\EventInterface;
+use Cake\ORM\Query;
 use Cake\Validation\Validator;
 use FriendsOfBabba\Core\Controller\BaseControllerExtender;
 use FriendsOfBabba\Core\Model\Crud\Badge;
@@ -257,5 +260,57 @@ class ExtenderFactory
 				$extender->{$actionName}($event, $controller);
 			}
 		}
+	}
+
+	/**
+	 * Fire policy method, if exists, on all registered extenders.
+	 * First valid policy result will be returned.
+	 * Policy with NULL result will be ignored.
+	 * If no policy is found, NULL will be returned.
+	 *
+	 * @param string $entityName Name of entity.
+	 * @param string $policyName Name of policy method (canView, canEdit, etc.)
+	 * @param IdentityInterface $identity Identity of user.
+	 * @param EntityInterface $resource Resource to check.
+	 * @return bool|null TRUE if user can perform action, FALSE if not, NULL if no policy is found.
+	 */
+	public function fireEntityPolicy(string $entityName, string $policyName, IdentityInterface $identity, EntityInterface $resource)
+	{
+		$extenders = $this->getForEntity($entityName);
+		foreach ($extenders as $extender) {
+			if (method_exists($extender, $policyName)) {
+				$can = $extender->{$policyName}($identity, $resource);
+				if ($can !== null) {
+					return $can;
+				}
+			}
+		}
+		return NULL;
+	}
+
+	/**
+	 * Fire policy method, if exists, on all registered extenders.
+	 * First valid policy result will be returned.
+	 * Policy with NULL result will be ignored.
+	 * If no policy is found, NULL will be returned.
+	 *
+	 * @param string $tableName Name of table.
+	 * @param string $policyName Name of policy method (canView, canEdit, etc.)
+	 * @param IdentityInterface $identity Identity of user.
+	 * @param Query $query Query to check.
+	 * @return Query|null TRUE if user can perform action, FALSE if not, NULL if no policy is found.
+	 */
+	public function fireTablePolicy(string $tableName, string $policyName, IdentityInterface $identity, Query $query)
+	{
+		$extenders = $this->getForTable($tableName);
+		foreach ($extenders as $extender) {
+			if (method_exists($extender, $policyName)) {
+				$can = $extender->{$policyName}($identity, $query);
+				if ($can !== null) {
+					return $can;
+				}
+			}
+		}
+		return NULL;
 	}
 }

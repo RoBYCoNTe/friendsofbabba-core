@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FriendsOfBabba\Core\Policy;
 
 use Authorization\IdentityInterface;
+use FriendsOfBabba\Core\ExtenderFactory;
 use FriendsOfBabba\Core\Model\Entity\Role;
 use FriendsOfBabba\Core\Model\Entity\User;
 
@@ -22,6 +23,10 @@ class UserPolicy
      */
     public function canAdd(IdentityInterface $user, User $resource)
     {
+        $externalCheck = ExtenderFactory::instance()->fireEntityPolicy('User', 'canAdd', $user, $resource);
+        if ($externalCheck !== null) {
+            return $externalCheck;
+        }
         /** @var User $user */
         return $user->hasRole(Role::ADMIN);
     }
@@ -35,6 +40,10 @@ class UserPolicy
      */
     public function canEdit(IdentityInterface $user, User $resource)
     {
+        $externalCheck = ExtenderFactory::instance()->fireEntityPolicy('User', 'canEdit', $user, $resource);
+        if ($externalCheck !== null) {
+            return $externalCheck;
+        }
         /** @var User $user */
         return $user->hasRole(Role::ADMIN) || $user->getIdentifier() === $resource->id;
     }
@@ -48,6 +57,10 @@ class UserPolicy
      */
     public function canDelete(IdentityInterface $user, User $resource)
     {
+        $externalCheck = ExtenderFactory::instance()->fireEntityPolicy('User', 'canDelete', $user, $resource);
+        if ($externalCheck !== null) {
+            return $externalCheck;
+        }
         /** @var User $user */
         return $user->hasRole(Role::ADMIN) && $resource->id !== $user->getIdentifier();
     }
@@ -61,6 +74,10 @@ class UserPolicy
      */
     public function canView(IdentityInterface $user, User $resource)
     {
+        $externalCheck = ExtenderFactory::instance()->fireEntityPolicy('User', 'canView', $user, $resource);
+        if ($externalCheck !== null) {
+            return $externalCheck;
+        }
         /** @var User $user */
         return $user->hasRole(Role::ADMIN) || $user->getIdentifier() === $resource->id;
     }

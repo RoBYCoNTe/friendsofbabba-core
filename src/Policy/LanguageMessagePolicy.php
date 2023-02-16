@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FriendsOfBabba\Core\Policy;
 
 use Authorization\IdentityInterface;
+use FriendsOfBabba\Core\ExtenderFactory;
 use FriendsOfBabba\Core\Model\Entity\LanguageMessage;
 use FriendsOfBabba\Core\Model\Entity\Role;
 
@@ -22,6 +23,10 @@ class LanguageMessagePolicy
      */
     public function canAdd(IdentityInterface $user, LanguageMessage $languageMessage)
     {
+        $externalCheck = ExtenderFactory::instance()->fireEntityPolicy('LanguageMessage', 'canAdd', $user, $languageMessage);
+        if ($externalCheck !== null) {
+            return $externalCheck;
+        }
         /** @var User $user */
         return $user->hasRole(Role::ADMIN) && $languageMessage->isNew();
     }
@@ -35,6 +40,10 @@ class LanguageMessagePolicy
      */
     public function canEdit(IdentityInterface $user, LanguageMessage $languageMessage)
     {
+        $externalCheck = ExtenderFactory::instance()->fireEntityPolicy('LanguageMessage', 'canEdit', $user, $languageMessage);
+        if ($externalCheck !== null) {
+            return $externalCheck;
+        }
         /** @var User $user */
         return $user->hasRole(Role::ADMIN) && !$languageMessage->isNew();
     }
@@ -48,6 +57,10 @@ class LanguageMessagePolicy
      */
     public function canDelete(IdentityInterface $user, LanguageMessage $languageMessage)
     {
+        $externalCheck = ExtenderFactory::instance()->fireEntityPolicy('LanguageMessage', 'canDelete', $user, $languageMessage);
+        if ($externalCheck !== null) {
+            return $externalCheck;
+        }
         /** @var User $user */
         return $user->hasRole(Role::ADMIN) && !$languageMessage->isNew();
     }
@@ -61,6 +74,10 @@ class LanguageMessagePolicy
      */
     public function canView(IdentityInterface $user, LanguageMessage $languageMessage)
     {
+        $externalCheck = ExtenderFactory::instance()->fireEntityPolicy('LanguageMessage', 'canView', $user, $languageMessage);
+        if ($externalCheck !== null) {
+            return $externalCheck;
+        }
         /** @var User $user */
         return $user->hasRole(Role::ADMIN) && !$languageMessage->isNew();
     }

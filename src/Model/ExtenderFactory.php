@@ -12,6 +12,7 @@ use FriendsOfBabba\Core\Model\Entity\BaseEntityExtender;
 use FriendsOfBabba\Core\Model\Entity\User;
 use FriendsOfBabba\Core\Model\Table\BaseTable;
 use FriendsOfBabba\Core\Model\Table\BaseTableExtender;
+use FriendsOfBabba\Core\Policy\BasePolicyExtender;
 
 /**
  * Provide access to entity's extenders.
@@ -102,6 +103,18 @@ class ExtenderFactory
 	public function getForEntity(string $entityName): iterable
 	{
 		$extenders = $this->getExtenders($entityName, "Extender.Model.Entity");
+		return $extenders;
+	}
+
+	/**
+	 * Return list of policy extenders registered for this entity.
+	 *
+	 * @param string $entityName Name of entity.
+	 * @return BasePolicyExtender[] List of extenders.
+	 */
+	public function getForPolicy(string $entityName): iterable
+	{
+		$extenders = $this->getExtenders($entityName, "Extender.Policy");
 		return $extenders;
 	}
 
