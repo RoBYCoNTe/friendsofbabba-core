@@ -16,6 +16,7 @@ use Crud\Controller\ControllerTrait;
 use FriendsOfBabba\Core\Controller\Component\NotificationComponent;
 use FriendsOfBabba\Core\ExtenderFactory;
 use FriendsOfBabba\Core\Model\Entity\User;
+use FriendsOfBabba\Core\Workflow\WorkflowBase;
 use FriendsOfBabba\Core\Workflow\WorkflowFactory;
 
 /**
@@ -125,70 +126,93 @@ class AppController extends Controller
         ];
     }
 
+    public function getResourceName(): string
+    {
+        $matchedRoute = $this->request->getParam('_matchedRoute');
+        $resourceName = explode('/', $matchedRoute);
+        $resourceName = array_pop($resourceName);
+        $resourceName = Inflector::camelize($resourceName, "-");
+        return $resourceName;
+    }
+
+    public function resolveWorkflow(): ?WorkflowBase
+    {
+        $resourceName = $this->getResourceName();
+        $entityName = $this->request->getParam("controller");
+        $possibleMatches = array_unique([$resourceName, $entityName]);
+        foreach ($possibleMatches as $possibleMatch) {
+            $workflow = WorkflowFactory::instance()->resolve($possibleMatch);
+            if (!is_null($workflow)) {
+                return $workflow;
+            }
+        }
+        return null;
+    }
+
     public function _beforePaginate(\Cake\Event\Event $event)
     {
-        $entityName = $this->request->getParam("controller");
-        $workflow = WorkflowFactory::instance()->resolve($entityName);
+        $workflow = $this->resolveWorkflow();
         if (!is_null($workflow)) {
             $user = $this->getUser();
-            $workflow->beforePaginate($entityName, $user, $event);
+            $workflow->beforePaginate($workflow->getEntityName(), $user, $event);
         }
-        ExtenderFactory::instance()->beforePaginate($entityName, $event, $this);
+        $resourceName = $this->getResourceName();
+        ExtenderFactory::instance()->beforePaginate($resourceName, $event, $this);
     }
 
     public function _beforeFind(\Cake\Event\Event $event)
     {
-        $entityName = $this->request->getParam("controller");
-        $workflow = WorkflowFactory::instance()->resolve($entityName);
+        $workflow = $this->resolveWorkflow();
         if (!is_null($workflow)) {
             $user = $this->getUser();
-            $workflow->beforeFind($entityName, $user, $event);
+            $workflow->beforeFind($workflow->getEntityName(), $user, $event);
         }
-        ExtenderFactory::instance()->beforeFind($entityName, $event, $this);
+        $resourceName = $this->getResourceName();
+        ExtenderFactory::instance()->beforeFind($resourceName, $event, $this);
     }
 
     public function _beforeSave(\Cake\Event\Event $event)
     {
-        $entityName = $this->request->getParam("controller");
-        $workflow = WorkflowFactory::instance()->resolve($entityName);
+        $workflow = $this->resolveWorkflow();
         if (!is_null($workflow)) {
             $user = $this->getUser();
-            $workflow->beforeSave($entityName, $user, $event);
+            $workflow->beforeSave($workflow->getEntityName(), $user, $event);
         }
-        ExtenderFactory::instance()->beforeSave($entityName, $event, $this);
+        $resourceName = $this->getResourceName();
+        ExtenderFactory::instance()->beforeSave($resourceName, $event, $this);
     }
 
     public function _afterSave(\Cake\Event\Event $event)
     {
-        $entityName = $this->request->getParam("controller");
-        $workflow = WorkflowFactory::instance()->resolve($entityName);
+        $workflow = $this->resolveWorkflow();
         if (!is_null($workflow)) {
             $user = $this->getUser();
-            $workflow->afterSave($entityName, $user, $event);
+            $workflow->afterSave($workflow->getEntityName(), $user, $event);
         }
-        ExtenderFactory::instance()->afterSave($entityName, $event, $this);
+        $resourceName = $this->getResourceName();
+        ExtenderFactory::instance()->afterSave($resourceName, $event, $this);
     }
 
 
     public function _beforeDelete(\Cake\Event\Event $event)
     {
-        $entityName = $this->request->getParam("controller");
-        $workflow = WorkflowFactory::instance()->resolve($entityName);
+        $workflow = $this->resolveWorkflow();
         if (!is_null($workflow)) {
             $user = $this->getUser();
-            $workflow->beforeDelete($entityName, $user, $event);
+            $workflow->beforeDelete($workflow->getEntityName(), $user, $event);
         }
-        ExtenderFactory::instance()->beforeDelete($entityName, $event, $this);
+        $resourceName = $this->getResourceName();
+        ExtenderFactory::instance()->beforeDelete($resourceName, $event, $this);
     }
 
     public function _afterPaginate(\Cake\Event\Event $event)
     {
-        $entityName = $this->request->getParam("controller");
-        $workflow = WorkflowFactory::instance()->resolve($entityName);
+        $workflow = $this->resolveWorkflow();
         if (!is_null($workflow)) {
             $user = $this->getUser();
-            $workflow->afterPaginate($entityName, $user, $event);
+            $workflow->afterPaginate($workflow->getEntityName(), $user, $event);
         }
-        ExtenderFactory::instance()->afterPaginate($entityName, $event, $this);
+        $resourceName = $this->getResourceName();
+        ExtenderFactory::instance()->afterPaginate($resourceName, $event, $this);
     }
 }
