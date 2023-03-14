@@ -59,10 +59,14 @@ class CrudFactory
 		$connections = ConnectionManager::configured();
 		$tables = [];
 		foreach ($connections as $connection) {
-			$tables = array_merge(
-				$tables,
-				ConnectionManager::get($connection)->getSchemaCollection()->listTables()
-			);
+			try {
+				$tables = array_merge(
+					$tables,
+					ConnectionManager::get($connection)->getSchemaCollection()->listTables()
+				);
+			} catch (\Exception $e) {
+				// Do nothing
+			}
 		}
 		Cache::write('fob.crud.tables', $tables);
 		return $tables;
