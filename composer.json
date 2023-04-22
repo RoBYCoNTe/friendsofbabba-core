@@ -1,37 +1,37 @@
 {
-    "name": "friendsofbabba/core",
-    "description": "FriendsOfBabba/Core plugin for CakePHP",
-    "type": "cakephp-plugin",
-    "version": "1.2.6",
-    "license": "MIT",
-    "require": {
-        "php": ">=7.2",
-        "cakephp/cakephp": "^4.2",
-        "cakephp/authentication": "^2.0",
-        "friendsofcake/crud": "^6.0",
-        "friendsofcake/search": "^6.2",
-        "firebase/php-jwt": "^5.5",
-        "salines/cakephp4-soft-delete": "^1.0",
-        "phpoffice/phpspreadsheet": "^1.23",
-        "cakephp/authorization": "^2.0"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^8.5 || ^9.3"
-    },
-    "autoload": {
-        "psr-4": {
-            "FriendsOfBabba\\Core\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "FriendsOfBabba\\Core\\Test\\": "tests/",
-            "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
-        }
-    },
-    "config": {
-        "allow-plugins": {
-            "cakephp/plugin-installer": true
-        }
+  "name": "friendsofbabba/core",
+  "description": "FriendsOfBabba/Core plugin for CakePHP",
+  "type": "cakephp-plugin",
+  "version": "4.0.0",
+  "license": "MIT",
+  "require": {
+    "php": ">=7.2",
+    "cakephp/cakephp": "^4.2",
+    "cakephp/authentication": "^2.0",
+    "friendsofcake/crud": "^6.0",
+    "friendsofcake/search": "^6.2",
+    "firebase/php-jwt": "^5.5",
+    "salines/cakephp4-soft-delete": "^1.0",
+    "phpoffice/phpspreadsheet": "^1.23",
+    "cakephp/authorization": "^2.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.5 || ^9.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "FriendsOfBabba\\Core\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FriendsOfBabba\\Core\\Test\\": "tests/",
+      "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "cakephp/plugin-installer": true
+    }
+  }
 }
