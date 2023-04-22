@@ -50,7 +50,7 @@ class BaseTable extends \Cake\ORM\Table
 		$grid->setSort($this->getAlias() . ".id", Grid::ORDER_ASC);
 		$columns = $this->getSchema()->columns();
 		foreach ($columns as $columnName) {
-			if (in_array($columnName, ['deleted', 'password'])) {
+			if (in_array($columnName, ['deleted', 'password', 'id'])) {
 				continue;
 			}
 			$column = GridField::create($columnName, Inflector::humanize($columnName));
@@ -79,8 +79,7 @@ class BaseTable extends \Cake\ORM\Table
 			$grid->addField(GridField::create("EditButton", "ra.action.edit")
 				->setComponent("EditButton"));
 		} else {
-			$grid->addField(GridField::create("EditButton", "ra.action.edit", "RaEditButton"));
-			$grid->addField(GridField::create("DeleteButton", "ra.action.delete", "RaDeleteButton"));
+			$grid->addField(GridField::create("actions", null, "ActionsField"));
 		}
 		if ($extends) {
 			$extenders = ExtenderFactory::instance()->getForTable($this->getAlias());

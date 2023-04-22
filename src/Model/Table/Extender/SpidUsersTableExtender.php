@@ -14,7 +14,7 @@ class SpidUsersTableExtender extends BaseTableExtender
 		$form->addInput(FormInput::create("profile.phone", __d("friendsofbabba_core", "Phone")), "after", "profile.surname");
 		$form->addInput(FormInput::create("profile.birth_place", __d("friendsofbabba_core", "Birth Place")), "after", "profile.phone");
 		$form->addInput(FormInput::create("profile.birth_province", __d("friendsofbabba_core", "Birth Province"))
-			->setComponent("DebouncedTextInput")
+			->setComponent("SmartTextInput")
 			->setComponentProp("maxLength", 2), "after", "profile.birth_place");
 		$form->addInput(FormInput::create("profile.birth_date", __d("friendsofbabba_core", "Birth Date"))
 			->setComponent("DateInput"), "after", "profile.birth_province");
