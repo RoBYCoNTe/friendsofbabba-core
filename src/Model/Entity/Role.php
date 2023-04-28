@@ -92,6 +92,9 @@ class Role extends BaseEntity
 
 	public function addPermission(string $action)
 	{
+		if ($this->permissions === null) {
+			$this->permissions = [];
+		}
 		foreach ($this->permissions as $permission) {
 			if ($permission->action === $action) {
 				return false;
