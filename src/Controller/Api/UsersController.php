@@ -185,6 +185,9 @@ class UsersController extends AppController
 		$this->set([
 			'success' => true,
 			'data' => $userService->getImpersonate($userToImpersonate, [
+				'avatar' => isset($userToImpersonate->avatar->file['path'])
+					? $userToImpersonate->avatar->file['path']
+					: null,
 				'token' => $this->JwtTokenProvider->getToken($userToImpersonate->id)
 			]),
 			'_serialize' => ['success', 'data']
