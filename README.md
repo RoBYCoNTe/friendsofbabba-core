@@ -197,7 +197,7 @@ Open your `Table` file and add the following code to map the media:
 class TableNameTables extends BaseTable {
 	...
 	public function initialize(array $config) {
-		$this->addBehavior('FriendsOfBabba/Core.Media', ['media']));
+		$this->addBehavior('FriendsOfBabba/Core.Media', ['media']);
 		$this->belongsTo('Media', [
 			'className' => 'FriendsOfBabba/Core.Media',
 			'foreignKey' => 'media_id',

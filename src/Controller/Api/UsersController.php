@@ -67,6 +67,9 @@ class UsersController extends AppController
 			$json = [
 				'success' => true,
 				'data' => $userService->getLogin($user, [
+					'avatar' => isset($user->avatar->file['path'])
+						? $user->avatar->file['path']
+						: null,
 					'token' => $this->JwtTokenProvider->getToken($user->id)
 				])
 			];
@@ -90,7 +93,8 @@ class UsersController extends AppController
 			$query = $event->getSubject()->query;
 			$query = $query->contain([
 				'UserProfiles',
-				'Roles'
+				'Roles',
+				'Avatars'
 			]);
 			$query = $this->Authorization->applyScope($query);
 		});
@@ -104,7 +108,8 @@ class UsersController extends AppController
 			$query = $event->getSubject()->query;
 			$query = $query->contain([
 				'UserProfiles',
-				'Roles'
+				'Roles',
+				'Avatars'
 			]);
 			$query = $this->Authorization->applyScope($query);
 		});
@@ -117,7 +122,8 @@ class UsersController extends AppController
 		$action = $this->Crud->action();
 		$action->saveOptions(ExtenderFactory::instance()->getSaveOptions('Users', ['associated' => [
 			'UserProfiles',
-			'Roles'
+			'Roles',
+			'Avatars'
 		]]));
 		$this->Crud->on('beforeSave', function (Event $event) {
 			$entity = $event->getSubject()->entity;
@@ -134,7 +140,8 @@ class UsersController extends AppController
 		$action = $this->Crud->action();
 		$action->saveOptions(ExtenderFactory::instance()->getSaveOptions('Users', ['associated' => [
 			'UserProfiles',
-			'Roles'
+			'Roles',
+			'Avatars'
 		]]));
 
 		$this->Crud->on("beforeSave", function (Event $event) {

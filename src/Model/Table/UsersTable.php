@@ -23,6 +23,7 @@ use SoftDelete\Model\Table\SoftDeleteTrait;
  * Users Model
  *
  * @property \FriendsOfBabba\Core\Model\Table\RolesTable&\Cake\ORM\Association\BelongsToMany $Roles
+ * @property \FriendsOfBabba\Core\Model\Table\MediaTable&\Cake\ORM\Association\BelongsTo $Avatars
  *
  * @method \FriendsOfBabba\Core\Model\Entity\User newEmptyEntity()
  * @method \FriendsOfBabba\Core\Model\Entity\User newEntity(array $data, array $options = [])
@@ -60,6 +61,7 @@ class UsersTable extends BaseTable
 
         $this->addBehavior('Timestamp');
         $this->addBehavior('Search.Search', ['collectionClass' => UserCollection::class]);
+        $this->addBehavior('FriendsOfBabba/Core.Media', ['avatar']);
 
         $this->belongsToMany('Roles', [
             'foreignKey' => 'user_id',
@@ -74,6 +76,13 @@ class UsersTable extends BaseTable
             'propertyName' => 'profile',
             'dependent' => true,
             'className' => 'FriendsOfBabba/Core.UserProfiles'
+        ]);
+
+        $this->belongsTo('Avatars', [
+            'className' => 'FriendsOfBabba/Core.Media',
+            'foreignKey' => 'avatar_media_id',
+            'joinType' => 'LEFT',
+            'propertyName' => 'avatar'
         ]);
 
         parent::afterInitialize($config);
@@ -132,6 +141,7 @@ class UsersTable extends BaseTable
     {
         $rules->add($rules->isUnique(['username']), ['errorField' => 'username']);
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
+        $rules->add($rules->existsIn(['avatar_media_id'], 'Avatars'), ['errorField' => 'avatar_media_id']);
 
         return parent::buildRules($rules);
     }
@@ -146,7 +156,8 @@ class UsersTable extends BaseTable
                 'Roles' => [
                     'RolePermissions'
                 ],
-                'UserProfiles'
+                'UserProfiles',
+                'Avatars'
             ]);
     }
 
@@ -166,6 +177,11 @@ class UsersTable extends BaseTable
             ->removeField("created")
             ->setMobilePrimaryText("username")
             ->setMobileTertiaryText("status");
+
+        $grid->getField('avatar_media_id')
+            ->setLabel(__d("friendsofbabba_core", "Avatar"))
+            ->setSource("avatar.file.path")
+            ->setComponent("AvatarField");
 
         $grid
             ->setMobileSecondaryText("email")
@@ -201,6 +217,7 @@ class UsersTable extends BaseTable
     public function getForm(?User $user, bool $extends = TRUE): ?Form
     {
         $form = parent::getForm($user, FALSE);
+        $form->setComponent("UserForm");
         $form->addInitialValue("profile", [
             "name" => null,
             "surname" => null,
@@ -220,6 +237,16 @@ class UsersTable extends BaseTable
                 'id' => 'pending',
                 'name' => __d('friendsofbabba_core', 'Pending')
             ]]);
+
+        $form->removeInput("avatar_media_id");
+        $form->addInput(FormInput::create("avatar", __d("friendsofbabba_core", "Avatar"))
+            ->setComponent("ImageInput")
+            ->setComponentProp("title", "filename")
+            ->setComponentProp("accept", "image/*")
+            ->setComponentProp("multiple", false)
+            ->setComponentProp("empty", __d("friendsofbabba_core", "No avatar selected"))
+            ->fullWidth(), "before", "username");
+
         $form->addInput(FormInput::create("roles", __d("friendsofbabba_core", "Roles"))
             ->setComponent("ReferenceCheckboxGroupInput")
             ->setComponentProp("reference", "roles")

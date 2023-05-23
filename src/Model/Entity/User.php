@@ -15,6 +15,7 @@ use Authorization\Policy\ResultInterface;
  * @property string $username
  * @property string $password
  * @property string $email
+ * @property int|null $avatar_media_id
  * @property string $status
  * @property string $auth
  * @property \Cake\I18n\FrozenTime|null $last_login
@@ -30,7 +31,6 @@ use Authorization\Policy\ResultInterface;
  */
 class User extends BaseEntity implements \Authentication\IdentityInterface, \Authorization\IdentityInterface
 {
-
 	/**
 	 * Fields that can be mass assigned using newEntity() or patchEntity().
 	 *
@@ -44,15 +44,16 @@ class User extends BaseEntity implements \Authentication\IdentityInterface, \Aut
 		'username' => true,
 		'password' => true,
 		'email' => true,
+		'avatar_media_id' => true,
 		'status' => true,
 		'last_login' => true,
 		'auth' => true,
 		'created' => true,
 		'modified' => true,
 		'deleted' => true,
-
 		'roles' => true,
-		'profile' => true
+		'profile' => true,
+		'avatar' => true,
 	];
 
 	protected $_virtual = [
