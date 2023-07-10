@@ -70,6 +70,12 @@ class BaseTable extends \Cake\ORM\Table
 					$column->component = "TextField";
 					break;
 			}
+
+			if ($columnName === $this->getDisplayField()) {
+				$column->setComponentProp("component", $column->component);
+				$column->component = "DisplayField";
+			}
+
 			$grid->addField($column);
 		}
 		$workflow = WorkflowFactory::instance()->resolve($this->getAlias());
