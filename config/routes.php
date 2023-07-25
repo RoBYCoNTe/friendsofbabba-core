@@ -3,6 +3,8 @@
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
 use FriendsOfBabba\Core\Workflow\WorkflowFactory;
+use FriendsOfBabba\Core\Model\CrudFactory;
+use Cake\Utility\Inflector;
 
 /** @var RouteBuilder $routes */
 $routes->prefix("api", function (RouteBuilder $builder) {
@@ -13,6 +15,17 @@ $routes->prefix("api", function (RouteBuilder $builder) {
 	$names = array_keys($workflows);
 	foreach ($names as $workflow) {
 		$builder->resources($workflow, ['inflect' => 'dasherize']);
+	}
+
+	$tables = CrudFactory::instance()->getListOfTables();
+	foreach ($tables as $tableName) {
+		$controller = Inflector::camelize($tableName);
+		$builder->connect('/{controller}/order', [
+			'controller' => $controller,
+			'action' => 'order',
+			'prefix' => 'api',
+			'_method' => 'POST'
+		]);
 	}
 });
 

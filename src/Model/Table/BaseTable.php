@@ -108,6 +108,12 @@ class BaseTable extends \Cake\ORM\Table
 			if (in_array($columnName, ['id', 'created', 'modified', 'deleted'])) {
 				continue;
 			}
+
+			// Skip order index field if draggable behavior is present
+			if ($this->hasBehavior('Draggable') && $columnName === $this->getBehavior('Draggable')->getConfig('field')) {
+				continue;
+			}
+
 			$formInput = FormInput::create($columnName, Inflector::humanize($columnName));
 			$formInput->setUseWorkflow($form->useWorkflow);
 			$type = $this->getSchema()->getColumnType($columnName);

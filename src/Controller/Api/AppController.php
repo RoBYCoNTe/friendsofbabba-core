@@ -220,4 +220,29 @@ class AppController extends Controller
         }
         ExtenderFactory::instance()->afterPaginate($entityName, $event, $this);
     }
+
+    public function order()
+    {
+        $id = $this->request->getData('id', 5);
+        $source = $this->request->getData('source', 1);
+        $destination = $this->request->getData('destination', 3);
+
+        $repository = $this->Crud->table();
+        if (!$repository->hasBehavior('Draggable')) {
+            throw new \Exception("Draggable behavior not found!");
+        }
+
+        $result = $repository->moveUpDown($id, $source, $destination);
+
+        $this->set([
+            'data' => [
+                'id' => $id,
+                'source' => $source,
+                'destination' => $destination,
+                'result' => $result
+            ],
+            'success' => $result,
+            '_serialize' => ['data', 'success'],
+        ]);
+    }
 }

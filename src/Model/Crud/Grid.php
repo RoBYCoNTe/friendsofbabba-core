@@ -98,6 +98,9 @@ class Grid extends Component
 	 */
 	public array $columns = [];
 
+	public $draggable;
+	public $draggableField;
+
 	private array $_exportable = [];
 
 	public function __construct(string $component = "Datagrid")
@@ -400,6 +403,45 @@ class Grid extends Component
 	public function disableExporter(): Grid
 	{
 		$this->exporter = FALSE;
+		return $this;
+	}
+
+	public function setDraggable(bool $draggable, string $field = 'order_index'): Grid
+	{
+		$this->draggable = $draggable;
+		if ($this->draggable) {
+			$this->setDraggableField($field);
+			// Remove default draggable field
+			$this->removeField($field);
+			// Add draggable field
+			$this->setComponentProp("body", "DraggableDatagridBody");
+			$column = GridField::create($field, '', 'DraggableField')
+				->setSortable(false)
+				->setComponentProp('style', [
+					'maxWidth' => '5px'
+				]);
+			array_unshift($this->columns, $column);
+			// Sort by draggable field
+			$this->setSort($field, self::ORDER_ASC);
+			// Disable sorting for all columns
+			foreach ($this->columns as $_column) {
+				$this->getField($_column->source)->setSortable(false);
+			}
+		} else {
+			$this->setDraggableField(null);
+			$this->setComponentProp("body", null);
+			$this->columns = (new Collection($this->columns))
+				->filter(function (GridField $column) use ($field) {
+					return $column->source !== $field;
+				})
+				->toList();
+		}
+		return $this;
+	}
+
+	public function setDraggableField(?string $field): Grid
+	{
+		$this->draggableField = $field;
 		return $this;
 	}
 }
