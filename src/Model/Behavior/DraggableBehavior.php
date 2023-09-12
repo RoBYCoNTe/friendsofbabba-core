@@ -123,9 +123,9 @@ class DraggableBehavior extends Behavior
 		$entities = $reindexQuery->where($conditions)->toArray();
 
 		$index = $this->getConfig('index_default');
-		foreach ($entities as $entity) {
-			$entity->{$this->getConfig('field')} = $index;
-			$this->table()->save($entity);
+		foreach ($entities as $_entity) {
+			$_entity->{$this->getConfig('field')} = $index;
+			$this->table()->save($_entity);
 			$index += $this->getConfig('index_shift');
 		}
 	}
