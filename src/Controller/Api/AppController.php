@@ -46,6 +46,9 @@ class AppController extends Controller
                 'Crud.View',
                 'Crud.Add',
                 'Crud.Delete',
+                'deleteAll' => [
+                    'className' => \FriendsOfBabba\Core\Action\Bulk\DeleteAction::class
+                ],
                 'edit' => [
                     'className' => \FriendsOfBabba\Core\Action\EditAction::class
                 ]

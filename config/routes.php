@@ -26,6 +26,12 @@ $routes->prefix("api", function (RouteBuilder $builder) {
 			'prefix' => 'api',
 			'_method' => 'POST'
 		]);
+		$builder->connect('/{controller}/delete-all', [
+			'controller' => $controller,
+			'action' => 'deleteAll',
+			'prefix' => 'api',
+			'_method' => 'DELETE'
+		]);
 	}
 });
 
