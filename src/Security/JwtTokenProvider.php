@@ -18,7 +18,7 @@ class JwtTokenProvider
 			'sub' => $sub,
 			'exp' => time() + $duration,
 		];
-		$token = JWT::encode($payload, $privateKey, 'RS256');
+		$token = JWT::encode($payload, $privateKey, 'HS256');
 		return $token;
 	}
 }
